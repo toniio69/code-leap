@@ -1,0 +1,95 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Services
+    |--------------------------------------------------------------------------
+    |
+    | This file is for storing the credentials for third party services such
+    | as Resend, Postmark, AWS, and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
+    |
+    */
+
+    'postmark' => [
+        'key' => env('POSTMARK_API_KEY'),
+    ],
+
+    'resend' => [
+        'key' => env('RESEND_API_KEY'),
+    ],
+
+    'ses' => [
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    'slack' => [
+        'notifications' => [
+            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
+            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+        ],
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_REDIRECT_URI'),
+    ],
+
+    'outlook' => [
+        'tenant_id' => env('OUTLOOK_TENANT_ID'),
+
+        'primary_domain' => env(
+            'OUTLOOK_PRIMARY_DOMAIN'
+        ),
+
+        'client_id' => env(
+            'OUTLOOK_CLIENT_ID'
+        ),
+
+        'client_secret' => env(
+            'OUTLOOK_CLIENT_SECRET'
+        ),
+
+        'from_address' => env(
+            'OUTLOOK_FROM_ADDRESS'
+        ),
+
+        'redirect' => env(
+            'OUTLOOK_REDIRECT_URI'
+        ),
+    ],
+
+    'freecodecamp' => [
+        'api_url' => env(
+            'FREECODECAMP_API_URL',
+            'https://curriculum-db.freecodecamp.org/graphql'
+        ),
+
+        'learn_url' => env(
+            'FREECODECAMP_LEARN_URL',
+            'https://www.freecodecamp.org/learn'
+        ),
+    ],
+
+    'paystack' => [
+        'public_key' => env('PAYSTACK_PUBLIC_KEY', 'pk_test_17cb653b1b67e4802ad372ef3a625e6b5f1fa62d'),
+        'secret_key' => env('PAYSTACK_SECRET_KEY'),
+        'payment_url' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
+        'merchant_email' => env('PAYSTACK_MERCHANT_EMAIL'),
+    ],
+
+
+    
+];
