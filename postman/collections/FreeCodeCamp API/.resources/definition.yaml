@@ -1,0 +1,5 @@
+$kind: collection
+name: FreeCodeCamp API
+variables:
+  - key: fcc_api_url
+    value: '{{fcc_api_url}}'

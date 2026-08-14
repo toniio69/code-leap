@@ -1,0 +1,22 @@
+$kind: graphql-request
+name: Get Modules
+url: '{{fcc_api_url}}'
+order: 4000
+query: |-
+  query ($chapterDashedName: String!) {
+    modules(chapterDashedName: $chapterDashedName) {
+      dashedName
+      moduleType
+      blockObjects {
+        title
+        challenges {
+          id
+          title
+        }
+      }
+    }
+  }
+variables: |-
+  {
+    "chapterDashedName": "learn-html-by-building-a-cat-photo-app"
+  }

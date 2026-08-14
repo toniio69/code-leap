@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -54,16 +55,18 @@ class FreeCodeCampService
      */
     public function curriculum(): array
     {
-        $query = <<<'GRAPHQL'
-        query {
-            curriculum {
-                superblocks
-                certifications
+        return Cache::remember('fcc.curriculum', now()->addHours(6), function () {
+            $query = <<<'GRAPHQL'
+            query {
+                curriculum {
+                    superblocks
+                    certifications
+                }
             }
-        }
-        GRAPHQL;
+            GRAPHQL;
 
-        return $this->query($query);
+            return $this->query($query);
+        });
     }
 
     /**

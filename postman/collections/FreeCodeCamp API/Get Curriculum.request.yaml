@@ -1,0 +1,11 @@
+$kind: graphql-request
+name: Get Curriculum
+url: '{{fcc_api_url}}'
+order: 1000
+query: |-
+  query {
+    curriculum {
+      superblocks
+      certifications
+    }
+  }

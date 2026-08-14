@@ -1,0 +1,19 @@
+$kind: graphql-request
+name: Get Block
+url: '{{fcc_api_url}}'
+order: 5000
+query: |-
+  query ($dashedName: String!) {
+    block(dashedName: $dashedName) {
+      title
+      dashedName
+      superblocks {
+        dashedName
+        title
+      }
+    }
+  }
+variables: |-
+  {
+    "dashedName": "learn-html-by-building-a-cat-photo-app"
+  }

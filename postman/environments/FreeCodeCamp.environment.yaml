@@ -1,0 +1,10 @@
+name: FreeCodeCamp
+values:
+  - key: fcc_api_url
+    value: 'https://curriculum-db.freecodecamp.org/graphql'
+    enabled: true
+    type: default
+  - key: fcc_learn_url
+    value: 'https://www.freecodecamp.org/learn'
+    enabled: true
+    type: default
