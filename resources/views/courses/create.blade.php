@@ -77,7 +77,7 @@
                             id="title"
                             name="title"
                             value="{{ old('title') }}"
-                            placeholder="e.g. Introduction to Laravel"
+                            placeholder="e.g. Introduction to Web Development"
                             required
                             maxlength="255"
                             class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"

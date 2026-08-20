@@ -4,11 +4,11 @@ namespace App\Services;
 
 use App\Models\EmailVerificationCode;
 use App\Models\User;
-use App\Notifications\NewsletterNotification;
 use App\Notifications\ResetCodeLeapPassword;
 use App\Notifications\VerifyCodeLeapEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class MailService
 {
@@ -59,10 +59,5 @@ class MailService
         $token ??= Password::broker()->createToken($user);
 
         $user->notify(new ResetCodeLeapPassword($token));
-    }
-
-    public function sendNewsletter(User $user, string $newsletter): void
-    {
-        $user->notify(new NewsletterNotification($newsletter));
     }
 }

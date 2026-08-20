@@ -9,4 +9,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Tailwind-based app styles are defined directly in Blade templates. */
+body {
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.375;
+}

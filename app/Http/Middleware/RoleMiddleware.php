@@ -15,7 +15,7 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if (auth()->user()->role != $role) {
+        if (! auth()->check() || auth()->user()->role != $role) {
             abort(403, 'You are not authorised to access this page');
         }
 

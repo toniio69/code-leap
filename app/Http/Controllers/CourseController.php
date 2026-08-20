@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\CourseMaterial;
 use App\Services\FreeCodeCampService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class CourseController extends Controller
 {
@@ -16,15 +16,16 @@ class CourseController extends Controller
         $this->authorizeResource(Course::class, 'course');
     }
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $type = $request->query('type');
 
-        $courses = Course::with('instructor')
-            ->when($type === 'free', fn ($q) => $q->where('price', 0))
-            ->when($type === 'premium', fn ($q) => $q->where('price', '>', 0))
-            ->latest()
-            ->get();
+            $courses = Course::with('instructor')
+                ->when($type === 'free', fn ($q) => $q->where('price', 0))
+                ->when($type === 'premium', fn ($q) => $q->where('price', '>', 0))
+                ->latest()
+                ->get()
+                ->toBase();
 
         try {
             $curriculum = $this->freeCodeCamp->curriculum();
@@ -33,22 +34,24 @@ class CourseController extends Controller
             foreach (array_slice($superblocks, 0, 30) as $superblock) {
                 $course = $this->freeCodeCamp->superblock($superblock);
 
-                if (!$course) {
+                if (! $course) {
                     continue;
                 }
 
-                $courses->push((object) [
-                    'id' => 'fcc-' . $superblock,
-                    'title' => $course['title'] ?? $superblock,
-                    'description' => 'Explore this freeCodeCamp learning path and work through its coding challenges.',
-                    'cover_image' => null,
-                    'price' => 0,
-                    'instructor' => (object) ['name' => 'freeCodeCamp'],
-                    'user_id' => null,
-                    'source' => 'freecodecamp',
-                    'dashedName' => $superblock,
-                    'url' => $this->freeCodeCamp->learnUrl($superblock),
-                    'blocks' => $course['blocks'] ?? [],
+                $courses = $courses->merge([
+                    (object) [
+                        'id' => 'fcc-'.$superblock,
+                        'title' => $course['title'] ?? $superblock,
+                        'description' => 'Explore this freeCodeCamp learning path and work through its coding challenges.',
+                        'cover_image' => null,
+                        'price' => 0,
+                        'instructor' => (object) ['name' => 'freeCodeCamp'],
+                        'user_id' => null,
+                        'source' => 'freecodecamp',
+                        'dashedName' => $superblock,
+                        'url' => $this->freeCodeCamp->learnUrl($superblock),
+                        'blocks' => $course['blocks'] ?? [],
+                    ],
                 ]);
             }
         } catch (\Throwable $e) {
@@ -58,12 +61,12 @@ class CourseController extends Controller
         return view('courses.index', compact('courses', 'type'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('courses.create');
     }
 
-    public function edit(Course $course)
+    public function edit(Course $course): View
     {
         $this->authorize('update', $course);
 
@@ -73,7 +76,7 @@ class CourseController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => [
@@ -115,10 +118,8 @@ class CourseController extends Controller
             ->with('success', 'Course created successfully.');
     }
 
-    public function update(
-        Request $request,
-        Course $course
-    ) {
+    public function update(Request $request, Course $course): RedirectResponse
+    {
         $this->authorize('update', $course);
 
         $validated = $request->validate([
@@ -159,7 +160,7 @@ class CourseController extends Controller
             ->with('success', 'Course updated successfully.');
     }
 
-    public function destroy(Course $course)
+    public function destroy(Course $course): RedirectResponse
     {
         $this->authorize('delete', $course);
 
@@ -170,7 +171,7 @@ class CourseController extends Controller
             ->with('success', 'Course deleted successfully.');
     }
 
-    public function show(Course $course)
+    public function show(Course $course): View
     {
         $course->load([
             'instructor',
@@ -179,51 +180,5 @@ class CourseController extends Controller
         ]);
 
         return view('courses.show', compact('course'));
-    }
-
-    public function enroll(Course $course)
-    {
-        $course->students()->syncWithoutDetaching(auth()->id());
-
-        return redirect()->route('courses.show', $course->getKey())->with('success', 'Enrolled successfully!');
-    }
-
-    public function storeMaterial(
-        Request $request,
-        Course $course
-    ) {
-        $this->authorize('update', $course);
-
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'file' => [
-                'required',
-                'file',
-                'mimes:pdf,mp4,mov,avi',
-                'max:51200',
-            ],
-        ]);
-
-        $path = $request->file('file')
-            ->store('course-materials', 'public');
-
-        $course->materials()->create([
-            'title' => $validated['title'],
-            'file_path' => $path,
-        ]);
-
-        return back()->with(
-            'success',
-            'Material uploaded successfully.'
-        );
-    }
-
-    public function downloadMaterial(CourseMaterial $material)
-    {
-        $this->authorize('viewContent', $material->course);
-
-        $filePath = Storage::disk('public')->path($material->getAttribute('file_path'));
-
-        return response()->download($filePath, basename($material->getAttribute('file_path')));
     }
 }

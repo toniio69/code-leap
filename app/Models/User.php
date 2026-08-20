@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -39,13 +41,8 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     ];
 
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable, \Spatie\Permission\Traits\HasRoles;
+    use HasFactory, Notifiable, PasskeyAuthenticatable, \Spatie\Permission\Traits\HasRoles, TwoFactorAuthenticatable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -54,9 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
     public function initials(): string
     {
         $initials = Str::initials($this->name, true);
@@ -66,43 +60,28 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
             : $initials;
     }
 
-    /**
-     * Deliver registration verification emails through Code Leap's mail service.
-     */
     public function sendEmailVerificationNotification(): void
     {
         app(MailService::class)->sendVerification($this);
     }
 
-    /**
-     * Deliver password-reset emails through Code Leap's mail service.
-     */
     public function sendPasswordResetNotification($token): void
     {
         app(MailService::class)->sendPasswordReset($this, $token);
     }
 
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    public function isInstructor(): bool
-    {
-        return $this->role === 'instructor';
-    }
-
-    public function isStudent(): bool
-    {
-        return $this->role === 'student';
-    }
-
-    public function courses()
+    /**
+     * @return HasMany<Course, $this>
+     */
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class, 'user_id');
     }
 
-    public function enrolledCourses()
+    /**
+     * @return BelongsToMany<Course, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'>
+     */
+    public function enrolledCourses(): BelongsToMany
     {
         return $this->belongsToMany(
             Course::class,
@@ -110,12 +89,18 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         );
     }
 
-    public function emailVerificationCodes()
+    /**
+     * @return HasMany<EmailVerificationCode, $this>
+     */
+    public function emailVerificationCodes(): HasMany
     {
         return $this->hasMany(EmailVerificationCode::class);
     }
 
-    public function payments()
+    /**
+     * @return HasMany<Payment, $this>
+     */
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
     }

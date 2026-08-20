@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Services\FreeCodeCampService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Throwable;
 
 class FreeCodeCampController extends Controller
 {
     public function __construct(
         protected FreeCodeCampService $freeCodeCamp
-    ) {
-    }
+    ) {}
 
     /**
      * Display the freeCodeCamp course catalog.
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $search = trim(
             $request->input('search', '')
@@ -37,15 +38,12 @@ class FreeCodeCampController extends Controller
              * and then retrieve matching superblocks.
              */
             if ($search !== '') {
-                $superblocks = collect($superblocks)
-                    ->filter(function ($superblock) use ($search) {
-                        return str_contains(
-                            strtolower($superblock),
-                            strtolower($search)
-                        );
-                    })
-                    ->values()
-                    ->all();
+                $superblocks = array_values(array_filter($superblocks, function ($superblock) use ($search) {
+                    return str_contains(
+                        strtolower($superblock),
+                        strtolower($search)
+                    );
+                }));
             }
 
             $courses = [];
@@ -55,7 +53,7 @@ class FreeCodeCampController extends Controller
                 $course = $this->freeCodeCamp
                     ->superblock($superblock);
 
-                if (!$course) {
+                if (! $course) {
                     continue;
                 }
 
@@ -95,15 +93,14 @@ class FreeCodeCampController extends Controller
     /**
      * Display a specific freeCodeCamp course.
      */
-    public function show(
-        string $superblock
-    ) {
+    public function show(string $superblock): View
+    {
         try {
 
             $course = $this->freeCodeCamp
                 ->superblock($superblock);
 
-            if (!$course) {
+            if (! $course) {
                 abort(404);
             }
 
@@ -134,9 +131,8 @@ class FreeCodeCampController extends Controller
     /**
      * Display a specific chapter/module.
      */
-    public function chapter(
-        string $chapter
-    ) {
+    public function chapter(string $chapter): View
+    {
         try {
 
             $modules = $this->freeCodeCamp

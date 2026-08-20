@@ -26,7 +26,7 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mb-6">
-            🚀 Learn Laravel Best Practices
+            🚀 Master Coding Skills
         </span>
         <h1 class="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl mb-6">
             Advance Your Skills with <span class="text-indigo-6xl text-indigo-600">CodeLeap</span>

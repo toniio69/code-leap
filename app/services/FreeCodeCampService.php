@@ -9,6 +9,7 @@ use RuntimeException;
 class FreeCodeCampService
 {
     protected string $apiUrl;
+
     protected string $learnUrl;
 
     public function __construct()
@@ -40,7 +41,7 @@ class FreeCodeCampService
 
         $data = $response->json();
 
-        if (!empty($data['errors'])) {
+        if (! empty($data['errors'])) {
             throw new RuntimeException(
                 $data['errors'][0]['message']
                     ?? 'freeCodeCamp API returned an error.'
@@ -150,48 +151,20 @@ class FreeCodeCampService
         return $data['modules'] ?? [];
     }
 
-    /**
-     * Get a specific block.
-     */
-    public function block(string $dashedName): ?array
-    {
-        $query = <<<'GRAPHQL'
-        query ($dashedName: String!) {
-            block(dashedName: $dashedName) {
-                title
-                dashedName
-                superblocks {
-                    dashedName
-                    title
-                }
-            }
-        }
-        GRAPHQL;
-
-        $data = $this->query($query, [
-            'dashedName' => $dashedName,
-        ]);
-
-        return $data['block'] ?? null;
-    }
-
-    /**
-     * Build a freeCodeCamp learning URL.
-     */
     public function learnUrl(
         string $superblock,
         ?string $block = null,
         ?string $challenge = null
     ): string {
         $url = rtrim($this->learnUrl, '/');
-        $url .= '/' . ltrim($superblock, '/');
+        $url .= '/'.ltrim($superblock, '/');
 
         if ($block) {
-            $url .= '/' . ltrim($block, '/');
+            $url .= '/'.ltrim($block, '/');
         }
 
         if ($challenge) {
-            $url .= '/' . ltrim($challenge, '/');
+            $url .= '/'.ltrim($challenge, '/');
         }
 
         return $url;

@@ -7,8 +7,8 @@
         <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
             <div class="flex w-full max-w-sm flex-col gap-2">
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
-                    <img src="{{ asset('logo.png') }}" alt="Code Leap" class="h-9 w-auto">
-                    <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
+                    <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="h-9 w-auto">
+                    <span class="sr-only">Code Leap</span>
                 </a>
                 <div class="flex flex-col gap-6">
                     {{ $slot }}

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -22,7 +23,10 @@ class CourseMaterial extends Model
         'is_preview' => 'boolean',
     ];
 
-    public function course()
+    /**
+     * @return BelongsTo<Course, $this>
+     */
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }

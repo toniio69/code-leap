@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -18,11 +22,14 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+            'auth' => Authenticate::class,
             'role' => RoleMiddleware::class,
             'admin' => RoleMiddleware::class.':admin',
             'instructor' => RoleMiddleware::class.':instructor',
             'student' => RoleMiddleware::class.':student',
+            'verified' => EnsureEmailIsVerified::class,
+            'password.confirm' => RequirePassword::class,
+            'throttle' => ThrottleRequests::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

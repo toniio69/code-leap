@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Payment;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AnalyticsController extends Controller

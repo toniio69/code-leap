@@ -4,7 +4,7 @@
             <div class="flex">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ url('/') }}" class="text-xl font-bold text-gray-800 tracking-wider">
-                        {{ config('app.name') }}
+                        Code Leap
                     </a>
                 </div>
             </div>

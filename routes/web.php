@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\StudentPerformanceController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\EmailVerificationCodeController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FreeCodeCampController;
 use App\Http\Controllers\Instructor\CertificateController;
 use App\Http\Controllers\PaystackController;
+use App\Models\Course;
+use App\Models\CourseMaterial;
+use App\Models\Enrollment;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,8 +59,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', function () {
         $user = auth()->user();
         $enrolledCourses = $user->enrolledCourses()->with('instructor')->latest()->get();
-        $completedCourses = $enrolledCourses->filter(fn ($course) => $course->pivot->completed);
-        $inProgressCourses = $enrolledCourses->filter(fn ($course) => !$course->pivot->completed);
+        $completedCourses = $user->enrolledCourses()->wherePivot('completed', true)->with('instructor')->latest()->get();
+        $inProgressCourses = $user->enrolledCourses()->wherePivot('completed', false)->with('instructor')->latest()->get();
 
         return view('dashboard', compact('enrolledCourses', 'completedCourses', 'inProgressCourses'));
     })->name('student.dashboard');
@@ -69,9 +72,9 @@ Route::post('/email/verify-code', [EmailVerificationCodeController::class, 'stor
 
 Route::middleware(['auth', 'role:instructor'])->group(function () {
     Route::get('/instructor/dashboard', function () {
-        $courses = \App\Models\Course::where('user_id', auth()->id())->get();
-        $totalStudents = \App\Models\Enrollment::whereIn('course_id', $courses->pluck('id'))->count();
-        $totalMaterials = \App\Models\CourseMaterial::whereIn('course_id', $courses->pluck('id'))->count();
+        $courses = Course::where('user_id', auth()->id())->get();
+        $totalStudents = Enrollment::whereIn('course_id', $courses->pluck('id'))->count();
+        $totalMaterials = CourseMaterial::whereIn('course_id', $courses->pluck('id'))->count();
 
         return view('Instructor.Dashboard', compact('courses', 'totalStudents', 'totalMaterials'));
     })->name('instructor.dashboard');
@@ -92,9 +95,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::patch('/admin/users/{user}/role', [AdminController::class, 'updateRole'])
         ->name('admin.users.role');
-
-    Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])
-        ->name('admin.users.delete');
 
     Route::get('/admin/analytics', AnalyticsController::class)
         ->name('admin.analytics');
@@ -127,10 +127,6 @@ Route::get('/auth/{provider}', function ($provider) {
     return Socialite::driver($provider)->redirect();
 });
 
-Route::get('/dbconn', function () {
-    return view('dbconn');
-});
-
 Route::post('/paystack/webhook', [PaystackController::class, 'handleWebhook'])
     ->name('paystack.webhook');
 
@@ -152,3 +148,5 @@ Route::middleware('auth')->group(function () {
     )->name('freecodecamp.show');
 
 });
+
+require __DIR__.'/settings.php';

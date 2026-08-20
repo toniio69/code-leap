@@ -54,13 +54,22 @@ new class extends Component {
                 throw new Exception('Two-factor setup secret is not available.');
             }
 
-            $this->qrCodeSvg = $user->twoFactorQrCodeSvg();
+            $this->qrCodeSvg = $this->sanitizeSvg($user->twoFactorQrCodeSvg());
             $this->manualSetupKey = decrypt($user->two_factor_secret);
         } catch (Exception) {
             $this->addError('setupData', 'Failed to fetch setup data.');
 
             $this->reset('qrCodeSvg', 'manualSetupKey');
         }
+    }
+
+    private function sanitizeSvg(string $svg): string
+    {
+        $svg = preg_replace('/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/i', '', $svg);
+
+        $svg = preg_replace('/\s*on\w+\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $svg);
+
+        return $svg;
     }
 
     /**
@@ -266,10 +275,10 @@ new class extends Component {
                         class="flex items-center space-x-2"
                         x-data="{
                             copied: false,
-                            async copy() {
-                                try {
-                                    await navigator.clipboard.writeText('{{ $manualSetupKey }}');
-                                    this.copied = true;
+                                async copy() {
+                                    try {
+                                        await navigator.clipboard.writeText(@js($manualSetupKey));
+                                        this.copied = true;
                                     setTimeout(() => this.copied = false, 1500);
                                 } catch (e) {
                                     console.warn('Could not copy to clipboard');

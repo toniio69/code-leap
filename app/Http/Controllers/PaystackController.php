@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Payment;
 use App\Services\PaystackService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ class PaystackController extends Controller
     /**
      * Initialize payment for a course or redirect to checkout.
      */
-    public function pay(Request $request, Course $course)
+    public function pay(Request $request, Course $course): RedirectResponse
     {
         $user = Auth::user();
 
@@ -104,7 +105,7 @@ class PaystackController extends Controller
     /**
      * Handle callback after payment completion on Paystack.
      */
-    public function handleGatewayCallback(Request $request)
+    public function handleGatewayCallback(Request $request): RedirectResponse
     {
         $reference = $request->query('reference') ?? $request->query('trxref');
 
@@ -176,9 +177,9 @@ class PaystackController extends Controller
     /**
      * Handle Paystack Webhook events.
      */
-    public function handleWebhook(Request $request)
+    public function handleWebhook(Request $request): \Symfony\Component\HttpFoundation\Response
     {
-        $secretKey = config('services.paystack.secret_key') ?? config('paystack.secretKey');
+        $secretKey = config('services.paystack.secret_key');
 
         if ($secretKey) {
             $signature = $request->header('x-paystack-signature');

@@ -15,9 +15,11 @@ class PaystackService
 
     public function __construct()
     {
-        $this->publicKey = config('services.paystack.public_key') ?? config('paystack.publicKey');
-        $this->secretKey = config('services.paystack.secret_key') ?? config('paystack.secretKey');
-        $this->baseUrl = rtrim(config('services.paystack.payment_url') ?? config('paystack.paymentUrl', 'https://api.paystack.co'), '/');
+        $this->publicKey = config('services.paystack.public_key');
+
+        $this->secretKey = config('services.paystack.secret_key');
+
+        $this->baseUrl = rtrim(config('services.paystack.payment_url', 'https://api.paystack.co'), '/');
     }
 
     public function getPublicKey(): ?string
@@ -31,7 +33,7 @@ class PaystackService
      */
     public function initializeTransaction(array $payload): array
     {
-        if (!$this->secretKey) {
+        if (! $this->secretKey) {
             return [
                 'status' => false,
                 'message' => 'Paystack secret key is not configured.',
@@ -73,7 +75,7 @@ class PaystackService
      */
     public function verifyTransaction(string $reference): array
     {
-        if (!$this->secretKey) {
+        if (! $this->secretKey) {
             return [
                 'status' => false,
                 'message' => 'Paystack secret key is not configured.',

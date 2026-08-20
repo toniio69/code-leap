@@ -8,26 +8,22 @@
             <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-e dark:border-neutral-800">
                 <div class="absolute inset-0 bg-neutral-900"></div>
                 <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
-                    <img src="{{ asset('logo.png') }}" alt="Code Leap" class="me-2 h-7 w-auto">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="me-2 h-7 w-auto">
+                    Code Leap
                 </a>
-
-                @php
-                    [$message, $author] = str(Illuminate\Foundation\Inspiring::quotes()->random())->explode('-');
-                @endphp
 
                 <div class="relative z-20 mt-auto">
                     <blockquote class="space-y-2">
-                        <flux:heading size="lg">&ldquo;{{ trim($message) }}&rdquo;</flux:heading>
-                        <footer><flux:heading>{{ trim($author) }}</flux:heading></footer>
+                        <flux:heading size="lg">&ldquo;Code is poetry written for machines.&rdquo;</flux:heading>
+                        <footer><flux:heading>Code Leap</flux:heading></footer>
                     </blockquote>
                 </div>
             </div>
             <div class="w-full lg:p-8">
                 <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                     <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
-                        <img src="{{ asset('logo.png') }}" alt="Code Leap" class="h-9 w-auto">
-                        <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
+                        <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="h-9 w-auto">
+                        <span class="sr-only">Code Leap</span>
                     </a>
                     {{ $slot }}
                 </div>

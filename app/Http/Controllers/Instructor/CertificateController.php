@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Instructor;
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
 use App\Models\Course;
-use App\Models\Enrollment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -35,11 +35,11 @@ class CertificateController extends Controller
         return view('Instructor.certificates.index', compact('courses', 'pendingCertificates', 'issuedCertificates'));
     }
 
-    public function issue(Request $request, Certificate $certificate): \Illuminate\Http\RedirectResponse
+    public function issue(Request $request, Certificate $certificate): RedirectResponse
     {
-        $course = $certificate->course;
+        $course = $certificate->course()->first();
 
-        abort_if($course->user_id !== auth()->id(), 403);
+        abort_if(! $course || $course->user_id !== auth()->id(), 403);
 
         $certificate->update([
             'status' => 'issued',

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
-    public function store(Request $request, Course $course)
+    public function store(Request $request, Course $course): RedirectResponse
     {
         $user = $request->user();
 
