@@ -5,15 +5,26 @@ namespace Tests\Feature;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class CourseCrudTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        Role::create(['name' => 'instructor', 'guard_name' => 'web']);
+        Role::create(['name' => 'student', 'guard_name' => 'web']);
+    }
+
     public function test_instructor_can_create_course()
     {
         $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
 
         $this->actingAs($instructor)
             ->post(route('courses.store'), [
@@ -32,6 +43,7 @@ class CourseCrudTest extends TestCase
     public function test_student_cannot_create_course()
     {
         $student = User::factory()->role('student')->create();
+        $student->assignRole('student');
 
         $this->actingAs($student)
             ->post(route('courses.store'), [
@@ -44,7 +56,9 @@ class CourseCrudTest extends TestCase
     public function test_student_can_browse_courses_and_view_course_details()
     {
         $student = User::factory()->role('student')->create();
+        $student->assignRole('student');
         $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
 
         $course = Course::create([
             'title' => 'Introduction to Laravel',
@@ -67,6 +81,7 @@ class CourseCrudTest extends TestCase
     public function test_instructor_can_update_their_course()
     {
         $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
 
         $course = Course::create([
             'title' => 'Old Title',
@@ -91,6 +106,7 @@ class CourseCrudTest extends TestCase
     public function test_instructor_can_delete_their_course()
     {
         $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
 
         $course = Course::create([
             'title' => 'To Delete',

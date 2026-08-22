@@ -12,11 +12,15 @@ class EnrollmentController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->role === 'student', 403);
+        abort_unless($user->hasRole('student'), 403);
 
         if ($course->price > 0) {
+            abort_unless($user->hasPermissionTo('enroll in premium courses'), 403);
+
             return redirect()->route('paystack.pay', $course)->with('error', 'This is a premium course. Complete payment to enroll.');
         }
+
+        abort_unless($user->hasPermissionTo('enroll in free courses'), 403);
 
         $course->students()->syncWithoutDetaching([$user->id]);
 

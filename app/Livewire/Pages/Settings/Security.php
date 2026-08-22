@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Settings;
 
 use App\Concerns\PasswordValidationRules;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Features;
@@ -10,7 +11,6 @@ use Laravel\Fortify\Fortify;
 use Laravel\Passkeys\Actions\DeletePasskey;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
 
 #[Title('Security settings')]
 class Security extends Component

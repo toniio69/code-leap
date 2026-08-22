@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Pages\Settings;
 
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Livewire\Component;
 
 class DeleteUserForm extends Component
 {

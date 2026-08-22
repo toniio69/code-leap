@@ -2,17 +2,13 @@
 
 namespace App\Livewire\Pages\Settings\TwoFactor;
 
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Livewire\Attributes\Locked;
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Livewire\Component;
 
 class RecoveryCodes extends Component
 {
-    #[Locked]
-    /**
-     * @var array<int, string>
-     */
+    /** @var array<int, string> */
     public array $recoveryCodes = [];
 
     public function mount(): void

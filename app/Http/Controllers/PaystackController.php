@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaystackController extends Controller
 {
@@ -177,7 +178,7 @@ class PaystackController extends Controller
     /**
      * Handle Paystack Webhook events.
      */
-    public function handleWebhook(Request $request): \Symfony\Component\HttpFoundation\Response
+    public function handleWebhook(Request $request): Response
     {
         $secretKey = config('services.paystack.secret_key');
 

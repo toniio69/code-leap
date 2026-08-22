@@ -4,13 +4,12 @@ namespace App\Livewire\Pages\Settings;
 
 use App\Concerns\ProfileValidationRules;
 use Flux\Flux;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
 
 #[Title('Profile settings')]
 class Profile extends Component

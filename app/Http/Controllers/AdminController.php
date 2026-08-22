@@ -9,12 +9,19 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:admin']);
+        $this->middleware(function ($request, $next) {
+            $user = $request->user();
+
+            abort_unless($user->hasRole('admin'), 403);
+
+            return $next($request);
+        });
     }
 
     public function index(): View

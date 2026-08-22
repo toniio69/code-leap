@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class RoleTest extends TestCase
@@ -14,6 +15,10 @@ class RoleTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        Role::create(['name' => 'instructor', 'guard_name' => 'web']);
+        Role::create(['name' => 'student', 'guard_name' => 'web']);
 
         // Guard one route per role using the RoleMiddleware aliases registered
         // in bootstrap/app.php. The application exposes real admin/student
@@ -27,6 +32,7 @@ class RoleTest extends TestCase
     public function test_admin_can_access_admin_route_only(): void
     {
         $admin = User::factory()->role('admin')->create();
+        $admin->assignRole('admin');
 
         $this->actingAs($admin)->get('/roles/admin')->assertOk();
         $this->actingAs($admin)->get('/roles/instructor')->assertForbidden();
@@ -36,6 +42,7 @@ class RoleTest extends TestCase
     public function test_instructor_can_access_instructor_route_only(): void
     {
         $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
 
         $this->actingAs($instructor)->get('/roles/instructor')->assertOk();
         $this->actingAs($instructor)->get('/roles/admin')->assertForbidden();
@@ -45,6 +52,7 @@ class RoleTest extends TestCase
     public function test_student_can_access_student_route_only(): void
     {
         $student = User::factory()->role('student')->create();
+        $student->assignRole('student');
 
         $this->actingAs($student)->get('/roles/student')->assertOk();
         $this->actingAs($student)->get('/roles/admin')->assertForbidden();

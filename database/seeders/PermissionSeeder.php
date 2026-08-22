@@ -50,6 +50,12 @@ class PermissionSeeder extends Seeder
             'view payment transactions',
             'approve certificates',
             'manage users',
+            'view own enrollments',
+            'issue certificates',
+            'browse courses',
+            'enroll in free courses',
+            'enroll in premium courses',
+            'resume courses',
         ]);
 
         $instructor->syncPermissions([

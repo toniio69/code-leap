@@ -15,7 +15,7 @@
         </div>
 
         {{-- Only instructors can create courses --}}
-        @if(auth()->user()->role === 'instructor')
+        @if(auth()->user()->hasRole('instructor'))
             <a
                 href="{{ route('courses.create') }}"
                 class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -155,7 +155,7 @@
                                 </a>
                             @else
                                 @php
-                                    $isEnrolled = auth()->user()->role === 'student' && $course->students()->where('user_id', auth()->id())->exists();
+                                    $isEnrolled = auth()->user()->hasRole('student') && $course->students()->where('user_id', auth()->id())->exists();
                                     $isCompleted = $isEnrolled && $course->pivot->completed ?? false;
                                 @endphp
 
@@ -166,7 +166,7 @@
                                     View Course
                                 </a>
 
-                                @if(auth()->user()->role === 'student')
+                                @if(auth()->user()->hasRole('student'))
                                     @if($isCompleted)
                                         <span class="rounded-lg bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
                                             Completed
@@ -197,7 +197,7 @@
 
                                 {{-- Instructor owns this course --}}
                                 @if(
-                                    auth()->user()->role === 'instructor' &&
+                                    auth()->user()->hasRole('instructor') &&
                                     auth()->id() === $course->user_id
                                 )
 
@@ -251,7 +251,7 @@
                 Instructors can create the first course.
             </p>
 
-            @if(auth()->user()->role === 'instructor')
+            @if(auth()->user()->hasRole('instructor'))
                 <a
                     href="{{ route('courses.create') }}"
                     class="mt-6 inline-flex rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700"

@@ -7,18 +7,11 @@ use App\Models\User;
 
 class CoursePolicy
 {
-    /**
-     * Any authenticated user can browse the course catalogue.
-     */
     public function viewAny(User $user): bool
     {
         return true;
     }
 
-    /**
-     * Course details are public to authenticated users. Access to learning
-     * materials continues to be controlled by viewContent().
-     */
     public function view(User $user, Course $course): bool
     {
         return true;
@@ -26,14 +19,18 @@ class CoursePolicy
 
     public function create(User $user): bool
     {
-        return $user->role === 'instructor';
+        return $user->hasRole('instructor') || $user->hasRole('admin');
     }
 
     public function update(
         User $user,
         Course $course
     ): bool {
-        return $user->role === 'instructor'
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return $user->hasRole('instructor')
             && $user->id === $course->user_id;
     }
 
@@ -41,7 +38,11 @@ class CoursePolicy
         User $user,
         Course $course
     ): bool {
-        return $user->role === 'instructor'
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return $user->hasRole('instructor')
             && $user->id === $course->user_id;
     }
 
@@ -49,16 +50,16 @@ class CoursePolicy
         User $user,
         Course $course
     ): bool {
-        if ($user->role === 'admin') {
+        if ($user->hasRole('admin')) {
             return true;
         }
 
-        if ($user->role === 'instructor'
+        if ($user->hasRole('instructor')
             && $user->id === $course->user_id) {
             return true;
         }
 
-        return $user->role === 'student'
+        return $user->hasRole('student')
             && $course->students()
                 ->where('users.id', $user->id)
                 ->exists();

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Settings;
 
+use Illuminate\Contracts\View\View;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Livewire\Attributes\Computed;
@@ -9,7 +10,6 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
 
 class TwoFactorSetupModal extends Component
 {
@@ -129,10 +129,10 @@ class TwoFactorSetupModal extends Component
         $this->resetErrorBag();
     }
 
-    #[Computed]
     /**
-     * @return array{title: string, description: string, buttonText: string}
+     * @return array<string, string>
      */
+    #[Computed]
     public function modalConfig(): array
     {
         if ($this->setupComplete) {

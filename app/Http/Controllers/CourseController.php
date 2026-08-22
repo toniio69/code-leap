@@ -20,12 +20,12 @@ class CourseController extends Controller
     {
         $type = $request->query('type');
 
-            $courses = Course::with('instructor')
-                ->when($type === 'free', fn ($q) => $q->where('price', 0))
-                ->when($type === 'premium', fn ($q) => $q->where('price', '>', 0))
-                ->latest()
-                ->get()
-                ->toBase();
+        $courses = Course::with('instructor')
+            ->when($type === 'free', fn ($q) => $q->where('price', 0))
+            ->when($type === 'premium', fn ($q) => $q->where('price', '>', 0))
+            ->latest()
+            ->get()
+            ->toBase();
 
         try {
             $curriculum = $this->freeCodeCamp->curriculum();

@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Pages\Settings;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
 
 #[Title('Appearance settings')]
 class Appearance extends Component

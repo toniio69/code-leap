@@ -4,9 +4,9 @@ namespace App\Livewire\Pages\Settings;
 
 use App\Concerns\PasswordValidationRules;
 use App\Livewire\Actions\Logout;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
 
 class DeleteUserModal extends Component
 {

@@ -26,9 +26,11 @@ Route::get('/', function () {
 // All actions require active logins.
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return match (auth()->user()->role) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'instructor' => redirect()->route('instructor.dashboard'),
+        $user = auth()->user();
+
+        return match (true) {
+            $user->hasRole('admin') => redirect()->route('admin.dashboard'),
+            $user->hasRole('instructor') => redirect()->route('instructor.dashboard'),
             default => redirect()->route('student.dashboard'),
         };
     })->name('dashboard');
@@ -72,11 +74,16 @@ Route::post('/email/verify-code', [EmailVerificationCodeController::class, 'stor
 
 Route::middleware(['auth', 'role:instructor'])->group(function () {
     Route::get('/instructor/dashboard', function () {
-        $courses = Course::where('user_id', auth()->id())->get();
-        $totalStudents = Enrollment::whereIn('course_id', $courses->pluck('id'))->count();
-        $totalMaterials = CourseMaterial::whereIn('course_id', $courses->pluck('id'))->count();
+        $courses = auth()
+            ->user()
+            ->courses()
+            ->withCount(['students', 'materials'])
+            ->get();
 
-        return view('Instructor.Dashboard', compact('courses', 'totalStudents', 'totalMaterials'));
+        $totalStudents = $courses->sum('students_count');
+        $totalMaterials = $courses->sum('materials_count');
+
+        return view('instructor.dashboard', compact('courses', 'totalStudents', 'totalMaterials'));
     })->name('instructor.dashboard');
 
     Route::get('/instructor/certificates', [CertificateController::class, 'index'])
@@ -106,26 +113,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.payments');
 });
 
-Route::get('/auth/{provider}/callback', function ($provider) {
-    $socialUser = Socialite::driver($provider)->user();
+    Route::get('/auth/{provider}/callback', function ($provider) {
+        $socialUser = Socialite::driver($provider)->user();
 
-    $user = User::firstOrCreate(
-        ['email' => $socialUser->getEmail()],
-        [
-            'name' => $socialUser->getName() ?? $socialUser->getNickname(),
-            'password' => bcrypt(Str::random(24)),
-            'role' => 'student',
-        ]
-    );
+        $user = User::firstOrCreate(
+            ['email' => $socialUser->getEmail()],
+            [
+                'name' => $socialUser->getName() ?? $socialUser->getNickname(),
+                'password' => bcrypt(Str::random(24)),
+                'role' => 'student',
+            ]
+        );
 
-    Auth::login($user);
+        Auth::login($user);
 
-    return redirect('/dashboard');
-});
+        return redirect('/dashboard');
+    })->name('socialite.callback');
 
-Route::get('/auth/{provider}', function ($provider) {
-    return Socialite::driver($provider)->redirect();
-});
+    Route::get('/auth/{provider}', function ($provider) {
+        return Socialite::driver($provider)->redirect();
+    })->name('socialite.redirect');
 
 Route::post('/paystack/webhook', [PaystackController::class, 'handleWebhook'])
     ->name('paystack.webhook');

@@ -101,7 +101,7 @@
 
                 {{-- Instructor Actions --}}
                 @if(
-                    auth()->user()->role === 'instructor' &&
+                    auth()->user()->hasRole('instructor') &&
                     auth()->id() === $course->user_id
                 )
 
@@ -198,7 +198,7 @@
     </div>
 
     {{-- Enrollment Section --}}
-    @if(auth()->user()->role === 'student')
+    @if(auth()->user()->hasRole('student'))
 
         <div class="mt-8 overflow-hidden rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 sm:p-8">
 
@@ -336,21 +336,6 @@
                     </p>
                 </div>
 
-                {{-- Instructor upload link --}}
-                @if(
-                    auth()->user()->role === 'instructor' &&
-                    auth()->id() === $course->user_id
-                )
-
-                    <a
-                        href="{{ route('materials.create', $course) }}"
-                        class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
-                    >
-                        + Upload Material
-                    </a>
-
-                @endif
-
             </div>
 
         </div>
@@ -396,10 +381,10 @@
                         </div>
 
                         {{-- Material Access --}}
-                        @if(
-                            auth()->user()->role === 'instructor' &&
-                            auth()->id() === $course->user_id
-                        )
+                @if(
+                    auth()->user()->hasRole('instructor') &&
+                    auth()->id() === $course->user_id
+                )
 
                             <a
                                 href="{{ asset('storage/' . $material->file_path) }}"
@@ -410,7 +395,7 @@
                             </a>
 
                         @elseif(
-                            auth()->user()->role === 'student' &&
+                            auth()->user()->hasRole('student') &&
                             $course->students->contains(auth()->id())
                         )
 
@@ -422,7 +407,7 @@
                                 View Material
                             </a>
 
-                        @elseif(auth()->user()->role === 'admin')
+                        @elseif(auth()->user()->hasRole('admin'))
 
                             <a
                                 href="{{ asset('storage/' . $material->file_path) }}"
