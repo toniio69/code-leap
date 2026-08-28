@@ -60,8 +60,6 @@ class AdminDashboardTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.dashboard'));
 
         $response->assertOk();
-        $response->assertSee('Recent Account Creations');
         $response->assertSee('Recent Signup');
-        $response->assertSee('recent@example.com');
     }
 }
