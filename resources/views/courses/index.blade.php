@@ -1,57 +1,59 @@
 @extends('layouts.app')
 
+@section('title', 'Available Courses')
+
 @section('content')
-
+<div class="space-y-8">
     {{-- Header --}}
-    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6">
         <div>
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-                Available Courses
+            <h1 class="text-3xl font-bold tracking-tight text-foreground">
+                Course Catalog
             </h1>
-
-            <p class="mt-2 text-sm text-gray-600">
-                Browse courses and start learning with Code Leap.
+            <p class="mt-1 text-sm text-muted-foreground">
+                Explore hands-on software development courses or search global online programs.
             </p>
         </div>
 
-        {{-- Only instructors can create courses --}}
-        @if(auth()->user()->hasRole('instructor'))
+        @if(auth()->user()->hasRole('instructor') || auth()->user()->hasRole('admin'))
             <a
                 href="{{ route('courses.create') }}"
-                class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
             >
                 + Create Course
             </a>
         @endif
     </div>
 
-    {{-- Freemium Filter --}}
-    <div class="mb-6 flex items-center gap-3">
-        <a href="{{ route('courses.index') }}"
-           class="rounded-lg px-4 py-2 text-sm font-semibold {{ empty($type) ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50' }}">
-            All
-        </a>
-        <a href="{{ route('courses.index', ['type' => 'free']) }}"
-           class="rounded-lg px-4 py-2 text-sm font-semibold {{ $type === 'free' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50' }}">
-            Free
-        </a>
-        <a href="{{ route('courses.index', ['type' => 'premium']) }}"
-           class="rounded-lg px-4 py-2 text-sm font-semibold {{ $type === 'premium' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50' }}">
-            Premium
-        </a>
+    {{-- Freemium Filter & Search Toolbar --}}
+    <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="inline-flex rounded-lg border border-border bg-muted/40 p-1">
+            <a href="{{ route('courses.index') }}"
+               class="rounded-md px-3 py-1.5 text-xs font-medium transition-colors {{ empty($type) ? 'bg-background text-foreground shadow-xs font-semibold' : 'text-muted-foreground hover:text-foreground' }}">
+                All Courses
+            </a>
+            <a href="{{ route('courses.index', ['type' => 'free']) }}"
+               class="rounded-md px-3 py-1.5 text-xs font-medium transition-colors {{ $type === 'free' ? 'bg-background text-emerald-600 shadow-xs font-semibold' : 'text-muted-foreground hover:text-foreground' }}">
+                Free
+            </a>
+            <a href="{{ route('courses.index', ['type' => 'premium']) }}"
+               class="rounded-md px-3 py-1.5 text-xs font-medium transition-colors {{ $type === 'premium' ? 'bg-background text-primary shadow-xs font-semibold' : 'text-muted-foreground hover:text-foreground' }}">
+                Premium
+            </a>
+        </div>
     </div>
 
-    {{-- Success Message --}}
+    {{-- Alerts --}}
     @if(session('success'))
-        <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-            {{ session('success') }}
+        <div class="flex items-center gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-xs text-emerald-700">
+            <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>{{ session('success') }}</span>
         </div>
     @endif
 
-    {{-- Validation Errors --}}
     @if($errors->any())
-        <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-            <ul class="list-disc space-y-1 pl-5 text-sm text-red-700">
+        <div class="rounded-lg border border-destructive/20 bg-destructive/10 p-4">
+            <ul class="list-disc space-y-1 pl-5 text-xs text-destructive">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -59,220 +61,188 @@
         </div>
     @endif
 
-    {{-- edX Search --}}
-    <div class="mb-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-        <h2 class="text-lg font-bold text-gray-900">Search edX Courses</h2>
-        <p class="mt-1 text-sm text-gray-500">Find courses from the edX platform.</p>
+    {{-- edX Global Online Search Integration --}}
+    <div class="rounded-xl border border-border bg-card p-6 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+            <div>
+                <h2 class="text-base font-bold text-foreground">Global Online Courses (edX Search)</h2>
+                <p class="text-xs text-muted-foreground">Discover online courses from top universities and tech providers.</p>
+            </div>
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+                Online Partners
+            </span>
+        </div>
 
-        <form id="edx-search-form" class="mt-4 flex flex-col gap-3 sm:flex-row">
-            <input
-                type="search"
-                id="edx-search-input"
-                placeholder="Search programming, data science..."
-                class="block w-full rounded-lg border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            >
+        <form id="edx-search-form" class="flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+                <input
+                    type="search"
+                    id="edx-search-input"
+                    placeholder="Search Python, React, Data Science, AI..."
+                    class="h-10 w-full rounded-md border border-input bg-background px-3.5 py-2 text-xs shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+            </div>
             <button
                 type="submit"
-                class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                class="inline-flex h-10 items-center justify-center rounded-md bg-secondary px-5 text-xs font-semibold text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-ring"
             >
                 Search edX
             </button>
         </form>
 
-        <div id="edx-search-error" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"></div>
-
+        <div id="edx-search-error" class="mt-4 hidden rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-xs text-destructive"></div>
+        <div id="edx-search-loading" class="mt-6 hidden text-center text-xs text-muted-foreground py-4">
+            <span class="inline-flex items-center gap-2">
+                <svg class="h-4 w-4 animate-spin text-primary" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                Searching edX course database...
+            </span>
+        </div>
         <div id="course-list" class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
-
-        <div id="edx-search-loading" class="mt-6 hidden text-center text-sm text-gray-500">Searching edX...</div>
     </div>
 
-    {{-- Courses --}}
-    @if($courses->count())
+    {{-- Native Code Leap Courses Grid --}}
+    <div>
+        <div class="mb-4">
+            <h2 class="text-lg font-bold text-foreground">Code Leap Curriculum</h2>
+            <p class="text-xs text-muted-foreground">Original interactive courses with project-based milestones and certificates.</p>
+        </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-            @foreach($courses as $course)
-
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-1 hover:shadow-md">
-
-                    {{-- Cover Image --}}
-                    <div class="aspect-video bg-gray-100">
-
-                        @if($course->cover_image)
-                            <img
-                                src="{{ asset('storage/' . $course->cover_image) }}"
-                                alt="{{ $course->title }}"
-                                class="h-full w-full object-cover"
-                            >
-                        @else
-                            <div class="flex h-full items-center justify-center">
-                                <span class="text-sm font-medium text-gray-400">
-                                    No cover image
-                                </span>
-                            </div>
-                        @endif
-
-                    </div>
-
-                    {{-- Course Content --}}
-                    <div class="p-6">
-
-                        <div class="mb-3 flex items-center justify-between">
-                            <span class="inline-flex rounded-full bg-indigo-50 text-indigo-700 px-3 py-1 text-xs font-semibold">
-                                Course
-                            </span>
-
-                            @if(($course->price ?? 0) > 0)
-                                <span class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
-                                    ₦{{ number_format($course->price, 2) }}
-                                </span>
+        @if($courses->count())
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                @foreach($courses as $course)
+                    <div class="group flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card shadow-xs transition-all hover:shadow-md hover:border-primary/40">
+                        {{-- Cover Image --}}
+                        <div class="aspect-video w-full overflow-hidden bg-muted">
+                            @if($course->cover_image)
+                                <img
+                                    src="{{ asset('storage/' . $course->cover_image) }}"
+                                    alt="{{ $course->title }}"
+                                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                >
                             @else
-                                <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-800">
-                                    Free
-                                </span>
+                                <div class="flex h-full w-full items-center justify-center bg-linear-to-br from-primary/10 to-primary/5 text-xs font-semibold text-primary">
+                                    {{ $course->title }}
+                                </div>
                             @endif
                         </div>
 
-                        <h2 class="text-xl font-bold text-gray-900">
-                            {{ $course->title }}
-                        </h2>
-
-                        <p class="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
-                            {{ $course->description }}
-                        </p>
-
-                        {{-- Instructor --}}
-                        <div class="mt-5 flex items-center border-t border-gray-100 pt-4">
-
-                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100">
-                                <span class="text-sm font-bold text-indigo-700">
-                                    {{ strtoupper(substr($course->instructor->name ?? 'U', 0, 1)) }}
-                                </span>
-                            </div>
-
-                            <div class="ml-3">
-                                <p class="text-xs text-gray-500">
-                                    Instructor
-                                </p>
-
-                                <p class="text-sm font-semibold text-gray-900">
-                                    {{ $course->instructor->name ?? 'Unknown' }}
-                                </p>
-                            </div>
-
-                        </div>
-
-                        {{-- Actions --}}
-                        <div class="mt-6 flex items-center gap-3">
-
-                            @php
-                                $isEnrolled = auth()->user()->hasRole('student') && $course->students()->where('user_id', auth()->id())->exists();
-                                $isCompleted = $isEnrolled && $course->pivot->completed ?? false;
-                            @endphp
-
-                            <a
-                                href="{{ route('courses.show', $course) }}"
-                                class="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-indigo-700"
-                            >
-                                View Course
-                            </a>
-
-                            @if(auth()->user()->hasRole('student'))
-                                @if($isCompleted)
-                                    <span class="rounded-lg bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
-                                        Completed
+                        {{-- Course Content --}}
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="mb-3 flex items-center justify-between gap-2">
+                                    <span class="inline-flex rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+                                        {{ $course->category ?? 'Coding' }}
                                     </span>
-                                @elseif($isEnrolled)
+
+                                    @if(($course->price ?? 0) > 0)
+                                        <span class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-bold text-primary">
+                                            ₦{{ number_format($course->price, 2) }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-bold text-emerald-600">
+                                            Free
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <h3 class="text-base font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+                                    {{ $course->title }}
+                                </h3>
+
+                                <p class="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+                                    {{ $course->description }}
+                                </p>
+                            </div>
+
+                            <div class="mt-4 pt-4 border-t border-border">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <div class="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                                        {{ strtoupper(substr($course->instructor->name ?? 'I', 0, 1)) }}
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="truncate text-xs font-semibold text-foreground">{{ $course->instructor->name ?? 'Code Leap Instructor' }}</p>
+                                        <p class="text-[10px] text-muted-foreground">{{ $course->lessons->count() }} Lessons</p>
+                                    </div>
+                                </div>
+
+                                @php
+                                    $isEnrolled = auth()->user()->hasRole('student') && $course->students()->where('user_id', auth()->id())->exists();
+                                    $isCompleted = false;
+                                    if ($isEnrolled) {
+                                        $enrollment = $course->students()->where('user_id', auth()->id())->first();
+                                        $isCompleted = $enrollment->pivot->completed ?? false;
+                                    }
+                                @endphp
+
+                                <div class="flex items-center gap-2">
                                     <a
                                         href="{{ route('courses.show', $course) }}"
-                                        class="rounded-lg bg-yellow-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-yellow-700"
+                                        class="flex-1 inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-accent"
                                     >
-                                        Resume
+                                        Details
                                     </a>
-                                @elseif(($course->price ?? 0) > 0)
-                                    <a
-                                        href="{{ route('paystack.pay', $course) }}"
-                                        class="rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
-                                    >
-                                        Enroll Premium
-                                    </a>
-                                @else
-                                    <form method="POST" action="{{ route('courses.enroll', $course) }}" class="flex-1">
-                                        @csrf
-                                        <button type="submit" class="w-full rounded-lg bg-green-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-green-700">
-                                            Enroll Free
-                                        </button>
-                                    </form>
-                                @endif
-                            @endif
 
-                            {{-- Instructor owns this course --}}
-                            @if(
-                                auth()->user()->hasRole('instructor') &&
-                                auth()->id() === $course->user_id
-                            )
+                                    @if(auth()->user()->hasRole('student'))
+                                        @if($isCompleted)
+                                            <span class="inline-flex items-center justify-center rounded-md bg-emerald-500/10 px-3 py-2 text-xs font-bold text-emerald-600">
+                                                Completed
+                                            </span>
+                                        @elseif($isEnrolled)
+                                            <a
+                                                href="{{ route('courses.show', $course) }}"
+                                                class="flex-1 inline-flex items-center justify-center rounded-md bg-amber-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-amber-700"
+                                            >
+                                                Resume
+                                            </a>
+                                        @elseif(($course->price ?? 0) > 0)
+                                            <a
+                                                href="{{ route('paystack.pay', $course) }}"
+                                                class="flex-1 inline-flex items-center justify-center rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                                            >
+                                                Enroll (₦{{ number_format($course->price, 0) }})
+                                            </a>
+                                        @else
+                                            <form method="POST" action="{{ route('courses.enroll', $course) }}" class="flex-1">
+                                                @csrf
+                                                <button type="submit" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
+                                                    Enroll Free
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endif
 
-                                <a
-                                    href="{{ route('courses.edit', $course) }}"
-                                    class="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
-                                >
-                                    Edit
-                                </a>
-
-                            @endif
-
+                                    @if((auth()->user()->hasRole('instructor') && auth()->id() === $course->user_id) || auth()->user()->hasRole('admin'))
+                                        <a
+                                            href="{{ route('courses.edit', $course) }}"
+                                            class="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-xs font-medium hover:bg-accent"
+                                        >
+                                            Edit
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-
-            @endforeach
-
-        </div>
-
-    @else
-
-        {{-- Empty State --}}
-        <div class="rounded-xl border border-dashed border-gray-300 bg-white px-6 py-16 text-center">
-
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50">
-                <svg
-                    class="h-8 w-8 text-indigo-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"
-                    />
-                </svg>
+                @endforeach
             </div>
-
-            <h3 class="mt-5 text-lg font-semibold text-gray-900">
-                No courses available
-            </h3>
-
-            <p class="mx-auto mt-2 max-w-md text-sm text-gray-600">
-                There are currently no courses available.
-                Instructors can create the first course.
-            </p>
-
-            @if(auth()->user()->hasRole('instructor'))
-                <a
-                    href="{{ route('courses.create') }}"
-                    class="mt-6 inline-flex rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
-                >
-                    Create Your First Course
-                </a>
-            @endif
-
-        </div>
-
-    @endif
-
+        @else
+            <div class="rounded-xl border border-dashed border-border bg-card p-12 text-center">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground mb-3">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18c1.747 0 3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253"/></svg>
+                </div>
+                <h3 class="text-base font-bold text-foreground">No native courses available</h3>
+                <p class="mt-1 text-xs text-muted-foreground max-w-sm mx-auto">Instructors can create lessons or you can search external edX programs above.</p>
+                @if(auth()->user()->hasRole('instructor') || auth()->user()->hasRole('admin'))
+                    <div class="mt-4">
+                        <a href="{{ route('courses.create') }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90">
+                            Create First Course
+                        </a>
+                    </div>
+                @endif
+            </div>
+        @endif
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -303,17 +273,22 @@
 
                 const data = await response.json();
                 if (!Array.isArray(data) || data.length === 0) {
-                    list.innerHTML = '<p class="text-sm text-gray-500">No edX courses found.</p>';
+                    list.innerHTML = '<p class="text-xs text-muted-foreground col-span-full py-4 text-center">No online edX courses found matching your query.</p>';
                     return;
                 }
 
-                data.forEach(course => renderCourse(course));
+                data.forEach(course => {
+                    if (typeof window.renderCourse === 'function') {
+                        window.renderCourse(course, 'course-list');
+                    }
+                });
             } catch (err) {
                 loading.classList.add('hidden');
-                errorBox.textContent = 'Unable to search edX courses. Please try again.';
+                errorBox.textContent = 'Unable to search edX courses at this time. Please try again.';
                 errorBox.classList.remove('hidden');
             }
         });
     })();
 </script>
 @endpush
+

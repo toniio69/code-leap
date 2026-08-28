@@ -22,8 +22,7 @@ class CourseController extends Controller
             ->when($type === 'free', fn ($q) => $q->where('price', 0))
             ->when($type === 'premium', fn ($q) => $q->where('price', '>', 0))
             ->latest()
-            ->get()
-            ->toBase();
+            ->get();
 
         return view('courses.index', compact('courses', 'type'));
     }

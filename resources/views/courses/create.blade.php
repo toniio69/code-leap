@@ -1,133 +1,98 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title', 'Create Course')
 
+@section('content')
+<div class="max-w-4xl mx-auto space-y-6">
     {{-- Header --}}
-    <div class="mb-8">
+    <div class="border-b border-border pb-6">
         <a
             href="{{ route('courses.index') }}"
-            class="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground mb-3"
         >
-            ← Back to Courses
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Courses
         </a>
 
-        <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900">
+        <h1 class="text-3xl font-bold tracking-tight text-foreground">
             Create New Course
         </h1>
 
-        <p class="mt-2 text-sm text-gray-600">
-            Create a course and provide learning materials for your students.
+        <p class="mt-1 text-sm text-muted-foreground">
+            Author a new curriculum and upload course resources for students.
         </p>
     </div>
 
     {{-- Validation Errors --}}
     @if($errors->any())
-        <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
-            <div class="flex">
-                <div class="ml-1">
-                    <h3 class="text-sm font-semibold text-red-800">
-                        Please correct the following errors:
-                    </h3>
-
-                    <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-red-700">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+        <div class="rounded-lg border border-destructive/20 bg-destructive/10 p-4">
+            <h3 class="text-xs font-semibold text-destructive">
+                Please correct the following errors:
+            </h3>
+            <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-destructive">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
     {{-- Course Form --}}
-    <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
-
+    <div class="rounded-xl border border-border bg-card shadow-xs overflow-hidden">
         <form
             method="POST"
             action="{{ route('courses.store') }}"
             enctype="multipart/form-data"
         >
-
             @csrf
 
-            {{-- Course Information --}}
-            <div class="border-b border-gray-200 px-6 py-6 sm:px-8">
+            <div class="p-6 sm:p-8 space-y-6">
+                {{-- Title --}}
+                <div class="space-y-2">
+                    <label for="title" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Course Title
+                    </label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ old('title') }}"
+                        placeholder="e.g. Modern Full-Stack Development with React & Laravel"
+                        required
+                        maxlength="255"
+                        class="h-10 w-full rounded-md border border-input bg-background px-3.5 py-2 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                    @error('title')
+                        <p class="text-xs text-destructive">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                <h2 class="text-lg font-semibold text-gray-900">
-                    Course Information
-                </h2>
+                {{-- Description --}}
+                <div class="space-y-2">
+                    <label for="description" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Course Description & Objectives
+                    </label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Provide details about what students will build, prerequisites, and learning milestones..."
+                        required
+                        class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="text-xs text-destructive">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                <p class="mt-1 text-sm text-gray-500">
-                    Enter the basic information about your course.
-                </p>
-
-                <div class="mt-6 space-y-6">
-
-                    {{-- Title --}}
-                    <div>
-                        <label
-                            for="title"
-                            class="block text-sm font-semibold text-gray-700"
-                        >
-                            Course Title
+                {{-- Price & Category --}}
+                <div class="grid gap-6 sm:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="price" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                            Course Price (₦ NGN)
                         </label>
-
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value="{{ old('title') }}"
-                            placeholder="e.g. Introduction to Web Development"
-                            required
-                            maxlength="255"
-                            class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        >
-
-                        @error('title')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
-                    {{-- Description --}}
-                    <div>
-                        <label
-                            for="description"
-                            class="block text-sm font-semibold text-gray-700"
-                        >
-                            Description
-                        </label>
-
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows="6"
-                            placeholder="Describe what students will learn in this course..."
-                            required
-                            class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        >{{ old('description') }}</textarea>
-
-                        @error('description')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
-                    {{-- Price --}}
-                    <div>
-                        <label
-                            for="price"
-                            class="block text-sm font-semibold text-gray-700"
-                        >
-                            Course Price (NGN ₦)
-                        </label>
-
-                        <div class="relative mt-2 rounded-md shadow-sm">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <span class="text-gray-500 sm:text-sm">₦</span>
-                            </div>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-xs text-muted-foreground font-semibold">₦</span>
                             <input
                                 type="number"
                                 step="0.01"
@@ -135,129 +100,62 @@
                                 id="price"
                                 name="price"
                                 value="{{ old('price', '0.00') }}"
-                                placeholder="0.00 (Enter 0 for free course)"
-                                class="block w-full rounded-lg border-gray-300 pl-8 pr-4 py-3 text-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="0.00 (0 for free)"
+                                class="h-10 w-full rounded-md border border-input bg-background pl-8 pr-3.5 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             >
                         </div>
-                        <p class="mt-1 text-xs text-gray-500">Set to 0.00 to make this course free for students.</p>
-
+                        <p class="text-[11px] text-muted-foreground">Leave 0.00 to offer free enrollment.</p>
                         @error('price')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                            <p class="text-xs text-destructive">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    {{-- Instructor --}}
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700">
-                            Instructor
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                            Assigned Instructor
                         </label>
-
-                        <div class="mt-2 flex items-center rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-
-                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
-                                <span class="font-semibold text-indigo-700">
-                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                                </span>
-                            </div>
-
-                            <div class="ml-3">
-                                <p class="text-sm font-semibold text-gray-900">
-                                    {{ auth()->user()->name }}
-                                </p>
-
-                                <p class="text-xs text-gray-500">
-                                    {{ auth()->user()->email }}
-                                </p>
-                            </div>
-
+                        <div class="flex h-10 items-center rounded-md border border-border bg-muted/40 px-3.5 text-xs text-foreground font-semibold">
+                            {{ auth()->user()->name }} ({{ auth()->user()->email }})
                         </div>
-
-                        <p class="mt-2 text-xs text-gray-500">
-                            You will automatically be assigned as the instructor.
-                        </p>
                     </div>
+                </div>
 
-                    {{-- Cover Image --}}
-                    <div>
-                        <label
-                            for="cover_image"
-                            class="block text-sm font-semibold text-gray-700"
-                        >
-                            Cover Image
-                        </label>
-
-                        <div class="mt-2 rounded-lg border-2 border-dashed border-gray-300 px-6 py-8 text-center hover:border-indigo-400">
-
-                            <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50">
-                                <svg
-                                    class="h-6 w-6 text-indigo-600"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 16l4.586-4.586a2 2 0 016.828 0L20 16m-2-2l1.586-1.586a2 2 0 012.828 0L22 14m-6-2h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                    />
-                                </svg>
-                            </div>
-
-                            <label
-                                for="cover_image"
-                                class="mt-4 block cursor-pointer text-sm font-semibold text-indigo-600 hover:text-indigo-800"
-                            >
-                                Choose an image
-                            </label>
-
-                            <input
-                                id="cover_image"
-                                name="cover_image"
-                                type="file"
-                                accept="image/jpeg,image/png,image/webp"
-                                class="sr-only"
-                            >
-
-                            <p class="mt-2 text-xs text-gray-500">
-                                PNG, JPG or WEBP. Maximum size 2MB.
-                            </p>
-
-                        </div>
-
-                        @error('cover_image')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
+                {{-- Cover Image --}}
+                <div class="space-y-2">
+                    <label for="cover_image" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Cover Image (Optional)
+                    </label>
+                    <input
+                        id="cover_image"
+                        name="cover_image"
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        class="block w-full text-xs text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer"
+                    >
+                    <p class="text-[11px] text-muted-foreground">PNG, JPG, or WEBP up to 2MB.</p>
+                    @error('cover_image')
+                        <p class="text-xs text-destructive">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
-            {{-- Form Actions --}}
-            <div class="flex flex-col-reverse gap-3 bg-gray-50 px-6 py-5 sm:flex-row sm:justify-end sm:px-8">
-
+            {{-- Actions --}}
+            <div class="flex items-center justify-end gap-3 border-t border-border bg-muted/20 p-4 px-6 sm:px-8">
                 <a
                     href="{{ route('courses.index') }}"
-                    class="inline-flex justify-center rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50"
+                    class="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent"
                 >
                     Cancel
                 </a>
-
                 <button
                     type="submit"
-                    class="inline-flex justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 text-xs font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
                 >
                     Create Course
                 </button>
-
             </div>
-
         </form>
-
     </div>
-
+</div>
 @endsection
+

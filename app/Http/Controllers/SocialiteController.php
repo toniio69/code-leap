@@ -12,6 +12,10 @@ class SocialiteController extends Controller
 {
     public function redirect(string $provider)
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return Socialite::driver($provider)->redirect();
     }
 

@@ -22,5 +22,5 @@
 
     <div id="admin-dashboard-root" data-stats="{{ json_encode($stats) }}" data-recent-users="{{ json_encode($recentUsers) }}"></div>
 
-    @vite('resources/js/admin-dashboard.js')
+    @vite('resources/js/admin-dashboard.jsx')
 @endsection

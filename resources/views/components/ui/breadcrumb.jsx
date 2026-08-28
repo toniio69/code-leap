@@ -2,7 +2,7 @@ import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 
-import { cn } from "resources/css/app.css"
+import { cn } from "resources/css/utils.js"
 import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
 
 function Breadcrumb({

@@ -15,132 +15,67 @@ import {
   SidebarRail,
 } from "resources/views/components/ui/sidebar"
 
-// This is sample data.
+// Code Leap platform learning tracks
 const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
+  versions: ["v2.0 (Latest)", "v1.5", "v1.0"],
   navMain: [
     {
-      title: "Getting Started",
-      url: "#",
+      title: "Learning Tracks",
       items: [
         {
-          title: "Installation",
-          url: "#",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Building Your Application",
-      url: "#",
-      items: [
-        {
-          title: "Routing",
-          url: "#",
-        },
-        {
-          title: "Data Fetching",
-          url: "#",
+          title: "Full-Stack Web Development",
+          url: "/courses",
           isActive: true,
         },
         {
-          title: "Rendering",
-          url: "#",
+          title: "Python for Data & AI",
+          url: "/courses",
         },
         {
-          title: "Caching",
-          url: "#",
+          title: "PHP & Laravel Mastery",
+          url: "/courses",
         },
         {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
+          title: "JavaScript & React Fundamentals",
+          url: "/courses",
         },
       ],
     },
     {
-      title: "API Reference",
-      url: "#",
+      title: "Course Resources",
       items: [
         {
-          title: "Components",
-          url: "#",
+          title: "All Available Courses",
+          url: "/courses",
         },
         {
-          title: "File Conventions",
-          url: "#",
+          title: "Interactive Coding Labs",
+          url: "/courses",
         },
         {
-          title: "Functions",
-          url: "#",
+          title: "Course Materials & Downloads",
+          url: "/courses",
         },
         {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
+          title: "Certificates & Achievements",
+          url: "/dashboard",
         },
       ],
     },
     {
-      title: "Architecture",
-      url: "#",
+      title: "Workspace & Account",
       items: [
         {
-          title: "Accessibility",
-          url: "#",
+          title: "My Learning Dashboard",
+          url: "/dashboard",
         },
         {
-          title: "Fast Refresh",
-          url: "#",
+          title: "Profile & Settings",
+          url: "/settings/profile",
         },
         {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
-          url: "#",
+          title: "Security & Passkeys",
+          url: "/settings/security",
         },
       ],
     },
@@ -157,15 +92,14 @@ export function AppSidebar({
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton isActive={item.isActive} render={<a href={item.url} />}>{item.title}</SidebarMenuButton>
+                {item.items.map((subItem) => (
+                  <SidebarMenuItem key={subItem.title}>
+                    <SidebarMenuButton isActive={subItem.isActive} render={<a href={subItem.url} />}>{subItem.title}</SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -177,3 +111,4 @@ export function AppSidebar({
     </Sidebar>
   );
 }
+

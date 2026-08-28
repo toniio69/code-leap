@@ -1,164 +1,192 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title', 'Admin') - {{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @fluxAppearance
-        <style>
-            .sneat-sidebar { width: 16.25rem; }
-            .sneat-navbar { height: 64px; }
-            .sneat-card { box-shadow: 0 0.1875rem 0.5rem 0 rgba(34, 48, 62, 0.1); }
-            .sneat-menu-item { padding: 0.3125rem 0.9375rem; }
-            .sneat-menu-item.active { background-color: rgba(105, 108, 255, 0.08); color: #696cff; border-right: 3px solid #696cff; }
-            .sneat-menu-item:hover { background-color: #f2f3f3; color: #384551; }
-        </style>
-    </head>
-    <body class="bg-[#f5f5f9] text-[#646e78] antialiased">
-        <div class="flex min-h-screen">
-            <!-- Sidebar -->
-            <aside class="sneat-sidebar fixed inset-y-0 left-0 z-50 bg-white border-r border-[#e4e6e8] overflow-y-auto transition-transform duration-300" id="sneat-sidebar">
-                <div class="flex items-center gap-3 px-6 h-16 border-b border-[#e4e6e8]">
-                    <a href="{{ url('/') }}" class="flex items-center gap-2">
-                        <img src="{{ asset('Code Leap logo.png') }}" alt="Code Leap" class="h-8 w-auto">
-                        <span class="text-lg font-bold tracking-wider text-[#384551]">{{ config('app.name') }}</span>
-                    </a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('page-title', 'Admin') - {{ config('app.name', 'Code Leap') }}</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fluxAppearance
+    @stack('styles')
+</head>
+<body class="min-h-screen bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground">
+    <div class="flex min-h-screen w-full">
+        <!-- Mobile Sidebar Backdrop -->
+        <div id="admin-sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 backdrop-blur-xs md:hidden"></div>
+
+        <!-- Sidebar -->
+        <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 hidden w-64 shrink-0 flex-col border-r border-border bg-card text-card-foreground shadow-sm transition-all duration-200 md:static md:flex">
+            <!-- Brand -->
+            <div class="flex h-16 items-center gap-3 border-b border-border px-6">
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5">
+                    <x-app-logo sidebar="true" class="h-8 w-auto" />
+                    <div>
+                        <span class="text-base font-bold tracking-tight text-foreground">{{ config('app.name', 'Code Leap') }}</span>
+                        <span class="block text-[10px] uppercase font-semibold text-primary">Admin Control</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 space-y-6 overflow-y-auto p-4">
+                <div>
+                    <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Administration</p>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.users.*') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                                Users & Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.analytics') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.analytics') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                Analytics
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.performance') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.performance') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                Student Performance
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.payments') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.payments') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                                Payments
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
-                <nav class="p-4 space-y-6">
-                    <div>
-                        <p class="px-3 mb-2 text-xs font-semibold text-[#91979f] uppercase tracking-wider">Dashboards</p>
-                        <ul class="space-y-1">
-                            <li>
-                                <a href="{{ route('admin.dashboard') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium {{ request()->routeIs('admin.dashboard') ? 'active' : 'text-[#384551]' }}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-                                    Admin Dashboard
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div>
+                    <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Platform</p>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="{{ route('courses.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:bg-accent/60 hover:text-foreground">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                                View Live Courses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:bg-accent/60 hover:text-foreground">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                Student Workspace
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-                    <div>
-                        <p class="px-3 mb-2 text-xs font-semibold text-[#91979f] uppercase tracking-wider">Management</p>
-                        <ul class="space-y-1">
-                            <li>
-                                <a href="{{ route('admin.users.index') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium {{ request()->routeIs('admin.users.*') ? 'active' : 'text-[#384551]' }}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                                    Users
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.analytics') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium {{ request()->routeIs('admin.analytics') ? 'active' : 'text-[#384551]' }}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                                    Analytics
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.performance') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium {{ request()->routeIs('admin.performance') ? 'active' : 'text-[#384551]' }}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                    Student Performance
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.payments') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium {{ request()->routeIs('admin.payments') ? 'active' : 'text-[#384551]' }}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-                                    Payment Transactions
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <p class="px-3 mb-2 text-xs font-semibold text-[#91979f] uppercase tracking-wider">Platform</p>
-                        <ul class="space-y-1">
-                            <li>
-                                <a href="{{ route('courses.index') }}" class="sneat-menu-item flex items-center gap-3 rounded-md text-sm font-medium text-[#384551]">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18c1.747 0 3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253"/></svg>
-                                    Courses
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </aside>
-
-            <!-- Main Content -->
-            <div class="flex-1 ml-64">
-                <!-- Navbar -->
-                <nav class="sneat-navbar sticky top-0 z-40 bg-white border-b border-[#e4e6e8] px-6 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 lg:hidden">
-                            <svg class="w-6 h-6 text-[#646e78]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                        </button>
-                        <h1 class="text-lg font-semibold text-[#384551]">@yield('page-title', 'Admin')</h1>
-                    </div>
-
-                    <div class="flex items-center gap-4">
-                        <!-- Search -->
-                        <div class="hidden md:flex items-center">
-                            <span class="p-2 text-[#91979f]">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                            </span>
-                            <input type="text" placeholder="Search..." class="w-64 border-0 bg-transparent text-sm focus:ring-0 placeholder-[#91979f]">
+            <!-- User Menu -->
+            @auth
+            <div class="border-t border-border p-3">
+                <details class="group relative">
+                    <summary class="flex h-10 w-full cursor-pointer items-center gap-3 rounded-md px-2 py-1 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground list-none focus:outline-none">
+                        <div class="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                            {{ auth()->user()->initials() }}
                         </div>
-
-                        <!-- Notifications -->
-                        <button class="relative p-2 rounded-lg hover:bg-gray-100">
-                            <svg class="w-5 h-5 text-[#646e78]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
-                        </button>
-
-                        <!-- User Dropdown -->
-                        <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" class="flex items-center gap-3 p-1.5 rounded-lg hover:bg-gray-100">
-                                <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-medium">
-                                    {{ auth()->user()->initials() }}
-                                </div>
-                                <div class="hidden md:block text-left">
-                                    <p class="text-sm font-medium text-[#384551]">{{ auth()->user()->name }}</p>
-                                    <p class="text-xs text-[#91979f] capitalize">{{ auth()->user()->role }}</p>
-                                </div>
-                                <svg class="w-4 h-4 text-[#91979f] hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        <div class="flex-1 min-w-0 text-left">
+                            <p class="truncate text-xs font-semibold text-foreground">{{ auth()->user()->name }}</p>
+                            <p class="truncate text-[11px] text-muted-foreground capitalize">Admin</p>
+                        </div>
+                        <svg class="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </summary>
+                    <div class="mt-2 space-y-1 rounded-lg border border-border bg-card p-1.5 shadow-md">
+                        <p class="px-2 py-1 text-[11px] text-muted-foreground truncate">{{ auth()->user()->email }}</p>
+                        <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-foreground transition-colors hover:bg-accent">
+                            Settings
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10">
+                                Log out
                             </button>
-                            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-xl border border-[#e4e6e8] shadow-lg py-1 z-50">
-                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-[#384551] hover:bg-gray-50">Profile</a>
-                                <a href="{{ route('security.edit') }}" class="block px-4 py-2 text-sm text-[#384551] hover:bg-gray-50">Settings</a>
-                                <div class="border-t border-[#e4e6e8] my-1"></div>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Log Out</button>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </nav>
-
-                <!-- Content -->
-                <main class="min-h-[calc(100vh-64px)]">
-                    @yield('content')
-                </main>
-
-                <!-- Footer -->
-                <footer class="border-t border-[#e4e6e8] bg-white px-6 py-4">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2">
-                        <p class="text-sm text-[#91979f]">© {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
-                        <p class="text-sm text-[#91979f]">Built with Sneat-inspired design</p>
-                    </div>
-                </footer>
+                </details>
             </div>
-        </div>
+            @endauth
+        </aside>
 
-        <script>
-            document.getElementById('sidebar-toggle').addEventListener('click', function() {
-                document.getElementById('sneat-sidebar').classList.toggle('-translate-x-full');
-            });
-        </script>
-    </body>
+        <!-- Main Admin Content Area -->
+        <div class="flex flex-1 flex-col min-w-0">
+            <!-- Navbar -->
+            <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-6">
+                <button id="admin-sidebar-toggle" aria-label="Toggle navigation" class="md:hidden flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+
+                <div class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-foreground font-semibold">@yield('page-title', 'Admin Portal')</span>
+                </div>
+
+                <div class="ml-auto flex items-center gap-3">
+                    <a href="{{ route('courses.index') }}" class="hidden sm:inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">
+                        Live Courses
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}" class="inline-flex">
+                        @csrf
+                        <button type="submit" class="inline-flex h-9 items-center justify-center rounded-md bg-secondary px-3.5 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-ring">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </header>
+
+            <!-- Main Page -->
+            <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+                @yield('content')
+            </main>
+
+            <!-- Footer -->
+            <footer class="border-t border-border bg-card px-6 py-4 text-xs text-muted-foreground">
+                <div class="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-2">
+                    <p>© {{ date('Y') }} {{ config('app.name', 'Code Leap') }}. All rights reserved.</p>
+                    <p class="text-muted-foreground">Code Leap E-Learning Admin Portal</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Toggle Script -->
+    <script>
+        (function() {
+            const toggleBtn = document.getElementById('admin-sidebar-toggle');
+            const sidebar = document.getElementById('admin-sidebar');
+            const backdrop = document.getElementById('admin-sidebar-backdrop');
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                const isHidden = sidebar.classList.contains('hidden');
+                if (isHidden) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('flex');
+                    backdrop?.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('flex');
+                    backdrop?.classList.add('hidden');
+                }
+            }
+
+            toggleBtn?.addEventListener('click', toggleSidebar);
+            backdrop?.addEventListener('click', toggleSidebar);
+        })();
+    </script>
+    @stack('scripts')
+</body>
 </html>
+

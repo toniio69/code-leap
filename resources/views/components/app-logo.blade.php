@@ -3,15 +3,16 @@
 ])
 
 @if($sidebar)
-    <flux:sidebar.brand name="Code Leap" {{ $attributes }}>
-        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-            <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="size-5 object-contain">
+    <flux:sidebar.brand name="{{ config('app.name', 'Code Leap') }}" {{ $attributes }}>
+        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <img src="{{ asset('Code Leap logo.png') }}" alt="Code Leap" class="size-6 object-contain" onerror="this.src='{{ asset('favicon.png') }}'">
         </x-slot>
     </flux:sidebar.brand>
 @else
-    <flux:brand name="Code Leap" {{ $attributes }}>
-        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-            <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="size-5 object-contain">
+    <flux:brand name="{{ config('app.name', 'Code Leap') }}" {{ $attributes }}>
+        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <img src="{{ asset('Code Leap logo.png') }}" alt="Code Leap" class="size-6 object-contain" onerror="this.src='{{ asset('favicon.png') }}'">
         </x-slot>
     </flux:brand>
 @endif
+

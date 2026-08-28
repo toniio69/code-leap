@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $users = User::query()->orderBy('name')->get();
 
-        return view('admin.users.index', compact('users'));
+        return view('Admin.users', compact('users'));
     }
 
     public function updateRole(Request $request, User $user): RedirectResponse

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "resources/css/app.css"
+import { cn } from "resources/css/utils.js"
 
 function Table({
   className,

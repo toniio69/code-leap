@@ -40,7 +40,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-[#91979f]">{{ $user->created_at->diffForHumans() }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    <form method="POST" action="{{ route('admin.users.role', $user) }}" class="inline">
+                                    <form method="POST" action="{{ route('admin.users.update-role', $user) }}" class="inline">
                                         @csrf
                                         @method('PATCH')
                                         <select name="role" onchange="this.form.submit()" class="text-sm border border-[#e4e6e8] rounded-lg px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500">

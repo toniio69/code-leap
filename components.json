@@ -14,7 +14,7 @@
   "rtl": false,
   "aliases": {
     "components": "resources/views/components",
-    "utils": "resources/css/app.css"
+    "utils": "resources/css/utils.js"
   },
   "menuColor": "default",
   "menuAccent": "subtle",

@@ -1,52 +1,74 @@
 @extends('layouts.app')
 
+@section('title', 'Certificates')
+
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Certificates</h1>
-            <p class="mt-2 text-sm text-gray-600">Issue and manage course completion certificates.</p>
+    <div class="space-y-8">
+        <!-- Header -->
+        <div class="border-b border-border pb-6">
+            <h1 class="text-3xl font-bold tracking-tight text-foreground">Course Certificates</h1>
+            <p class="mt-1 text-sm text-muted-foreground">Review completed course student requirements and issue verified credentials.</p>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-2">
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Pending Approval</h2>
+            <!-- Pending Certificates -->
+            <div class="rounded-xl border border-border bg-card p-6 shadow-xs">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-base font-bold text-foreground">Pending Approval</h2>
+                    <span class="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-600">
+                        {{ $pendingCertificates->count() }} Pending
+                    </span>
+                </div>
                 <div class="space-y-3">
                     @forelse($pendingCertificates as $certificate)
-                        <div class="flex items-center justify-between p-4 rounded-lg border border-gray-100">
+                        <div class="flex items-center justify-between p-4 rounded-lg border border-border bg-muted/30">
                             <div>
-                                <p class="font-medium text-gray-900">{{ $certificate->user->name }}</p>
-                                <p class="text-sm text-gray-500">{{ $certificate->course->title }}</p>
+                                <p class="text-sm font-bold text-foreground">{{ $certificate->user->name }}</p>
+                                <p class="text-xs text-muted-foreground">{{ $certificate->course->title }}</p>
                             </div>
                             <form method="POST" action="{{ route('instructor.certificates.issue', $certificate) }}">
                                 @csrf
-                                @method('POST')
-                                <button type="submit" class="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
-                                    Issue
+                                <button type="submit" class="inline-flex items-center justify-center rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 shadow-xs">
+                                    Issue Certificate
                                 </button>
                             </form>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-500">No pending certificates.</p>
+                        <div class="py-8 text-center text-xs text-muted-foreground">
+                            No certificates awaiting approval.
+                        </div>
                     @endforelse
                 </div>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Issued Certificates</h2>
+            <!-- Issued Certificates -->
+            <div class="rounded-xl border border-border bg-card p-6 shadow-xs">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-base font-bold text-foreground">Issued Certificates</h2>
+                    <span class="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600">
+                        {{ $issuedCertificates->count() }} Issued
+                    </span>
+                </div>
                 <div class="space-y-3">
                     @forelse($issuedCertificates as $certificate)
-                        <div class="flex items-center justify-between p-4 rounded-lg border border-gray-100">
+                        <div class="flex items-center justify-between p-4 rounded-lg border border-border bg-muted/30">
                             <div>
-                                <p class="font-medium text-gray-900">{{ $certificate->user->name }}</p>
-                                <p class="text-sm text-gray-500">{{ $certificate->course->title }}</p>
+                                <p class="text-sm font-bold text-foreground">{{ $certificate->user->name }}</p>
+                                <p class="text-xs text-muted-foreground">{{ $certificate->course->title }}</p>
                             </div>
-                            <span class="text-sm font-semibold text-green-600">Issued</span>
+                            <span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
+                                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                Issued
+                            </span>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-500">No issued certificates yet.</p>
+                        <div class="py-8 text-center text-xs text-muted-foreground">
+                            No issued certificates yet.
+                        </div>
                     @endforelse
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

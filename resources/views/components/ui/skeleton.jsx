@@ -1,4 +1,4 @@
-import { cn } from "resources/css/app.css"
+import { cn } from "resources/css/utils.js"
 
 function Skeleton({
   className,
