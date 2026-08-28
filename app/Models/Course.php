@@ -11,16 +11,19 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 /**
  * @property int $id
  * @property string $title
- * @property string $description
+ * @property string|null $slug
+ * @property string|null $description
  * @property int|null $user_id
  * @property string|null $cover_image
  * @property string|null $status
  * @property float $price
+ * @property string|null $language
+ * @property string|null $level
  * @property-read Pivot $pivot
  */
 class Course extends Model
 {
-    protected $fillable = ['title', 'description', 'user_id', 'cover_image', 'status', 'price'];
+    protected $fillable = ['title', 'slug', 'description', 'user_id', 'cover_image', 'status', 'price', 'language', 'level'];
 
     /**
      * @return BelongsTo<User, $this>
@@ -55,5 +58,13 @@ class Course extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * @return HasMany<Lesson, $this>
+     */
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
     }
 }

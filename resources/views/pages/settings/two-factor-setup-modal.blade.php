@@ -240,14 +240,13 @@ new class extends Component {
                                 <flux:icon.loading/>
                             </div>
                         @else
-                            <div x-data class="flex items-center justify-center h-full p-4">
-                                <div
-                                    class="bg-white p-3 rounded"
-                                    :style="($flux.appearance === 'dark' || ($flux.appearance === 'system' && $flux.dark)) ? 'filter: invert(1) brightness(1.5)' : ''"
-                                >
-                                    {!! $qrCodeSvg !!}
-                                </div>
-                            </div>
+                        <div x-data class="flex items-center justify-center h-full p-4">
+                            <img
+                                src="data:image/svg+xml;base64,{{ base64_encode($qrCodeSvg) }}"
+                                alt="QR Code"
+                                class="max-w-full h-auto"
+                            />
+                        </div>
                         @endempty
                     </div>
                 </div>

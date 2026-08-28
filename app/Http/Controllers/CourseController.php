@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Services\FreeCodeCampService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    public function __construct(
-        protected FreeCodeCampService $freeCodeCamp
-    ) {
+    public function __construct()
+    {
         $this->authorizeResource(Course::class, 'course');
     }
 
@@ -26,37 +24,6 @@ class CourseController extends Controller
             ->latest()
             ->get()
             ->toBase();
-
-        try {
-            $curriculum = $this->freeCodeCamp->curriculum();
-            $superblocks = $curriculum['curriculum']['superblocks'] ?? [];
-
-            foreach (array_slice($superblocks, 0, 30) as $superblock) {
-                $course = $this->freeCodeCamp->superblock($superblock);
-
-                if (! $course) {
-                    continue;
-                }
-
-                $courses = $courses->merge([
-                    (object) [
-                        'id' => 'fcc-'.$superblock,
-                        'title' => $course['title'] ?? $superblock,
-                        'description' => 'Explore this freeCodeCamp learning path and work through its coding challenges.',
-                        'cover_image' => null,
-                        'price' => 0,
-                        'instructor' => (object) ['name' => 'freeCodeCamp'],
-                        'user_id' => null,
-                        'source' => 'freecodecamp',
-                        'dashedName' => $superblock,
-                        'url' => $this->freeCodeCamp->learnUrl($superblock),
-                        'blocks' => $course['blocks'] ?? [],
-                    ],
-                ]);
-            }
-        } catch (\Throwable $e) {
-            report($e);
-        }
 
         return view('courses.index', compact('courses', 'type'));
     }
@@ -177,6 +144,7 @@ class CourseController extends Controller
             'instructor',
             'students',
             'materials',
+            'lessons',
         ]);
 
         return view('courses.show', compact('course'));

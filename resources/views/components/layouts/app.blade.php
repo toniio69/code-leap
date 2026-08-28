@@ -20,13 +20,13 @@
                 <span class="text-xl font-bold tracking-wider text-gray-800">{{ config('app.name') }}</span>
             </a>
             <div class="flex items-center gap-3 text-sm text-gray-600">
-                @auth
-                    <a
-                        href="{{ route('freecodecamp.index') }}"
-                        class="text-sm font-semibold text-gray-700 hover:text-indigo-600"
-                    >
-                        Online Coding
-                    </a>
+                    @auth
+                        <a
+                            href="{{ route('courses.index') }}"
+                            class="text-sm font-semibold text-gray-700 hover:text-indigo-600"
+                        >
+                            Courses
+                        </a>
                     @if(auth()->user()->hasRole('admin'))
                         <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-900">Admin</a>
                     @endif

@@ -71,23 +71,20 @@ return [
         ),
     ],
 
-    'freecodecamp' => [
-        'api_url' => env(
-            'FREECODECAMP_API_URL',
-            'https://curriculum-db.freecodecamp.org/graphql'
-        ),
-
-        'learn_url' => env(
-            'FREECODECAMP_LEARN_URL',
-            'https://www.freecodecamp.org/learn'
-        ),
-    ],
-
     'paystack' => [
         'public_key' => env('PAYSTACK_PUBLIC_KEY'),
         'secret_key' => env('PAYSTACK_SECRET_KEY'),
         'payment_url' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
         'merchant_email' => env('PAYSTACK_MERCHANT_EMAIL'),
+    ],
+
+    'youtube' => [
+        'api_key' => env('YOUTUBE_API_KEY'),
+    ],
+
+    'openedx' => [
+        'base_url' => env('OPENEDX_BASE_URL'),
+        'access_token' => env('OPENEDX_ACCESS_TOKEN'),
     ],
 
 ];

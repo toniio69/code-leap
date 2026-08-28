@@ -59,6 +59,33 @@
         </div>
     @endif
 
+    {{-- edX Search --}}
+    <div class="mb-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <h2 class="text-lg font-bold text-gray-900">Search edX Courses</h2>
+        <p class="mt-1 text-sm text-gray-500">Find courses from the edX platform.</p>
+
+        <form id="edx-search-form" class="mt-4 flex flex-col gap-3 sm:flex-row">
+            <input
+                type="search"
+                id="edx-search-input"
+                placeholder="Search programming, data science..."
+                class="block w-full rounded-lg border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            >
+            <button
+                type="submit"
+                class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+            >
+                Search edX
+            </button>
+        </form>
+
+        <div id="edx-search-error" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"></div>
+
+        <div id="course-list" class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+        <div id="edx-search-loading" class="mt-6 hidden text-center text-sm text-gray-500">Searching edX...</div>
+    </div>
+
     {{-- Courses --}}
     @if($courses->count())
 
@@ -66,16 +93,12 @@
 
             @foreach($courses as $course)
 
-                @php
-                    $isFreeCodeCamp = isset($course->source) && $course->source === 'freecodecamp';
-                @endphp
-
                 <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-1 hover:shadow-md">
 
                     {{-- Cover Image --}}
                     <div class="aspect-video bg-gray-100">
 
-                        @if(!$isFreeCodeCamp && $course->cover_image)
+                        @if($course->cover_image)
                             <img
                                 src="{{ asset('storage/' . $course->cover_image) }}"
                                 alt="{{ $course->title }}"
@@ -95,15 +118,11 @@
                     <div class="p-6">
 
                         <div class="mb-3 flex items-center justify-between">
-                            <span class="inline-flex rounded-full {{ $isFreeCodeCamp ? 'bg-green-50 text-green-700' : 'bg-indigo-50 text-indigo-700' }} px-3 py-1 text-xs font-semibold">
-                                {{ $isFreeCodeCamp ? 'freeCodeCamp' : 'Course' }}
+                            <span class="inline-flex rounded-full bg-indigo-50 text-indigo-700 px-3 py-1 text-xs font-semibold">
+                                Course
                             </span>
 
-                            @if($isFreeCodeCamp)
-                                <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-800">
-                                    Free
-                                </span>
-                            @elseif(($course->price ?? 0) > 0)
+                            @if(($course->price ?? 0) > 0)
                                 <span class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
                                     ₦{{ number_format($course->price, 2) }}
                                 </span>
@@ -125,15 +144,15 @@
                         {{-- Instructor --}}
                         <div class="mt-5 flex items-center border-t border-gray-100 pt-4">
 
-                            <div class="flex h-9 w-9 items-center justify-center rounded-full {{ $isFreeCodeCamp ? 'bg-green-100' : 'bg-indigo-100' }}">
-                                <span class="text-sm font-bold {{ $isFreeCodeCamp ? 'text-green-700' : 'text-indigo-700' }}">
-                                    {{ strtoupper(substr($course->instructor->name ?? 'F', 0, 1)) }}
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100">
+                                <span class="text-sm font-bold text-indigo-700">
+                                    {{ strtoupper(substr($course->instructor->name ?? 'U', 0, 1)) }}
                                 </span>
                             </div>
 
                             <div class="ml-3">
                                 <p class="text-xs text-gray-500">
-                                    {{ $isFreeCodeCamp ? 'Provider' : 'Instructor' }}
+                                    Instructor
                                 </p>
 
                                 <p class="text-sm font-semibold text-gray-900">
@@ -146,69 +165,59 @@
                         {{-- Actions --}}
                         <div class="mt-6 flex items-center gap-3">
 
-                            @if($isFreeCodeCamp)
-                                <a
-                                    href="{{ route('freecodecamp.show', $course->dashedName) }}"
-                                    class="flex-1 rounded-lg bg-green-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-green-700"
-                                >
-                                    Explore on freeCodeCamp
-                                </a>
-                            @else
-                                @php
-                                    $isEnrolled = auth()->user()->hasRole('student') && $course->students()->where('user_id', auth()->id())->exists();
-                                    $isCompleted = $isEnrolled && $course->pivot->completed ?? false;
-                                @endphp
+                            @php
+                                $isEnrolled = auth()->user()->hasRole('student') && $course->students()->where('user_id', auth()->id())->exists();
+                                $isCompleted = $isEnrolled && $course->pivot->completed ?? false;
+                            @endphp
 
-                                <a
-                                    href="{{ route('courses.show', $course) }}"
-                                    class="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-indigo-700"
-                                >
-                                    View Course
-                                </a>
+                            <a
+                                href="{{ route('courses.show', $course) }}"
+                                class="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-indigo-700"
+                            >
+                                View Course
+                            </a>
 
-                                @if(auth()->user()->hasRole('student'))
-                                    @if($isCompleted)
-                                        <span class="rounded-lg bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
-                                            Completed
-                                        </span>
-                                    @elseif($isEnrolled)
-                                        <a
-                                            href="{{ route('courses.show', $course) }}"
-                                            class="rounded-lg bg-yellow-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-yellow-700"
-                                        >
-                                            Resume
-                                        </a>
-                                    @elseif(($course->price ?? 0) > 0)
-                                        <a
-                                            href="{{ route('paystack.pay', $course) }}"
-                                            class="rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
-                                        >
-                                            Enroll Premium
-                                        </a>
-                                    @else
-                                        <form method="POST" action="{{ route('courses.enroll', $course) }}" class="flex-1">
-                                            @csrf
-                                            <button type="submit" class="w-full rounded-lg bg-green-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-green-700">
-                                                Enroll Free
-                                            </button>
-                                        </form>
-                                    @endif
-                                @endif
-
-                                {{-- Instructor owns this course --}}
-                                @if(
-                                    auth()->user()->hasRole('instructor') &&
-                                    auth()->id() === $course->user_id
-                                )
-
+                            @if(auth()->user()->hasRole('student'))
+                                @if($isCompleted)
+                                    <span class="rounded-lg bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
+                                        Completed
+                                    </span>
+                                @elseif($isEnrolled)
                                     <a
-                                        href="{{ route('courses.edit', $course) }}"
-                                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                                        href="{{ route('courses.show', $course) }}"
+                                        class="rounded-lg bg-yellow-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-yellow-700"
                                     >
-                                        Edit
+                                        Resume
                                     </a>
-
+                                @elseif(($course->price ?? 0) > 0)
+                                    <a
+                                        href="{{ route('paystack.pay', $course) }}"
+                                        class="rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
+                                    >
+                                        Enroll Premium
+                                    </a>
+                                @else
+                                    <form method="POST" action="{{ route('courses.enroll', $course) }}" class="flex-1">
+                                        @csrf
+                                        <button type="submit" class="w-full rounded-lg bg-green-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-green-700">
+                                            Enroll Free
+                                        </button>
+                                    </form>
                                 @endif
+                            @endif
+
+                            {{-- Instructor owns this course --}}
+                            @if(
+                                auth()->user()->hasRole('instructor') &&
+                                auth()->id() === $course->user_id
+                            )
+
+                                <a
+                                    href="{{ route('courses.edit', $course) }}"
+                                    class="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                                >
+                                    Edit
+                                </a>
 
                             @endif
 
@@ -265,3 +274,46 @@
     @endif
 
 @endsection
+
+@push('scripts')
+<script>
+    (function () {
+        const form = document.getElementById('edx-search-form');
+        const input = document.getElementById('edx-search-input');
+        const list = document.getElementById('course-list');
+        const errorBox = document.getElementById('edx-search-error');
+        const loading = document.getElementById('edx-search-loading');
+
+        if (!form) return;
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const query = input.value.trim();
+            list.innerHTML = '';
+            errorBox.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`/api/courses/edx/search?query=${encodeURIComponent(query)}`);
+                loading.classList.add('hidden');
+
+                if (!response.ok) {
+                    throw new Error('Search failed');
+                }
+
+                const data = await response.json();
+                if (!Array.isArray(data) || data.length === 0) {
+                    list.innerHTML = '<p class="text-sm text-gray-500">No edX courses found.</p>';
+                    return;
+                }
+
+                data.forEach(course => renderCourse(course));
+            } catch (err) {
+                loading.classList.add('hidden');
+                errorBox.textContent = 'Unable to search edX courses. Please try again.';
+                errorBox.classList.remove('hidden');
+            }
+        });
+    })();
+</script>
+@endpush

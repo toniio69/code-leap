@@ -1,29 +1,33 @@
 <?php
 
 use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\StudentPerformanceController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\PerformanceController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EmailVerificationCodeController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\FreeCodeCampController;
 use App\Http\Controllers\Instructor\CertificateController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\PaystackController;
-use App\Models\Course;
-use App\Models\CourseMaterial;
-use App\Models\Enrollment;
-use App\Models\User;
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
 
+// Public Routes
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// All actions require active logins.
+// Guest / Public Authentication Endpoints
+Route::get('/auth/{provider}', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
+
+Route::post('/paystack/webhook', [PaystackController::class, 'handleWebhook'])
+    ->name('paystack.webhook');
+
+// Authenticated Routes (All Roles)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
@@ -35,28 +39,27 @@ Route::middleware('auth')->group(function () {
         };
     })->name('dashboard');
 
-    Route::resource(
-        'courses',
-        CourseController::class
-    );
+    Route::post('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
-    Route::post(
-        '/courses/{course}/enroll',
-        [EnrollmentController::class, 'store']
-    )->name('courses.enroll');
+        return redirect('/');
+    })->name('logout');
 
-    Route::post(
-        '/courses/{course}/pay',
-        [PaystackController::class, 'pay']
-    )->name('paystack.pay');
+    Route::resource('courses', CourseController::class);
+    Route::resource('courses.lessons', LessonController::class);
 
-    Route::get(
-        '/paystack/callback',
-        [PaystackController::class, 'handleGatewayCallback']
-    )->name('paystack.callback');
+    Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
+    Route::post('/courses/{course}/pay', [PaystackController::class, 'pay'])->name('paystack.pay');
+    Route::get('/paystack/callback', [PaystackController::class, 'handleGatewayCallback'])->name('paystack.callback');
 
+    Route::post('/email/verify-code', [EmailVerificationCodeController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('verification.code.verify');
 });
 
+// Student Protected Routes
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', function () {
         $user = auth()->user();
@@ -68,10 +71,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     })->name('student.dashboard');
 });
 
-Route::post('/email/verify-code', [EmailVerificationCodeController::class, 'store'])
-    ->middleware(['auth', 'throttle:6,1'])
-    ->name('verification.code.verify');
-
+// Instructor Protected Routes
 Route::middleware(['auth', 'role:instructor'])->group(function () {
     Route::get('/instructor/dashboard', function () {
         $courses = auth()
@@ -93,67 +93,15 @@ Route::middleware(['auth', 'role:instructor'])->group(function () {
         ->name('instructor.certificates.issue');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-        ->name('admin.dashboard');
-
-    Route::get('/admin/users', [AdminController::class, 'index'])
-        ->name('admin.users');
-
-    Route::patch('/admin/users/{user}/role', [AdminController::class, 'updateRole'])
-        ->name('admin.users.role');
-
-    Route::get('/admin/analytics', AnalyticsController::class)
-        ->name('admin.analytics');
-
-    Route::get('/admin/student-performance', StudentPerformanceController::class)
-        ->name('admin.student-performance');
-
-    Route::get('/admin/payments', PaymentController::class)
-        ->name('admin.payments');
+// Admin Protected Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->middleware('can:view-analytics')->name('admin.analytics');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('admin.payments');
+    Route::get('/student-performance', [PerformanceController::class, 'index'])->name('admin.performance');
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::patch('/users/{user}/role', [UserController::class, 'updateRole'])->middleware('can:manage-users')->name('admin.users.update-role');
 });
 
-    Route::get('/auth/{provider}/callback', function ($provider) {
-        $socialUser = Socialite::driver($provider)->user();
-
-        $user = User::firstOrCreate(
-            ['email' => $socialUser->getEmail()],
-            [
-                'name' => $socialUser->getName() ?? $socialUser->getNickname(),
-                'password' => bcrypt(Str::random(24)),
-                'role' => 'student',
-            ]
-        );
-
-        Auth::login($user);
-
-        return redirect('/dashboard');
-    })->name('socialite.callback');
-
-    Route::get('/auth/{provider}', function ($provider) {
-        return Socialite::driver($provider)->redirect();
-    })->name('socialite.redirect');
-
-Route::post('/paystack/webhook', [PaystackController::class, 'handleWebhook'])
-    ->name('paystack.webhook');
-
-Route::middleware('auth')->group(function () {
-
-    Route::get(
-        '/online-courses',
-        [FreeCodeCampController::class, 'index']
-    )->name('freecodecamp.index');
-
-    Route::get(
-        '/online-courses/chapter/{chapter}',
-        [FreeCodeCampController::class, 'chapter']
-    )->name('freecodecamp.chapter');
-
-    Route::get(
-        '/online-courses/{superblock}',
-        [FreeCodeCampController::class, 'show']
-    )->name('freecodecamp.show');
-
-});
-
+// Additional Settings Routes
 require __DIR__.'/settings.php';

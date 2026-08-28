@@ -105,4 +105,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->hasRole('admin');
+    }
 }

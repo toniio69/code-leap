@@ -7,14 +7,9 @@ use App\Models\Enrollment;
 use App\Models\User;
 use Illuminate\View\View;
 
-class StudentPerformanceController extends Controller
+class PerformanceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'role:admin']);
-    }
-
-    public function __invoke(): View
+    public function index(): View
     {
         $students = User::where('role', 'student')
             ->withCount('enrolledCourses')
@@ -26,6 +21,6 @@ class StudentPerformanceController extends Controller
 
         $completionRate = Enrollment::where('completed', true)->count() / max(Enrollment::count(), 1) * 100;
 
-        return view('Admin.student-performance', compact('students', 'completionRate'));
+        return view('admin.student-performance', compact('students', 'completionRate'));
     }
 }

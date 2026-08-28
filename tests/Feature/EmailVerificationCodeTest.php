@@ -28,7 +28,7 @@ class EmailVerificationCodeTest extends TestCase
             ->assertRedirect(route('dashboard'));
 
         $this->assertNotNull($user->fresh()->email_verified_at);
-        $this->assertNotNull(EmailVerificationCode::first()->used_at);
+        $this->assertNotNull(EmailVerificationCode::first(['used_at'])->used_at);
     }
 
     public function test_used_verification_code_record_is_recycled_for_a_new_user(): void
@@ -42,7 +42,8 @@ class EmailVerificationCodeTest extends TestCase
         $this->actingAs($firstUser)
             ->post(route('verification.code.verify'), ['code' => $firstCode]);
 
-        $codeRecordId = EmailVerificationCode::firstOrFail()->id;
+        $codeRecord = EmailVerificationCode::where('user_id', $firstUser->id)->first(['id']);
+        $codeRecordId = $codeRecord->id;
         $secondUser = User::factory()->unverified()->create();
 
         app(MailService::class)->sendVerification($secondUser);
@@ -62,7 +63,7 @@ class EmailVerificationCodeTest extends TestCase
 
         app(MailService::class)->sendVerification($user);
         $code = $this->verificationCodeFromNotification($user);
-        EmailVerificationCode::firstOrFail()->update(['expires_at' => now()->subMinute()]);
+        EmailVerificationCode::where('user_id', $user->id)->first()->update(['expires_at' => now()->subMinute()]);
 
         $this->actingAs($user)
             ->from(route('verification.notice'))
@@ -75,7 +76,7 @@ class EmailVerificationCodeTest extends TestCase
 
     private function verificationCodeFromNotification(User $user): string
     {
-        $code = null;
+        $code = '';
 
         Notification::assertSentTo(
             $user,

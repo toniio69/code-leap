@@ -9,12 +9,7 @@ use Illuminate\View\View;
 
 class PaymentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'role:admin']);
-    }
-
-    public function __invoke(Request $request): View
+    public function index(Request $request): View
     {
         $query = Payment::with(['user', 'course']);
 
@@ -32,6 +27,6 @@ class PaymentController extends Controller
             'revenue' => Payment::where('status', 'success')->sum('amount'),
         ];
 
-        return view('Admin.payments', compact('payments', 'summary'));
+        return view('admin.payments', compact('payments', 'summary'));
     }
 }

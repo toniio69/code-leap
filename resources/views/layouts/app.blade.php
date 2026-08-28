@@ -32,12 +32,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('freecodecamp.index') }}" class="flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors {{ request()->routeIs('freecodecamp.*') ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground' }}">
-                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                                    Online Coding
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{ route('courses.index') }}" class="flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors {{ request()->routeIs('courses.*') ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground' }}">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
                                     Courses

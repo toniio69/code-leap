@@ -10,6 +10,7 @@ use App\Livewire\Pages\Settings\Security;
 use App\Livewire\Pages\Settings\TwoFactor\RecoveryCodes;
 use App\Livewire\Pages\Settings\TwoFactorSetupModal;
 use App\Models\Course;
+use App\Models\User;
 use App\Policies\CoursePolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Blade;
@@ -30,6 +31,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Course::class, CoursePolicy::class);
+
+        Gate::define('manage-users', function (User $user) {
+            return $user->role === 'admin';
+        });
+
+        Gate::define('view-analytics', function (User $user) {
+            return in_array($user->role, ['admin', 'manager']);
+        });
 
         Blade::anonymousComponentNamespace('layouts');
         Blade::anonymousComponentNamespace('pages');
