@@ -3,15 +3,15 @@
 @section('title', 'Edit Lesson')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-3xl mx-auto space-y-6">
     {{-- Header --}}
     <div class="border-b border-border pb-6">
         <a href="{{ route('courses.lessons.index', $course) }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground mb-3">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Back to Lessons
         </a>
-        <h1 class="text-3xl font-bold tracking-tight text-foreground">Edit Lesson</h1>
-        <p class="mt-1 text-sm text-muted-foreground">Updating module for <span class="font-semibold">{{ $course->title }}</span>.</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">Edit Lesson</h1>
+        <p class="mt-1 text-sm text-muted-foreground">Update lesson content for <span class="font-semibold text-foreground">{{ $course->title }}</span></p>
     </div>
 
     {{-- Validation Errors --}}
@@ -28,7 +28,7 @@
 
     {{-- Lesson Form --}}
     <div class="rounded-xl border border-border bg-card shadow-xs overflow-hidden">
-        <form method="POST" action="{{ route('courses.lessons.update', [$course, $lesson]) }}">
+        <form method="POST" action="{{ route('lessons.update', [$course, $lesson]) }}">
             @csrf
             @method('PUT')
             <div class="p-6 sm:p-8 space-y-6">
@@ -51,11 +51,11 @@
 
                 {{-- Content --}}
                 <div class="space-y-2">
-                    <label for="content" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lesson Content / Notes</label>
+                    <label for="content" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lesson Content</label>
                     <textarea
                         id="content"
                         name="content"
-                        rows="8"
+                        rows="6"
                         class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >{{ old('content', $lesson->content) }}</textarea>
                     @error('content')
@@ -69,8 +69,8 @@
                     <textarea
                         id="starter_code"
                         name="starter_code"
-                        rows="6"
-                        class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors font-mono placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        rows="8"
+                        class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring font-mono"
                     >{{ old('starter_code', $lesson->starter_code) }}</textarea>
                     @error('starter_code')
                         <p class="text-xs text-destructive">{{ $message }}</p>

@@ -3,15 +3,15 @@
 @section('title', 'Create Lesson')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-3xl mx-auto space-y-6">
     {{-- Header --}}
     <div class="border-b border-border pb-6">
         <a href="{{ route('courses.lessons.index', $course) }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground mb-3">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Back to Lessons
         </a>
-        <h1 class="text-3xl font-bold tracking-tight text-foreground">Create New Lesson</h1>
-        <p class="mt-1 text-sm text-muted-foreground">Add a new module to <span class="font-semibold">{{ $course->title }}</span>.</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">Create Lesson</h1>
+        <p class="mt-1 text-sm text-muted-foreground">Add a new lesson to <span class="font-semibold text-foreground">{{ $course->title }}</span></p>
     </div>
 
     {{-- Validation Errors --}}
@@ -28,7 +28,7 @@
 
     {{-- Lesson Form --}}
     <div class="rounded-xl border border-border bg-card shadow-xs overflow-hidden">
-        <form method="POST" action="{{ route('courses.lessons.store', $course) }}">
+        <form method="POST" action="{{ route('lessons.store', $course) }}">
             @csrf
             <div class="p-6 sm:p-8 space-y-6">
                 {{-- Title --}}
@@ -39,7 +39,7 @@
                         id="title"
                         name="title"
                         value="{{ old('title') }}"
-                        placeholder="e.g. Introduction to Variables & Data Types"
+                        placeholder="e.g. Introduction to Variables"
                         required
                         maxlength="255"
                         class="h-10 w-full rounded-md border border-input bg-background px-3.5 py-2 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -51,12 +51,12 @@
 
                 {{-- Content --}}
                 <div class="space-y-2">
-                    <label for="content" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lesson Content / Notes</label>
+                    <label for="content" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lesson Content</label>
                     <textarea
                         id="content"
                         name="content"
-                        rows="8"
-                        placeholder="Explain concepts, provide code snippets, and outline learning objectives..."
+                        rows="6"
+                        placeholder="Explain the concept, provide examples, and outline exercises..."
                         class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >{{ old('content') }}</textarea>
                     @error('content')
@@ -70,9 +70,9 @@
                     <textarea
                         id="starter_code"
                         name="starter_code"
-                        rows="6"
+                        rows="8"
                         placeholder="// Provide starter code for students to build upon..."
-                        class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors font-mono placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        class="w-full rounded-md border border-input bg-background p-3.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring font-mono"
                     >{{ old('starter_code') }}</textarea>
                     @error('starter_code')
                         <p class="text-xs text-destructive">{{ $message }}</p>
