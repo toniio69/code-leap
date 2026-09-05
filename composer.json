@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.3",
         "essa/api-tool-kit": "^3.3",
+        "google/apiclient": "*",
         "inertiajs/inertia-laravel": "*",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",

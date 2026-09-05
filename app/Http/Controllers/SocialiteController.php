@@ -10,10 +10,16 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
+    protected array $supportedProviders = ['google'];
+
     public function redirect(string $provider)
     {
         if (Auth::check()) {
             return redirect()->route('dashboard');
+        }
+
+        if (! in_array($provider, $this->supportedProviders, true)) {
+            return redirect()->route('login')->with('error', 'Social login with '.$provider.' is not supported yet.');
         }
 
         return Socialite::driver($provider)->redirect();
@@ -21,7 +27,15 @@ class SocialiteController extends Controller
 
     public function callback(string $provider)
     {
-        $socialUser = Socialite::driver($provider)->user();
+        if (! in_array($provider, $this->supportedProviders, true)) {
+            return redirect()->route('login')->with('error', 'Social login with '.$provider.' is not supported yet.');
+        }
+
+        try {
+            $socialUser = Socialite::driver($provider)->user();
+        } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
+            return redirect()->route('login')->with('error', 'Social login session expired. Please try again.');
+        }
 
         $user = User::firstOrCreate(
             ['email' => $socialUser->getEmail()],

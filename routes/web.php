@@ -21,7 +21,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Guest / Public Authentication Endpoints
-Route::get('/auth/{provider}', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
+ Route::get('/auth/{provider}', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
 
 Route::post('/paystack/webhook', [PaystackController::class, 'handleWebhook'])

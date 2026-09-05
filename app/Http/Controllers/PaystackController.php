@@ -48,10 +48,24 @@ class PaystackController extends Controller
         }
 
         $reference = 'PL_'.strtoupper(Str::random(12));
-        $amountInKobo = (int) round($course->price * 100);
+
+        $shopUrl = config('services.paystack.shop_url');
+
+        $params = http_build_query([
+            'email' => $user->email,
+            'amount' => (int) round($course->price * 100),
+            'reference' => $reference,
+            'metadata' => json_encode([
+                'course_id' => $course->id,
+                'course_title' => $course->title,
+                'user_id' => $user->id,
+                'payment_id' => null,
+            ]),
+            'callback_url' => route('paystack.callback'),
+        ]);
 
         // Record payment in database
-        $payment = Payment::create([
+        Payment::create([
             'user_id' => $user->id,
             'course_id' => $course->id,
             'reference' => $reference,
@@ -67,40 +81,7 @@ class PaystackController extends Controller
             ],
         ]);
 
-        $payload = [
-            'email' => $user->email,
-            'amount' => $amountInKobo,
-            'reference' => $reference,
-            'callback_url' => route('paystack.callback'),
-            'metadata' => [
-                'course_id' => $course->id,
-                'user_id' => $user->id,
-                'payment_id' => $payment->id,
-                'custom_fields' => [
-                    [
-                        'display_name' => 'Course Title',
-                        'variable_name' => 'course_title',
-                        'value' => $course->title,
-                    ],
-                ],
-            ],
-        ];
-
-        $response = $this->paystackService->initializeTransaction($payload);
-
-        if (isset($response['status']) && $response['status'] === true && isset($response['data']['authorization_url'])) {
-            return redirect()->away($response['data']['authorization_url']);
-        }
-
-        // Fallback for testing or when API key is simulated
-        if (config('app.env') === 'testing' || ! config('services.paystack.secret_key')) {
-            // Direct callback simulation for testing/demo when secret key is not populated
-            return redirect()->route('paystack.callback', ['reference' => $reference]);
-        }
-
-        return redirect()
-            ->route('courses.show', $course)
-            ->with('error', $response['message'] ?? 'Unable to initialize Paystack payment. Please check your credentials.');
+        return redirect()->away($shopUrl.'?'.$params);
     }
 
     /**

@@ -76,6 +76,7 @@ return [
         'secret_key' => env('PAYSTACK_SECRET_KEY'),
         'payment_url' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
         'merchant_email' => env('PAYSTACK_MERCHANT_EMAIL'),
+        'shop_url' => env('PAYSTACK_SHOP_URL', 'https://paystack.shop/pay/k5e1uo1j4h'),
     ],
 
     'youtube' => [
