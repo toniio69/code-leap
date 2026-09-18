@@ -32,9 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
 
-        return match (true) {
-            $user->hasRole('admin') => redirect()->route('admin.dashboard'),
-            $user->hasRole('instructor') => redirect()->route('instructor.dashboard'),
+        $role = $user->getRoleNames()->first() ?? $user->role;
+
+        return match ($role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'instructor' => redirect()->route('instructor.dashboard'),
             default => redirect()->route('student.dashboard'),
         };
     })->name('dashboard');
@@ -105,3 +107,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 // Additional Settings Routes
 require __DIR__.'/settings.php';
+
+// edX Mirrored Courses Routes
+require __DIR__.'/edx.php';

@@ -1,4 +1,21 @@
 {
     "git.ignoreLimitWarning": true,
-    "php.version": "8.5"
+    "php.version": "8.5",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3308,
+            "driver": "MariaDB",
+            "name": "Codeleap",
+            "group": "127.0.0.1",
+            "database": "Codeleap",
+            "username": "root"
+        }
+    ]
 }

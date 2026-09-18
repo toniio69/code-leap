@@ -54,8 +54,8 @@ export function renderCourse(courseData, containerId = 'course-list') {
                 </div>
             </div>
             <div class="p-5 pt-0">
-                <a href="${courseData.id ? `https://courses.edx.org/courses/${courseData.id}/` : '#'}" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-                    View on edX
+                <a href="${courseData.id ? `/edx/courses/${courseData.id}` : '#'}" class="inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+                    View Course
                 </a>
             </div>
         `;

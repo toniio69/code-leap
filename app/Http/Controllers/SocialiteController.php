@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Spatie\Permission\Models\Role;
 
 class SocialiteController extends Controller
 {
@@ -45,6 +46,11 @@ class SocialiteController extends Controller
                 'role' => 'student',
             ]
         );
+
+        $role = Role::where('name', 'student')->where('guard_name', 'web')->first();
+        if ($role) {
+            $user->syncRoles([$role->name]);
+        }
 
         Auth::login($user);
 

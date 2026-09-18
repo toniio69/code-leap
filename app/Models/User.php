@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         'email',
         'password',
         'role',
+        'profile_photo_path',
     ];
 
     /** @use HasFactory<UserFactory> */
@@ -59,6 +60,15 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         return Str::length($initials) > 1
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
+    }
+
+    public function getProfilePhotoUrlAttribute(): ?string
+    {
+        if (! $this->profile_photo_path) {
+            return null;
+        }
+
+        return asset('storage/'.$this->profile_photo_path);
     }
 
     public function sendEmailVerificationNotification(): void

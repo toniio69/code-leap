@@ -26,4 +26,9 @@ export default defineConfig({
             'resources/css/utils.js': path.resolve(__dirname, 'resources/css/utils.js'),
         },
     },
+    build: {
+        // Disable CSS minification to avoid lightningcss Tailwind v4 warnings
+        // that cause build failures on Vercel
+        cssMinify: false,
+    },
 });

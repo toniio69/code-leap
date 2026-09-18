@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "@vercel/php",
+      "config": {
+        "phpVersion": "8.3",
+        "extensions": ["mbstring", "pdo", "pdo_sqlite", "tokenizer", "xml", "json", "curl", "gd", "zip", "fileinfo", "bcmath", "dom", "simplexml", "xmlreader", "xmlwriter", "ctype", "iconv", "sodium", "exif", "ffi", "ftp", "gettext", "imap", "interbase", "pdo_firebird", "pdo_mysql", "pdo_pgsql", "pdo_oci", "shmop", "sysvmsg", "sysvsem", "sysvshm", "pcntl"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/builds/(.*)",
+      "dest": "/builds/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "public/index.php"
+    }
+  ]
+}

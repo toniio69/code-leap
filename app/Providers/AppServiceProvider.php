@@ -2,15 +2,9 @@
 
 namespace App\Providers;
 
-use App\Livewire\Pages\Settings\Appearance;
-use App\Livewire\Pages\Settings\DeleteUserForm;
-use App\Livewire\Pages\Settings\DeleteUserModal;
-use App\Livewire\Pages\Settings\Profile;
-use App\Livewire\Pages\Settings\Security;
-use App\Livewire\Pages\Settings\TwoFactor\RecoveryCodes;
-use App\Livewire\Pages\Settings\TwoFactorSetupModal;
 use App\Models\Course;
 use App\Models\User;
+use App\Observers\UserObserver;
 use App\Policies\CoursePolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Blade;
@@ -30,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        User::observe(UserObserver::class);
+
         Gate::policy(Course::class, CoursePolicy::class);
 
         Gate::define('manage-users', function (User $user) {

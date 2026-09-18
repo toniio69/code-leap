@@ -82,6 +82,19 @@
                             </svg>
                         </div>
 
+                        <div class="relative">
+                            <label for="role" class="sr-only">Role</label>
+                            <select
+                                id="role"
+                                name="role"
+                                required
+                                class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                                <option value="student" selected>Student</option>
+                                <option value="instructor">Instructor</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="inline-flex h-9 w-full cursor-pointer items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             Create Account
                         </button>
