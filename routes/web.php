@@ -97,6 +97,7 @@ Route::middleware(['auth', 'role:instructor'])->group(function () {
 
 // Admin Protected Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', fn () => redirect()->route('admin.dashboard'))->name('admin');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/analytics', [AnalyticsController::class, 'index'])->middleware('can:view-analytics')->name('admin.analytics');
     Route::get('/payments', [PaymentController::class, 'index'])->name('admin.payments');
