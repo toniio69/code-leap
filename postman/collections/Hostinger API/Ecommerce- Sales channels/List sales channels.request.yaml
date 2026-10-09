@@ -1,0 +1,13 @@
+$kind: http-request
+description: List a store's active sales channels with their full metadata.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/sales-channels"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to list sales channels for.
+settings: {}
+examples: ./.resources/List sales channels.resources/examples
+order: 1000

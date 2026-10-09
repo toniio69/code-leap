@@ -1,0 +1,33 @@
+$kind: http-request
+description: |-
+  Updates PHP options for the website (e.g. `memory_limit`, `max_execution_time`, `upload_max_filesize`).
+  Only provide the options you want to change, inside the `options` object.
+
+  Values above the account plan limit are silently capped to that limit, so the request can succeed
+  with a smaller applied value. Call the Get PHP details endpoint afterwards to read the applied value.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/options"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "options": {
+        "key_0": "<string>",
+        "key_1": "<string>",
+        "key_2": "<string>",
+        "key_3": "<string>"
+      }
+    }
+settings: {}
+examples: ./.resources/Update PHP options.resources/examples
+order: 5000

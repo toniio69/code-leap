@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Create an email template in a profile.
+
+  The template holds the HTML body a campaign reuses, so it can be created before any
+  campaign exists. Only the template metadata comes back - keep the returned `uuid` to
+  reference it as the `template_uuid` of a campaign.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/templates"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "template_content": "<string>",
+      "title": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create an email template.resources/examples
+order: 2000

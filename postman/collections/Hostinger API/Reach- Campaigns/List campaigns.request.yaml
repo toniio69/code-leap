@@ -1,0 +1,43 @@
+$kind: http-request
+description: |-
+  Get a paginated list of the campaigns in a profile.
+
+  Each campaign carries its headline engagement rates. Filter by status to find drafts,
+  scheduled, sending or sent campaigns, keeping in mind that a fully sent campaign has the
+  status `publish`. By default only regular campaigns are returned - pass `type` to get the
+  emails sent by automations or the double opt-in confirmations instead.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns?status=sending&type=campaign&sort_direction=desc&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: status
+    value: sending
+    description: |-
+      Filter campaigns by status.
+
+      A fully sent campaign has the status `publish`. There is no `sent` status, and campaigns can
+      be neither paused nor archived. (This can only be one of draft,scheduled,sending,publish,failed)
+  - key: type
+    value: campaign
+    description: |-
+      Filter campaigns by type.
+
+      Defaults to `campaign`, which leaves out the emails sent by automations and the double
+      opt-in confirmations. (This can only be one of campaign,automation,double_opt_in)
+  - key: sort_direction
+    value: desc
+    description: Order campaigns by creation date. Newest first unless set to `asc`. (This can only be one of asc,desc)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List campaigns.resources/examples
+order: 2000

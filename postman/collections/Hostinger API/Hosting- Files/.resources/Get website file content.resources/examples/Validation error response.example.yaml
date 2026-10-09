@@ -1,0 +1,50 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/domains/:domain/files/content?path=<string>&from_line=0&max_lines=5000"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: path
+      value: <string>
+      description: (Required) File path, relative to the document root.
+    - key: from_line
+      value: "0"
+      description: Line offset to start reading from.
+    - key: max_lines
+      value: "5000"
+      description: Max number of lines to return.
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity (WebDAV) (RFC 4918)
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "errors": {
+          "field_1": [
+            "",
+            ""
+          ],
+          "field_2": [
+            "",
+            ""
+          ]
+        },
+        "correlation_id": "<string>"
+      }
+order: 3000

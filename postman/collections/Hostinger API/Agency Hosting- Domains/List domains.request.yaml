@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Returns a paginated list of domains associated with Agency Plan websites accessible to the authenticated client.
+
+  Use the website_uuids filter to narrow results to specific websites.
+url: "{{baseUrl}}/api/agency-hosting/v1/domains?page=<integer>&per_page=25&website_uuids=<string>&website_uuids=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+  - key: website_uuids
+    value: <string>
+    description: Filter by website UIDs
+  - key: website_uuids
+    value: <string>
+    description: Filter by website UIDs
+settings: {}
+examples: ./.resources/List domains.resources/examples
+order: 3000

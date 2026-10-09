@@ -1,0 +1,23 @@
+$kind: http-request
+description: Create a published physical product with a single variant priced in the store currency.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/physical"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to create the product in.
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "price": "<integer>",
+      "description": "<string>",
+      "currency": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create physical product.resources/examples
+order: 6000

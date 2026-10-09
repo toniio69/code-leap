@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Repairs corrupted database tables asynchronously.
+
+  Use when database errors, crashes, or corruption are reported.
+  The database name must be the full name returned by the list databases endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/repair"
+method: PATCH
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+settings: {}
+examples: ./.resources/Repair database.resources/examples
+order: 8000

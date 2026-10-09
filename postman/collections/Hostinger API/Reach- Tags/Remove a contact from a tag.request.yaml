@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Remove a tag from a single contact.
+
+  Unlike the bulk endpoint this is applied immediately rather than queued. Neither the tag
+  nor the contact is deleted.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid/contacts/:contactUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+  - key: contactUuid
+    value: <uuid>
+    description: (Required) Contact uuid parameter
+settings: {}
+examples: ./.resources/Remove a contact from a tag.resources/examples
+order: 2000

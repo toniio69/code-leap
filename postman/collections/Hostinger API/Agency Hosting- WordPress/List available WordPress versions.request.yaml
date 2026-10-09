@@ -1,0 +1,13 @@
+$kind: http-request
+description: Lists the WordPress core versions available for installation on an Agency Plan website.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/wordpress/settings/versions"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List available WordPress versions.resources/examples
+order: 3000

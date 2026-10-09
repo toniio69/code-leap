@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Returns a signed URL to upload a product image to (multipart/form-data POST). Then call the
+  attach-image endpoint with the returned object_name to scan and attach it to the product.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id/images/upload-url"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store the product belongs to.
+  - key: product_id
+    value: <string>
+    description: (Required) The ID of the product the image will be attached to.
+settings: {}
+examples: ./.resources/Create a product image upload URL.resources/examples
+order: 1000

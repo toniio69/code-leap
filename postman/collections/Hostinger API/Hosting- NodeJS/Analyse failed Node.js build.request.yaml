@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Returns an AI analysis of why a build failed and how to fix it, based on the build logs,
+  the project file list and package.json. Only builds in the `failed` state can be analysed;
+  any other state returns 422. When no analysis could be produced both `analysis` and
+  `solution` are null, in which case read `Get NodeJS build logs` instead.
+
+  Each call runs the analysis again, so call it once per failed build and keep the result.
+  Limited to 5 calls per minute per API client (429 above that).
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/:uuid/analysis"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+  - key: uuid
+    value: <uuid>
+    description: (Required) Build UUID
+settings: {}
+examples: ./.resources/Analyse failed Node.js build.resources/examples
+order: 8000

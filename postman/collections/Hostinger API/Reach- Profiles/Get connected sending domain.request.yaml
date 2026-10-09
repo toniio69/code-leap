@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Get the sending domain connected to the profile, its verification status and any suspended
+  sender addresses.
+
+  Campaigns only go out once a domain is connected and active, so this is the cheapest way to
+  check that precondition before building one. A profile with no domain connected returns the
+  same shape with every field set to `null`. For the individual MX, SPF, DKIM and DMARC records
+  behind the status, use the DNS status endpoint.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/domains"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/Get connected sending domain.resources/examples
+order: 2000

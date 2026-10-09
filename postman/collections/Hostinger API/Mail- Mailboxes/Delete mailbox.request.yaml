@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Delete a mailbox. The mailbox is soft-deleted and stays restorable
+  for a limited period before it is permanently removed.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+settings: {}
+examples: ./.resources/Delete mailbox.resources/examples
+order: 3000

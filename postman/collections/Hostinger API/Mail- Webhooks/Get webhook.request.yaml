@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Retrieve the details of a single webhook. The webhook secret is never
+  included; it is returned only when a webhook is created or its secret
+  is regenerated.
+url: "{{baseUrl}}/api/mail/v1/webhooks/:webhookId"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: webhookId
+    value: <string>
+    description: (Required) Webhook ID (returned when the webhook was created)
+settings: {}
+examples: ./.resources/Get webhook.resources/examples
+order: 3000

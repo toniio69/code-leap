@@ -1,0 +1,59 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/mailboxes"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "local_part": "jpn.h6avjg.rcnks.jvktztm.xskz8psr-97",
+        "password": "<string>"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "<string>",
+        "address": "<string>",
+        "status": "suspended",
+        "status_reason": "<string>",
+        "protocols": {
+          "is_imap_enabled": "<boolean>",
+          "is_pop3_enabled": "<boolean>",
+          "is_smtp_in_enabled": "<boolean>",
+          "is_smtp_out_enabled": "<boolean>"
+        },
+        "counts": {
+          "forwarders": "<integer>",
+          "aliases": "<integer>",
+          "autoreplies": "<integer>"
+        },
+        "is_catchall": "<boolean>",
+        "usage": {
+          "storage_used": "<integer>",
+          "storage_quota": "<integer>",
+          "messages_used": "<integer>",
+          "messages_quota": "<integer>",
+          "synced_at": "<dateTime>"
+        },
+        "created_at": "<dateTime>",
+        "updated_at": "<dateTime>"
+      }
+order: 1000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Create an alias for the given mailbox. The alias address is formed
+  from the given local part and the domain of the mailbox. Messages
+  sent to the alias are delivered to the mailbox.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/aliases"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+body:
+  type: json
+  content: |-
+    {
+      "local_part": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create alias.resources/examples
+order: 1000

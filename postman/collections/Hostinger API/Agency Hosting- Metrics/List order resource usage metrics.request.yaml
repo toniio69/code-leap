@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Returns aggregated CPU, memory, and process usage for the Agency Plan order
+  over the selected time frame, plus the plan quotas and a per-website
+  breakdown. Each website is identified by uid. Suspended and deleted websites
+  are excluded from both the order totals and the per-website breakdown.
+  Values may be up to one hour stale. Disk and inode usage are on the
+  disk-usage-metrics endpoint.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/resource-usage-metrics?time_frame_hours=24"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: time_frame_hours
+    value: "24"
+    description: Length of the window in hours, ending now. Bucket size grows with the window. (This can only be one of 1,24,168,336,720)
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+settings: {}
+examples: ./.resources/List order resource usage metrics.resources/examples
+order: 2000

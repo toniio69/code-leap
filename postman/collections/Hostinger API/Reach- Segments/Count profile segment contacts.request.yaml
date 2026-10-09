@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Count the contacts currently matching a segment without listing them.
+
+  Cheaper than paging through the segment contacts endpoint when only the size is needed.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments/:segmentUuid/count"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: segmentUuid
+    value: <string>
+    description: (Required) Segment uuid parameter
+settings: {}
+examples: ./.resources/Count profile segment contacts.resources/examples
+order: 3000

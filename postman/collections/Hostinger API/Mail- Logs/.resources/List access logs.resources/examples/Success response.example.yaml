@@ -1,0 +1,100 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/logs/access?account=<email>&date=<date>&from_date=<dateTime>&to_date=<dateTime>&status=Failed&protocol=pop3&has_deletions=<boolean>&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: account
+      value: <email>
+      description: Filter log entries by a specific email account
+    - key: date
+      value: <date>
+      description: Exact date filter (YYYY-MM-DD). Takes precedence over `from_date`/`to_date` when both are given.
+    - key: from_date
+      value: <dateTime>
+      description: Date range start (RFC 3339)
+    - key: to_date
+      value: <dateTime>
+      description: Date range end (RFC 3339)
+    - key: status
+      value: Failed
+      description: Filter log entries by status (This can only be one of Successful,Failed)
+    - key: protocol
+      value: pop3
+      description: Filter access log entries by protocol (This can only be one of imap,pop3,smtp)
+    - key: has_deletions
+      value: <boolean>
+      description: Filter access log entries by whether the session had deletions
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "account": "<string>",
+            "domain": "<string>",
+            "session": "<string>",
+            "protocol": "<string>",
+            "remote_ip": "<string>",
+            "login_time": "<dateTime>",
+            "in": "<integer>",
+            "out": "<integer>",
+            "deleted": "<integer>",
+            "expunged": "<integer>",
+            "trashed": "<integer>",
+            "logout_time": "<dateTime>",
+            "timestamp": "<dateTime>",
+            "app_name": "<string>",
+            "has_deletions": "<boolean>",
+            "result": "<string>",
+            "status": "<string>",
+            "is_important": "<boolean>"
+          },
+          {
+            "account": "<string>",
+            "domain": "<string>",
+            "session": "<string>",
+            "protocol": "<string>",
+            "remote_ip": "<string>",
+            "login_time": "<dateTime>",
+            "in": "<integer>",
+            "out": "<integer>",
+            "deleted": "<integer>",
+            "expunged": "<integer>",
+            "trashed": "<integer>",
+            "logout_time": "<dateTime>",
+            "timestamp": "<dateTime>",
+            "app_name": "<string>",
+            "has_deletions": "<boolean>",
+            "result": "<string>",
+            "status": "<string>",
+            "is_important": "<boolean>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

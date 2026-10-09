@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  List the Hostinger Horizons websites the user owns.\n
+  Use this tool when the user asks which websites they have, or when you need a website ID
+  before editing, publishing or cloning a website.\n
+  Each website is returned with its ID, status, domain and the URL to open it
+  in Hostinger Horizons interface.\n
+  The complete list of websites is returned in a single response - it is not paginated.
+url: "{{baseUrl}}/api/horizons/v1/websites"
+method: GET
+headers:
+  Accept: application/json
+settings: {}
+examples: ./.resources/Get website list.resources/examples
+order: 2000

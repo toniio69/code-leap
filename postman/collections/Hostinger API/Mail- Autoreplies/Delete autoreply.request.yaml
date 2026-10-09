@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Delete the autoreply of a mailbox. The mailbox stops sending
+  automatic replies immediately.
+url: "{{baseUrl}}/api/mail/v1/autoreplies/:autoreplyId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: autoreplyId
+    value: <string>
+    description: (Required) Autoreply resource ID
+settings: {}
+examples: ./.resources/Delete autoreply.resources/examples
+order: 3000

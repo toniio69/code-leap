@@ -1,0 +1,6 @@
+$kind: collection
+name: "Hosting: Redirects"
+description: |-
+  Manage redirects for hosted websites. This category includes
+  endpoints for listing, creating, and deleting redirects.
+order: 39000

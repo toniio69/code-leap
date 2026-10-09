@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Delete an alias. Messages sent to the alias address are no longer
+  delivered to the mailbox.
+url: "{{baseUrl}}/api/mail/v1/aliases/:aliasId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: aliasId
+    value: <string>
+    description: (Required) Alias resource ID
+settings: {}
+examples: ./.resources/Delete alias.resources/examples
+order: 2000

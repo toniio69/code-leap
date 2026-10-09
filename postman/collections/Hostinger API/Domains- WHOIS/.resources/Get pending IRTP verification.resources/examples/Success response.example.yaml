@@ -1,0 +1,32 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/domains/v1/irtp/:domain"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "domain": "<string>",
+        "status": "completed",
+        "old_confirmed_at": "<dateTime>",
+        "new_confirmed_at": "<dateTime>",
+        "old_whois_profile_email": "<string>",
+        "new_whois_profile_email": "<string>",
+        "expires_at": "<dateTime>"
+      }
+order: 1000

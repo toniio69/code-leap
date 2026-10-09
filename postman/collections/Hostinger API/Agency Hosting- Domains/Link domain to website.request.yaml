@@ -1,0 +1,20 @@
+$kind: http-request
+description: Links a domain to the specified Agency Plan website so it can serve traffic for that domain.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/domains"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "domain": "<string>"
+    }
+settings: {}
+examples: ./.resources/Link domain to website.resources/examples
+order: 2000

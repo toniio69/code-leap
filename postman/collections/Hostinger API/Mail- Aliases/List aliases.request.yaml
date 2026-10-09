@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of aliases across all mailboxes of a mail
+  order.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/aliases?page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List aliases.resources/examples
+order: 3000

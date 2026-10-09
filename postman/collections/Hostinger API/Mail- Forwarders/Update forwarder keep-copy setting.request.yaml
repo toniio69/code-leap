@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Enable or disable keeping a copy of forwarded messages in the
+  mailbox.
+url: "{{baseUrl}}/api/mail/v1/forwarders/:forwarderId/keep-copy"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: forwarderId
+    value: <string>
+    description: (Required) Forwarder resource ID
+body:
+  type: json
+  content: |-
+    {
+      "is_keep_copy_enabled": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Update forwarder keep-copy setting.resources/examples
+order: 5000

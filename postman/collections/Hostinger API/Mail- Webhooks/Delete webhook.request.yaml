@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Permanently delete a webhook. This action cannot be undone. After
+  deletion the URL no longer receives event notifications.
+url: "{{baseUrl}}/api/mail/v1/webhooks/:webhookId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: webhookId
+    value: <string>
+    description: (Required) Webhook ID (returned when the webhook was created)
+settings: {}
+examples: ./.resources/Delete webhook.resources/examples
+order: 4000

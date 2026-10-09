@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Create tags in a profile.
+
+  Names that already exist in the profile are not duplicated: the existing tag is returned
+  instead, so the call is safe to repeat. Every tag in the request is returned, whether it
+  was created now or already existed.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "names": [
+        "<string>"
+      ]
+    }
+settings: {}
+examples: ./.resources/Create or find tags.resources/examples
+order: 8000

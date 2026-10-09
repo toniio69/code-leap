@@ -1,0 +1,39 @@
+$kind: http-request
+description: |-
+  Patches the selected Node.js vulnerabilities by updating the affected package versions
+  in `package.json` and opening a GitHub pull request in the connected repository. The
+  customer reviews and merges the pull request; merging triggers the automatic deployment.
+
+  Auto-fix is only available for websites deployed from a connected GitHub repository.
+  Websites deployed from an archive have no auto-fix path and return a 404. The Hostinger
+  GitHub App needs write access to the repository; without it the request fails with a
+  403 explaining the missing permission.
+
+  Only vulnerabilities with `is_patchable` set to `true` can be patched. Non-patchable
+  IDs in the selection are skipped; the pull request covers the patchable subset, listed
+  in `patched_vulnerability_ids`. Selections without any patchable vulnerability are
+  rejected with a 422. Only one patch pull request can be open at a time per website;
+  close or merge it before patching again. Available on Business and Cloud Hosting plans.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/vulnerabilities/patch"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "vulnerability_ids": [
+        "<string>"
+      ]
+    }
+settings: {}
+examples: ./.resources/Patch Node.js vulnerabilities.resources/examples
+order: 15000

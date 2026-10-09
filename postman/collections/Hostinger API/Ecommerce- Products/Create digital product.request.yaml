@@ -1,0 +1,24 @@
+$kind: http-request
+description: Create a published digital product with a single variant and an optional external download link.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/digital"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to create the product in.
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "price": "<integer>",
+      "description": "<string>",
+      "currency": "<string>",
+      "download_url": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create digital product.resources/examples
+order: 4000

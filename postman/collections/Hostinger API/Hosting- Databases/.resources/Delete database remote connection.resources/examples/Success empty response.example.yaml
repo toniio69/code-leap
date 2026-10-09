@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/remote-connections?ip=<string>"
+  method: DELETE
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: ip
+      value: <string>
+      description: |-
+        (Required) Remote host to revoke: the IPv4/IPv6 address, or "%",
+        exactly as returned by the list remote connections endpoint.
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: name
+      value: <string>
+      description: (Required) Full database name as returned by the list databases endpoint.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>"
+      }
+order: 1000

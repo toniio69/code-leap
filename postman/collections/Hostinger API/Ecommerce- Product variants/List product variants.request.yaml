@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  List a product's variants, ordered by rank, with their options, prices and inventory.
+  Prices are integers in the smallest currency unit and live on variants.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id/variants?page=<integer>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the product.
+  - key: product_id
+    value: <string>
+    description: (Required) The ID of the product to list variants for.
+settings: {}
+examples: ./.resources/List product variants.resources/examples
+order: 3000

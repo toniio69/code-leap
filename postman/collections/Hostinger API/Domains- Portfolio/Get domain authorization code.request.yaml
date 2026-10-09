@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Retrieve the authorization (EPP) code for a specified domain so it can be transferred
+  away from Hostinger to another registrar.
+
+  Requesting a new code invalidates any code retrieved previously.
+
+  Use this endpoint to obtain the code required to transfer a domain to another registrar.
+url: "{{baseUrl}}/api/domains/v1/portfolio/:domain/auth-code"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get domain authorization code.resources/examples
+order: 1000

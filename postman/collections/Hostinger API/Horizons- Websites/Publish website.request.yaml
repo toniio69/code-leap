@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Publish a Hostinger Horizons website so its latest changes go live.\n
+  Use this tool when the user asks to publish, deploy or make their website live.\n
+  This tool starts the publish process and returns the URL the website will be live on.
+  Publishing happens asynchronously and takes a few minutes.\n
+  After invoking this tool, your chat reply must be EXACTLY 1 sentence summarizing
+  that the website is being published and you should provide the published URL to the user immediately.
+url: "{{baseUrl}}/api/horizons/v1/websites/:websiteId/publish"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: websiteId
+    value: <string>
+    description: (Required) The website ID
+settings: {}
+examples: ./.resources/Publish website.resources/examples
+order: 5000

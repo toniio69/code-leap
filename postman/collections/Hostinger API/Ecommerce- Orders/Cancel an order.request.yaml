@@ -1,0 +1,23 @@
+$kind: http-request
+description: Cancel the order and optionally email the customer. Returns the updated order summary.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/orders/:order_id/cancel"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the order.
+  - key: order_id
+    value: <string>
+    description: (Required) The ID of the order to cancel.
+body:
+  type: json
+  content: |-
+    {
+      "notify_customer": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Cancel an order.resources/examples
+order: 1000

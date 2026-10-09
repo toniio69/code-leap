@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Returns the current status of an Agency Plan website setup started via the setups
+  endpoint.
+
+  Poll this endpoint using the `setup_uuid` returned from the provisioning request until
+  `status` becomes `completed`, at which point `website_uid` identifies the new website.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/websites/setups/:setup_uuid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+  - key: setup_uuid
+    value: <uuid>
+    description: (Required) Website setup UUID
+settings: {}
+examples: ./.resources/Get website setup status.resources/examples
+order: 2000

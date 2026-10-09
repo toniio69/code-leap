@@ -1,0 +1,48 @@
+$kind: http-example
+name: Payment is being processed, the order will complete asynchronously
+request:
+  url: "{{baseUrl}}/api/billing/v1/orders"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "item_id": "<string>",
+            "quantity": 1
+          },
+          {
+            "item_id": "<string>",
+            "quantity": 1
+          }
+        ],
+        "payment_method_id": "<integer>",
+        "coupons": [
+          "",
+          ""
+        ]
+      }
+response:
+  statusCode: 202
+  statusText: Accepted
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "<integer>",
+        "subscription_id": "<string>",
+        "status": "payment_initiated",
+        "message": "<string>"
+      }
+order: 2000

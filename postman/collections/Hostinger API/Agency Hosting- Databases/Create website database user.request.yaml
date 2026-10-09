@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Creates a user for an existing database on an Agency Plan website.
+
+  Each database supports a single non-system user; creating a user for a database that already has one fails.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases/:database_name/users"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: database_name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+body:
+  type: json
+  content: |-
+    {
+      "database_user": "<string>",
+      "password": "<string>",
+      "host": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create website database user.resources/examples
+order: 4000

@@ -1,0 +1,8 @@
+$kind: collection
+name: "Mail: Forwarders"
+description: |-
+  Manage forwarders of your mailboxes. This category includes endpoints
+  for creating, listing, and deleting forwarders that redirect incoming
+  messages to another email address. The destination address must
+  confirm the forwarding before it becomes active.
+order: 23000

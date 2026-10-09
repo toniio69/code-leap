@@ -1,0 +1,84 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/orders?status=canceled&payment_status=not_required&fulfillment_status=canceled&email=<string>&display_id=<string>&q=<string>&created_at_from=<string>&created_at_to=<string>&page=<integer>"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: status
+      value: canceled
+      description: Order statuses to include.
+    - key: payment_status
+      value: not_required
+      description: Payment statuses to include. A paid order is "captured".
+    - key: fulfillment_status
+      value: canceled
+      description: Fulfilment statuses to include.
+    - key: email
+      value: <string>
+      description: Customer email, matched exactly.
+    - key: display_id
+      value: <string>
+      description: The order number the merchant and customer see.
+    - key: q
+      value: <string>
+      description: Free-text search over customer name, email, order number and line items.
+    - key: created_at_from
+      value: <string>
+      description: Earliest creation time to include, inclusive. Accepts a date or ISO date-time (UTC).
+    - key: created_at_to
+      value: <string>
+      description: Latest creation time to include, inclusive. A bare date covers that whole day.
+    - key: page
+      value: <integer>
+      description: Page number
+  pathVariables:
+    - key: store_id
+      value: <string>
+      description: (Required) The ID of the store to list orders for.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "<string>",
+            "display_id": "<integer>",
+            "status": "<string>",
+            "payment_status": "<string>",
+            "fulfillment_status": "<string>",
+            "total": "<integer>",
+            "currency_code": "<string>",
+            "customer_email": "<string>",
+            "item_count": "<integer>",
+            "created_at": "<dateTime>"
+          },
+          {
+            "id": "<string>",
+            "display_id": "<integer>",
+            "status": "<string>",
+            "payment_status": "<string>",
+            "fulfillment_status": "<string>",
+            "total": "<integer>",
+            "currency_code": "<string>",
+            "customer_email": "<string>",
+            "item_count": "<integer>",
+            "created_at": "<dateTime>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

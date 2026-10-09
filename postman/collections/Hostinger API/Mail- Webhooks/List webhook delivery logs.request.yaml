@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of webhook delivery logs for the given mail
+  order, including delivery outcome, duration, and retry counts.
+  Supports filtering by mailbox.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/webhooks/delivery-logs?mailbox_id=<string>&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: mailbox_id
+    value: <string>
+    description: Filter by the mailbox resource ID the webhooks are attached to
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List webhook delivery logs.resources/examples
+order: 2000

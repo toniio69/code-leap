@@ -133,6 +133,8 @@
                 </div>
 
                 <div class="ml-auto flex items-center gap-3">
+                    <x-theme-toggle />
+
                     <a href="{{ route('courses.index') }}" class="hidden sm:inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">
                         Live Courses
                     </a>

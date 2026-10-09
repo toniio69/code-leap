@@ -1,0 +1,7 @@
+$kind: collection
+name: "Mail: Catchalls"
+description: |-
+  Manage catch-alls of your domains. A catch-all routes all messages
+  sent to unknown addresses of a domain to a designated mailbox. The
+  mailbox address must confirm the catch-all before it becomes active.
+order: 24000

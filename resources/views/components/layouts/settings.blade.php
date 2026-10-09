@@ -1,4 +1,4 @@
-<x-components.layouts.app>
+<x-layouts.app>
     <x-slot name="heading">
         <flux:heading>{{ __('Settings') }}</flux:heading>
     </x-slot>
@@ -30,7 +30,7 @@
                     wire:navigate.hover
                     class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('appearance.edit') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground' }}"
                 >
-                    <flux:icon.palette class="size-4" />
+                    <flux:icon.swatch class="size-4" />
                     {{ __('Appearance') }}
                 </a>
 
@@ -40,7 +40,7 @@
                         wire:navigate.hover
                         class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('instructor.certificates*') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground' }}"
                     >
-                        <flux:icon.award class="size-4" />
+                        <flux:icon.academic-cap class="size-4" />
                         {{ __('Certificates') }}
                     </a>
                 @endif
@@ -52,7 +52,7 @@
                         wire:navigate.hover
                         class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground"
                     >
-                        <flux:icon.layout-dashboard class="size-4" />
+                        <flux:icon.squares-2x2 class="size-4" />
                         {{ __('Admin Dashboard') }}
                     </a>
                 @endif
@@ -96,13 +96,12 @@
                 <div class="rounded-xl border bg-card p-6">
                     <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
                         <div class="relative shrink-0">
-                            <flux:avatar class="size-20">
-                                <flux:avatar.image
-                                    :src="auth()->user()->profile_photo_url ?? null"
-                                    :alt="auth()->user()->name"
-                                />
-                                <flux:avatar.fallback>{{ auth()->user()->initials() }}</flux:avatar.fallback>
-                            </flux:avatar>
+                            <flux:avatar
+                                class="size-20"
+                                size="xl"
+                                :src="auth()->user()->profile_photo_url ?? null"
+                                :name="auth()->user()->name"
+                            />
 
                             <label
                                 for="profile-photo-upload"
@@ -137,7 +136,7 @@
                                     </flux:badge>
                                 @else
                                     <flux:badge variant="outline" class="text-yellow-600 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800">
-                                        <flux:icon.alert-circle class="size-3 mr-1" /> {{ __('Unverified') }}
+                                        <flux:icon.exclamation-circle class="size-3 mr-1" /> {{ __('Unverified') }}
                                     </flux:badge>
                                 @endif
                             </div>
@@ -152,4 +151,4 @@
             </div>
         </main>
     </div>
-</x-components.layouts.app>
+</x-layouts.app>

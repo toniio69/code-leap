@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid"
+  method: DELETE
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+    - key: tagUuid
+      value: <uuid>
+      description: (Required) Tag uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>"
+      }
+order: 1000

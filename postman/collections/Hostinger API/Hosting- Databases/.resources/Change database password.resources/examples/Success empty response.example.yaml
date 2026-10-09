@@ -1,0 +1,37 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/change-password"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: name
+      value: <string>
+      description: (Required) Full database name as returned by the list databases endpoint.
+  body:
+    type: json
+    content: |-
+      {
+        "password": "<string>"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>"
+      }
+order: 1000

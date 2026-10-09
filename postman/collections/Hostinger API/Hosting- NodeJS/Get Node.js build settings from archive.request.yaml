@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Auto-detect Node.js build settings from a package.json inside an archive already on the server.
+
+  Use this before calling `Start Node.js Build` to preview what settings will be used,
+  or to let the user review and override values (framework, node version, root directory,
+  output directory, build script) before committing to a build.
+
+  The archive must already be present on the website's file storage. Use the
+  `Generate Upload URL` endpoint to obtain credentials and upload the archive first.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/settings/from-archive?archive_path=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: archive_path
+    value: <string>
+    description: (Required) The path to the archive file relative to the document root of the vhost
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get Node.js build settings from archive.resources/examples
+order: 5000

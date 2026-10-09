@@ -32,7 +32,7 @@ class CertificateController extends Controller
             ->latest()
             ->get();
 
-        return view('Instructor.certificates.index', compact('courses', 'pendingCertificates', 'issuedCertificates'));
+        return view('instructor.certificates.index', compact('courses', 'pendingCertificates', 'issuedCertificates'));
     }
 
     public function issue(Request $request, Certificate $certificate): RedirectResponse

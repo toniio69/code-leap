@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Define a new custom contact field in a profile.
+
+  The `slug` is derived from the label and, like the field type, cannot be changed later.
+  Use the returned uuid to set values on contacts.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/fields"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "type": "multi_choice",
+      "label": "<string>",
+      "options": [
+        "<string>"
+      ]
+    }
+settings: {}
+examples: ./.resources/Create a contact field.resources/examples
+order: 4000

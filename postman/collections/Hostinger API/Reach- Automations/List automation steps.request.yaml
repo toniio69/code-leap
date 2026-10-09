@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Get the workflow of an automation as a flat list of steps.
+
+  The steps form a tree rather than a straight line: follow `parent_uuid` to reconstruct the
+  branches, and use `step_order` to order the steps that share a parent. An automation with no
+  steps yet returns an empty list.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/automations/:automationUuid/steps"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: automationUuid
+    value: <string>
+    description: (Required) Automation uuid parameter
+settings: {}
+examples: ./.resources/List automation steps.resources/examples
+order: 3000

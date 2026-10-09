@@ -1,0 +1,34 @@
+$kind: http-request
+description: |-
+  Get a paginated list of contacts belonging to a profile.
+
+  Contacts can be filtered by subscription status, by tag, and by an email search term.
+  The `meta.total` field of the response is the number of contacts matching the filters,
+  so calling this endpoint without filters gives the profile's total contact count.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts?subscription_status=unsubscribed&tag_uuid=<uuid>&search=<string>&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: subscription_status
+    value: unsubscribed
+    description: Filter contacts by subscription status (This can only be one of subscribed,unsubscribed,confirmed,pending)
+  - key: tag_uuid
+    value: <uuid>
+    description: Filter contacts by tag UUID
+  - key: search
+    value: <string>
+    description: Search contacts by email
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List profile contacts.resources/examples
+order: 9000

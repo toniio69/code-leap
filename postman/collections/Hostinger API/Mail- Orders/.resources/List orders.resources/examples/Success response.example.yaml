@@ -1,0 +1,81 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders?domain=<string>&status=pending_setup&is_trial=<boolean>&sort=-created_at&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: domain
+      value: <string>
+      description: Filter orders by domain name (exact match)
+    - key: status
+      value: pending_setup
+      description: Filter orders by status (This can only be one of pending_setup,active,suspended)
+    - key: is_trial
+      value: <boolean>
+      description: Filter orders by trial state
+    - key: sort
+      value: -created_at
+      description: Sort orders by field. Prefix with `-` for descending order. (This can only be one of created_at,-created_at,expires_at,-expires_at)
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "<string>",
+            "status": "suspended",
+            "is_trial": "<boolean>",
+            "seats": "<integer>",
+            "domain": {
+              "id": "<string>",
+              "name": "<string>"
+            },
+            "plan": {
+              "name": "<string>",
+              "title": "<string>"
+            },
+            "has_pending_upgrade": "<boolean>",
+            "created_at": "<dateTime>",
+            "expires_at": "<dateTime>"
+          },
+          {
+            "id": "<string>",
+            "status": "pending_setup",
+            "is_trial": "<boolean>",
+            "seats": "<integer>",
+            "domain": {
+              "id": "<string>",
+              "name": "<string>"
+            },
+            "plan": {
+              "name": "<string>",
+              "title": "<string>"
+            },
+            "has_pending_upgrade": "<boolean>",
+            "created_at": "<dateTime>",
+            "expires_at": "<dateTime>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Returns the full phpinfo page (HTML) for the website.
+
+  Use it to debug PHP issues or inspect the complete PHP environment of the website.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/php-info"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get PHP info.resources/examples
+order: 3000

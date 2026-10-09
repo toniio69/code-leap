@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  List WordPress installations accessible to the authenticated client.
+
+  Use this endpoint to discover existing WordPress installations and to poll
+  for installation status after calling the install endpoint. When a newly
+  requested installation appears in this list, WordPress is ready. Filter by
+  username and domain to narrow results to a specific website.
+
+  Each installation includes a `valid` flag and, when invalid, a
+  `validationError` describing why.
+url: "{{baseUrl}}/api/hosting/v1/wordpress/installations?username=<string>&domain=<string>&ownership=owned"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: username
+    value: <string>
+    description: Filter by specific username
+  - key: domain
+    value: <string>
+    description: Filter by domain name (case-insensitive substring match)
+  - key: ownership
+    value: owned
+    description: Filter by ownership type. Defaults to "owned". Use "all" to include both owned and managed installations. (This can only be one of owned,managed,all)
+settings: {}
+examples: ./.resources/List WordPress installations.resources/examples
+order: 6000

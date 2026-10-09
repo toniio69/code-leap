@@ -1,0 +1,23 @@
+$kind: http-request
+description: Returns a paginated list of redirects configured for the selected website.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/redirects?page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/List website redirects.resources/examples
+order: 1000

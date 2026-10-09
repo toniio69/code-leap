@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Lists active and recently completed asynchronous processes for an Agency Plan website.
+
+  Each process has a unique ID (for tracking), a type, and a status (running, completed, failed).
+  Poll this endpoint after initiating async operations (SSL setup, backups, cloning) to track progress.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/processes"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List website processes.resources/examples
+order: 5000

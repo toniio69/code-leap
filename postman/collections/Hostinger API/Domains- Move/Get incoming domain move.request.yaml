@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Retrieve the incoming move for a specified domain.
+
+  Returns 404 when no account is moving this domain to you.
+
+  Use this endpoint to check whether a domain addressed to you is still waiting to be accepted.
+url: "{{baseUrl}}/api/domains/v1/move/incoming/:domain?force_sync=false"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: force_sync
+    value: "false"
+    description: Re-check the move against the registry before responding. Only has an effect while the move is in the `activating` status.
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get incoming domain move.resources/examples
+order: 1000

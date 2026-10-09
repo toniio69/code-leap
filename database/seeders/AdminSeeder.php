@@ -12,16 +12,16 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $role = Role::firstOrCreate([
-            'name' => 'admin',
+            'name' => config('admin.role'),
             'guard_name' => 'web',
         ]);
 
         $user = User::updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@codeleap.test')],
+            ['email' => config('admin.email')],
             [
-                'name' => env('ADMIN_NAME', 'CodeLeap Admin'),
-                'password' => Hash::make(env('ADMIN_PASSWORD', '1234')),
-                'role' => 'admin',
+                'name' => config('admin.name'),
+                'password' => Hash::make(config('admin.password')),
+                'role' => config('admin.role'),
                 'email_verified_at' => now(),
             ],
         );

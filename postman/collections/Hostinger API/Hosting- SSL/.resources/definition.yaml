@@ -1,0 +1,4 @@
+$kind: collection
+name: "Hosting: SSL"
+description: "Hosting: SSL"
+order: 40000

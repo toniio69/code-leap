@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Create an automatic reply for the given mailbox. A mailbox can have
+  only one autoreply. Omit `starts_at` to activate the autoreply
+  immediately and omit `ends_at` to keep it active indefinitely.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/autoreplies"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+body:
+  type: json
+  content: |-
+    {
+      "subject": "<string>",
+      "body": "<string>",
+      "display_name": "<string>",
+      "starts_at": "<dateTime>",
+      "ends_at": "<dateTime>"
+    }
+settings: {}
+examples: ./.resources/Create autoreply.resources/examples
+order: 1000

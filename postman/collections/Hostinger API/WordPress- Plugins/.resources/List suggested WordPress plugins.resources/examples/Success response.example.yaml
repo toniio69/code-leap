@@ -1,0 +1,87 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/wordpress/plugins/suggested?order_id=<integer>"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: order_id
+      value: <integer>
+      description: Optionally scope suggestions to a specific order.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "website_type": "default",
+          "plugins": [
+            {
+              "slug": "<string>",
+              "title": "<string>",
+              "description": "<string>",
+              "onboarding_description_slug": "<string>",
+              "recommended_description_slug": "<string>",
+              "link": "<string>",
+              "version": "<string>",
+              "required_wordpress_version": "<string>",
+              "required_php_version": "<string>",
+              "is_preselected": "<boolean>",
+              "is_plan_upgrade_needed": "<boolean>"
+            },
+            {
+              "slug": "<string>",
+              "title": "<string>",
+              "description": "<string>",
+              "onboarding_description_slug": "<string>",
+              "recommended_description_slug": "<string>",
+              "link": "<string>",
+              "version": "<string>",
+              "required_wordpress_version": "<string>",
+              "required_php_version": "<string>",
+              "is_preselected": "<boolean>",
+              "is_plan_upgrade_needed": "<boolean>"
+            }
+          ]
+        },
+        {
+          "website_type": "affiliate-marketing",
+          "plugins": [
+            {
+              "slug": "<string>",
+              "title": "<string>",
+              "description": "<string>",
+              "onboarding_description_slug": "<string>",
+              "recommended_description_slug": "<string>",
+              "link": "<string>",
+              "version": "<string>",
+              "required_wordpress_version": "<string>",
+              "required_php_version": "<string>",
+              "is_preselected": "<boolean>",
+              "is_plan_upgrade_needed": "<boolean>"
+            },
+            {
+              "slug": "<string>",
+              "title": "<string>",
+              "description": "<string>",
+              "onboarding_description_slug": "<string>",
+              "recommended_description_slug": "<string>",
+              "link": "<string>",
+              "version": "<string>",
+              "required_wordpress_version": "<string>",
+              "required_php_version": "<string>",
+              "is_preselected": "<boolean>",
+              "is_plan_upgrade_needed": "<boolean>"
+            }
+          ]
+        }
+      ]
+order: 1000

@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Assign a tag to many contacts at once.
+
+  Pass `contact_uuids` to target specific contacts, or `all_contacts` to target every contact
+  in the profile. The work is queued, so a success response means it was accepted rather than
+  finished. Contacts that already carry the tag are left alone.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid/contacts"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "contact_uuids": [
+        "<string>",
+        "<string>"
+      ],
+      "all_contacts": false
+    }
+settings: {}
+examples: ./.resources/Assign contacts to a tag.resources/examples
+order: 3000

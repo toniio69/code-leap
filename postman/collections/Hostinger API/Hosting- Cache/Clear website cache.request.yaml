@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Permanently clears all server-side cache for the website at once. Use it when content was
+  updated and needs to be visible immediately, or after making major changes.
+
+  Also purges the Hostinger CDN cache when CDN is enabled on the website. For a WordPress
+  installation living in a subdirectory, pass the directory query parameter to clear its cache.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/cache/clear?directory=<string>"
+method: DELETE
+headers:
+  Accept: application/json
+queryParams:
+  - key: directory
+    value: <string>
+    description: |-
+      Directory of the website installation to clear, relative to the website root.
+      Defaults to the website root.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Clear website cache.resources/examples
+order: 1000

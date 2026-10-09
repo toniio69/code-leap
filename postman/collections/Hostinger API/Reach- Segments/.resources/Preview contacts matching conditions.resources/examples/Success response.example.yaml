@@ -1,0 +1,76 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/filters/contacts"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+  body:
+    type: json
+    content: |-
+      {
+        "conditions": [
+          {
+            "attribute": "<string>",
+            "operator": "not_equals",
+            "value": "<string>"
+          }
+        ],
+        "logic": "AND",
+        "page": "<integer>",
+        "per_page": "<integer>",
+        "search": "<string>",
+        "sort_by": "email",
+        "sort_direction": "asc"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "uuid": "<string>",
+            "name": "<string>",
+            "surname": "<string>",
+            "email": "<string>",
+            "phone": "<string>",
+            "subscription_status": "confirmed",
+            "subscribed_at": "<dateTime>",
+            "unsubscribed_at": "<dateTime>",
+            "source": "horizons",
+            "note": "<string>"
+          },
+          {
+            "uuid": "<string>",
+            "name": "<string>",
+            "surname": "<string>",
+            "email": "<string>",
+            "phone": "<string>",
+            "subscription_status": "pending",
+            "subscribed_at": "<dateTime>",
+            "unsubscribed_at": "<dateTime>",
+            "source": "import",
+            "note": "<string>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

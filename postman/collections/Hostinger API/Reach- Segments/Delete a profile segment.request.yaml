@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Delete a segment.
+
+  Only the segment definition is removed. The contacts that matched it are left untouched.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments/:segmentUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: segmentUuid
+    value: <string>
+    description: (Required) Segment uuid parameter
+settings: {}
+examples: ./.resources/Delete a profile segment.resources/examples
+order: 7000

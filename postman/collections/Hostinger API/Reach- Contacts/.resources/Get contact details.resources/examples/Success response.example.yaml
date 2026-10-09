@@ -1,0 +1,102 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/:contactUuid"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+    - key: contactUuid
+      value: <uuid>
+      description: (Required) Contact uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uuid": "<string>",
+        "email": "<string>",
+        "name": "<string>",
+        "surname": "<string>",
+        "phone": "<string>",
+        "subscription_status": "pending",
+        "subscribed_at": "<dateTime>",
+        "unsubscribed_at": "<dateTime>",
+        "created_at": "<dateTime>",
+        "domain": "<string>",
+        "source": "form",
+        "note": "<string>",
+        "tags": [
+          {
+            "uuid": "<string>",
+            "type": "form",
+            "value": "<string>",
+            "created_at": "<dateTime>"
+          },
+          {
+            "uuid": "<string>",
+            "type": "custom",
+            "value": "<string>",
+            "created_at": "<dateTime>"
+          }
+        ],
+        "fields": [
+          {
+            "uuid": "<string>",
+            "type": "number",
+            "label": "<string>",
+            "slug": "<string>",
+            "value": "<string>",
+            "selected_option_uuids": [
+              "<string>",
+              "<string>"
+            ],
+            "options": [
+              {
+                "uuid": "<string>",
+                "label": "<string>",
+                "sort_order": "<integer>"
+              },
+              {
+                "uuid": "<string>",
+                "label": "<string>",
+                "sort_order": "<integer>"
+              }
+            ]
+          },
+          {
+            "uuid": "<string>",
+            "type": "number",
+            "label": "<string>",
+            "slug": "<string>",
+            "value": "<string>",
+            "selected_option_uuids": [
+              "<string>",
+              "<string>"
+            ],
+            "options": [
+              {
+                "uuid": "<string>",
+                "label": "<string>",
+                "sort_order": "<integer>"
+              },
+              {
+                "uuid": "<string>",
+                "label": "<string>",
+                "sort_order": "<integer>"
+              }
+            ]
+          }
+        ]
+      }
+order: 1000

@@ -1,0 +1,7 @@
+$kind: collection
+name: "Mail: Webhooks"
+description: |-
+  Manage webhooks of your mailboxes. This category includes endpoints
+  for creating webhooks that notify your systems about mailbox events
+  such as received messages.
+order: 25000

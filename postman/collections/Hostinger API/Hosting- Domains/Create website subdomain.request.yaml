@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Create a new subdomain for the selected website.
+
+  Provide a subdomain prefix and, optionally, a custom directory or the
+  website public directory to use as the subdomain root.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/subdomains"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "subdomain": "<string>",
+      "directory": "<string>",
+      "is_using_public_directory": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Create website subdomain.resources/examples
+order: 6000

@@ -1,0 +1,40 @@
+$kind: http-request
+description: |-
+  Claim a free domain available on your account and register it.
+
+  Unlike purchasing a domain, this consumes a free domain you already have,
+  so no payment method is required.
+
+  A successful response means the domain is registered. If registration fails, login to
+  [hPanel](https://hpanel.hostinger.com/) and check domain registration status.
+
+  If no WHOIS information is provided, default contact information for that TLD will be used.
+  Before making request, ensure WHOIS information for desired TLD exists in your account.
+
+  Some TLDs require `additional_details` to be provided and these will be validated before claiming.
+
+  Requests which cannot be fulfilled are rejected with an error code in the response body,
+  for example `2037` when no free domain is available.
+
+  Use this endpoint to register a domain using a free domain from your account.
+url: "{{baseUrl}}/api/domains/v1/portfolio/claim"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "domain": "<string>",
+      "domain_contacts": {
+        "owner_id": "<integer>",
+        "admin_id": "<integer>",
+        "billing_id": "<integer>",
+        "tech_id": "<integer>"
+      },
+      "additional_details": {}
+    }
+settings: {}
+examples: ./.resources/Claim free domain.resources/examples
+order: 2000

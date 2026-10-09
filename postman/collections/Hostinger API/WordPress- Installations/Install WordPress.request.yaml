@@ -1,0 +1,51 @@
+$kind: http-request
+description: |-
+  Install WordPress on an existing website.
+
+  The website must already exist before calling this endpoint. To create a new
+  website first, use POST /api/hosting/v1/websites and poll
+  GET /api/hosting/v1/websites until it appears.
+
+  Call GET /api/hosting/v1/wordpress/installations filtered by username and
+  domain before proceeding to check whether WordPress is already installed on
+  the target domain/path. If WordPress already exists and `overwrite` is false
+  (the default), the async job will fail.
+
+  This operation is asynchronous: a successful response only means the install
+  job has been queued, not that WordPress is ready. Installation typically
+  takes 1-2 minutes. Poll GET /api/hosting/v1/wordpress/installations filtered
+  by username and domain to track progress. When the installation appears in
+  that list, WordPress is ready.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/installations"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+body:
+  type: json
+  content: |-
+    {
+      "domain": "<string>",
+      "site_title": "<string>",
+      "credentials": {
+        "email": "<string>",
+        "login": "<string>",
+        "password": "<string>"
+      },
+      "language": "<string>",
+      "directory": "<string>",
+      "overwrite": "<boolean>",
+      "auto_updates": "none",
+      "version": "<string>",
+      "database": {
+        "name": "<string>",
+        "password": "<string>"
+      }
+    }
+settings: {}
+examples: ./.resources/Install WordPress.resources/examples
+order: 5000

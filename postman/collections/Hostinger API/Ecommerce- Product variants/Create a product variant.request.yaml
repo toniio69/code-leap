@@ -1,0 +1,43 @@
+$kind: http-request
+description: |-
+  Add a variant to a product along one or more option dimensions (e.g. Size, Color). Options
+  missing from the product are created automatically; provide a value for every option the
+  product already has. Prices are integers in the smallest currency unit and default to the
+  store currency. Returns the created variant.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id/variants"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the product.
+  - key: product_id
+    value: <string>
+    description: (Required) The ID of the product to add the variant to.
+body:
+  type: json
+  content: |-
+    {
+      "options": [
+        {
+          "name": "<string>",
+          "value": "<string>"
+        }
+      ],
+      "title": "<string>",
+      "sku": "<string>",
+      "prices": [
+        {
+          "amount": "<integer>",
+          "sale_amount": "<integer>",
+          "currency": "<string>"
+        }
+      ],
+      "inventory_quantity": "<integer>",
+      "manage_inventory": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Create a product variant.resources/examples
+order: 4000

@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  List WordPress themes available to install.
+
+  Use the returned `slug` values with
+  POST /api/hosting/v1/accounts/{username}/wordpress/{software}/themes/install.
+url: "{{baseUrl}}/api/hosting/v1/wordpress/themes?order_id=<integer>&search=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: order_id
+    value: <integer>
+    description: Optionally scope themes to a specific order.
+  - key: search
+    value: <string>
+    description: Search term to match against theme names.
+settings: {}
+examples: ./.resources/List WordPress themes.resources/examples
+order: 5000

@@ -1,0 +1,7 @@
+$kind: collection
+name: "Ecommerce: Payments"
+description: |-
+  Manage payment methods for your online store. This category
+  includes endpoints for enabling payment options such as manual
+  (cash on delivery) payment at checkout.
+order: 100000

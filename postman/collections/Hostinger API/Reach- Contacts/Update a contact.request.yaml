@@ -1,0 +1,53 @@
+$kind: http-request
+description: |-
+  Update a contact's attributes and custom field values.
+
+  Only the properties present in the request body are changed, so a partial body is enough
+  to change a single attribute. Sending a property as `null` clears it.
+
+  The response carries the contact's core attributes. Read back its tags, custom field
+  values, source and note with `GET /api/reach/v1/profiles/{profileUuid}/contacts/{contactUuid}`.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/:contactUuid"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: contactUuid
+    value: <uuid>
+    description: (Required) Contact uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "email": "<string>",
+      "name": "<string>",
+      "surname": "<string>",
+      "phone": "<string>",
+      "subscription_status": "pending",
+      "note": "<string>",
+      "fields": [
+        {
+          "uuid": "<string>",
+          "value": "<string>",
+          "selected_option_uuids": [
+            "<string>",
+            "<string>"
+          ]
+        },
+        {
+          "uuid": "<string>",
+          "value": "<string>",
+          "selected_option_uuids": [
+            "<string>",
+            "<string>"
+          ]
+        }
+      ]
+    }
+settings: {}
+examples: ./.resources/Update a contact.resources/examples
+order: 7000

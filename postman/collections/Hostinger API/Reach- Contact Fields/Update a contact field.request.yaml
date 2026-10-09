@@ -1,0 +1,38 @@
+$kind: http-request
+description: |-
+  Rename a custom contact field and, for the choice types, replace its option set.
+
+  Options carrying a uuid are kept and relabelled, options without one are created, and any
+  existing option left out of the list is deleted along with the values contacts hold for
+  it. The field type and slug cannot be changed.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/fields/:fieldUuid"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: fieldUuid
+    value: <uuid>
+    description: (Required) Contact field uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "label": "<string>",
+      "options": [
+        {
+          "label": "<string>",
+          "uuid": "<string>"
+        },
+        {
+          "label": "<string>",
+          "uuid": "<string>"
+        }
+      ]
+    }
+settings: {}
+examples: ./.resources/Update a contact field.resources/examples
+order: 2000

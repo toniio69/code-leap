@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  List every attribute a segment condition can filter on, with the operators each attribute
+  accepts, the value format they expect and, where the value is constrained, the allowed
+  values.
+
+  The list is profile specific: it includes the profile's custom contact fields, its tags and
+  its 20 most recently published campaigns, so the valid attributes cannot be hardcoded. Read
+  it before creating or updating a segment to discover the valid `attribute`, `operator` and
+  `value` combinations.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/filters/attributes"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List segment filter attributes.resources/examples
+order: 8000

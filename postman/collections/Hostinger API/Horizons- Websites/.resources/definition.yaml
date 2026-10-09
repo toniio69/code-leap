@@ -1,0 +1,8 @@
+$kind: collection
+name: "Horizons: Websites"
+description: |-
+  Create and access Hostinger Horizons websites. This category
+  includes endpoints for creating new AI-generated websites from
+  a text prompt and retrieving links to edit existing websites
+  in the Hostinger Horizons interface.
+order: 67000

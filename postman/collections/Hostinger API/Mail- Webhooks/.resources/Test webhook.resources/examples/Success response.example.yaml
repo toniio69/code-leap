@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/webhooks/:webhookId/test"
+  method: POST
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: webhookId
+      value: <string>
+      description: (Required) Webhook ID (returned when the webhook was created)
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "http_status": "<integer>",
+        "is_successful": "<boolean>",
+        "error": "<string>"
+      }
+order: 1000

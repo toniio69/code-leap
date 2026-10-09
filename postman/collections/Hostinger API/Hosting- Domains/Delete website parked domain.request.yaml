@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Delete an existing parked or alias domain from the selected website.
+
+  Use this endpoint to remove parked domains that are no longer needed.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/parked-domains/:parkedDomain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+  - key: parkedDomain
+    value: <string>
+    description: "(Required) "
+settings: {}
+examples: ./.resources/Delete website parked domain.resources/examples
+order: 4000

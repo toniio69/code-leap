@@ -1,0 +1,99 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/mailboxes?search=<string>&sort=address&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: search
+      value: <string>
+      description: Filter mailboxes whose email address contains the given string
+    - key: sort
+      value: address
+      description: Sort mailboxes by field. Prefix with `-` for descending order. (This can only be one of address,-address)
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "<string>",
+            "address": "<string>",
+            "status": "suspended",
+            "status_reason": "<string>",
+            "protocols": {
+              "is_imap_enabled": "<boolean>",
+              "is_pop3_enabled": "<boolean>",
+              "is_smtp_in_enabled": "<boolean>",
+              "is_smtp_out_enabled": "<boolean>"
+            },
+            "counts": {
+              "forwarders": "<integer>",
+              "aliases": "<integer>",
+              "autoreplies": "<integer>"
+            },
+            "is_catchall": "<boolean>",
+            "usage": {
+              "storage_used": "<integer>",
+              "storage_quota": "<integer>",
+              "messages_used": "<integer>",
+              "messages_quota": "<integer>",
+              "synced_at": "<dateTime>"
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          },
+          {
+            "id": "<string>",
+            "address": "<string>",
+            "status": "suspended",
+            "status_reason": "<string>",
+            "protocols": {
+              "is_imap_enabled": "<boolean>",
+              "is_pop3_enabled": "<boolean>",
+              "is_smtp_in_enabled": "<boolean>",
+              "is_smtp_out_enabled": "<boolean>"
+            },
+            "counts": {
+              "forwarders": "<integer>",
+              "aliases": "<integer>",
+              "autoreplies": "<integer>"
+            },
+            "is_catchall": "<boolean>",
+            "usage": {
+              "storage_used": "<integer>",
+              "storage_quota": "<integer>",
+              "messages_used": "<integer>",
+              "messages_quota": "<integer>",
+              "synced_at": "<dateTime>"
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

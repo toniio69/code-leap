@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Permanently deletes a database and its remote connections.
+
+  The database name must be the full name returned by the list databases endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+settings: {}
+examples: ./.resources/Delete account database.resources/examples
+order: 4000

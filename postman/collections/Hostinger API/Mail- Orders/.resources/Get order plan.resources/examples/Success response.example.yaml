@@ -1,0 +1,46 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/plan"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "<string>",
+        "title": "<string>",
+        "domain": {
+          "mailbox_quota": "<integer>",
+          "forwarder_quota": "<integer>",
+          "alias_quota": "<integer>",
+          "is_catchall_enabled": "<boolean>",
+          "is_imap_enabled": "<boolean>",
+          "is_pop3_enabled": "<boolean>"
+        },
+        "mailbox": {
+          "storage_quota": "<integer>",
+          "messages_quota": "<integer>",
+          "forwarder_quota": "<integer>",
+          "alias_quota": "<integer>",
+          "max_outbound_message_size": "<integer>",
+          "max_outbound_attachment_size": "<integer>",
+          "max_outbound_recipient_limit": "<integer>",
+          "rate_limit_inbound": "<string>",
+          "rate_limit_outbound": "<string>"
+        }
+      }
+order: 1000

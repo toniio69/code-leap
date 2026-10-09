@@ -1,0 +1,46 @@
+$kind: http-request
+description: |-
+  Replaces the website's Node.js environment variables with the ones provided. This is a
+  full replace: any variable not in the request is deleted, and sending an empty `env_vars`
+  array deletes every variable. Saving writes the values and restarts the running Node.js
+  process.
+
+  A restart is enough for apps that read environment variables at process start, such as
+  Express or NestJS. It is not enough for frameworks that bake variables into the build.
+  Next.js standalone is one of those: build-time values (including `NEXT_PUBLIC_*`) need a
+  fresh build. After this call, use the `Start Node.js build` endpoint so those apps
+  pick up the new values.
+
+  The `List Node.js environment variables` endpoint returns masked values (`********`), so
+  never copy values from it into this request. Always send the full desired set with real
+  values taken from the project `.env` file or the user prompt.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/settings/env"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "env_vars": [
+        {
+          "key": "S9CCZHFB3Z",
+          "value": "<string>"
+        },
+        {
+          "key": "NIZSC",
+          "value": "<string>"
+        }
+      ]
+    }
+settings: {}
+examples: ./.resources/Replace Node.js environment variables.resources/examples
+order: 7000

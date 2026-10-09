@@ -1,0 +1,35 @@
+$kind: http-request
+description: |-
+  Create an API token for the given mail order. The token grants access
+  to the [Hostinger Email API](https://api.mail.hostinger.com/), where
+  you can provision and manage the mailboxes it is scoped to.
+
+  The plaintext token is returned only in this response, never again.
+  A maximum of 10 tokens can exist per order. Use
+  `scope.has_all_mailboxes` to cover all current and future mailboxes,
+  or list specific mailboxes in `scope.mailbox_ids`.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/api-tokens"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "scope": {
+        "has_all_mailboxes": "<boolean>",
+        "mailbox_ids": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    }
+settings: {}
+examples: ./.resources/Create API token.resources/examples
+order: 1000

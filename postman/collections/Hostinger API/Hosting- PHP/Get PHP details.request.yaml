@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Returns the full PHP configuration for the website: current version, available versions
+  (supported and unsupported), enabled/disabled extensions, options with their current value,
+  default, type and the plan limit (`max`), and conflicting extension groups.
+
+  Use it to check the current PHP setup before updating the version, extensions or options.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/details"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get PHP details.resources/examples
+order: 2000

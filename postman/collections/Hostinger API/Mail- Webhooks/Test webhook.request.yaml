@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Send a test delivery to the webhook URL and return the result. Test
+  requests are rate limited upstream.
+url: "{{baseUrl}}/api/mail/v1/webhooks/:webhookId/test"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: webhookId
+    value: <string>
+    description: (Required) Webhook ID (returned when the webhook was created)
+settings: {}
+examples: ./.resources/Test webhook.resources/examples
+order: 8000

@@ -1,0 +1,72 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases?page=<integer>&per_page=25&domain=<string>&is_assigned=<boolean>&search=<string>"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+    - key: domain
+      value: <string>
+      description: Filter by domain name (case-insensitive substring match)
+    - key: is_assigned
+      value: <boolean>
+      description: When used with domain, return only databases assigned to that domain.
+    - key: search
+      value: <string>
+      description: Search databases by name, user, or creation date.
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "name": "<string>",
+            "user": "<string>",
+            "domain": "<string>",
+            "permissions": {},
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>",
+            "disk_usage_mb": "<integer>",
+            "max_size_mb": "<integer>",
+            "host": "<string>",
+            "port": "<integer>"
+          },
+          {
+            "name": "<string>",
+            "user": "<string>",
+            "domain": "<string>",
+            "permissions": {},
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>",
+            "disk_usage_mb": "<integer>",
+            "max_size_mb": "<integer>",
+            "host": "<string>",
+            "port": "<integer>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

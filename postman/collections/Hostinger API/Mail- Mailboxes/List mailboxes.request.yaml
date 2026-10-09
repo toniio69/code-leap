@@ -1,0 +1,31 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of mailboxes belonging to a mail order.
+
+  Use this endpoint to monitor mailboxes of your mail service, including
+  their status, enabled protocols, attached resource counts, and
+  periodically synced usage numbers (usage may lag behind live values).
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/mailboxes?search=<string>&sort=address&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: search
+    value: <string>
+    description: Filter mailboxes whose email address contains the given string
+  - key: sort
+    value: address
+    description: Sort mailboxes by field. Prefix with `-` for descending order. (This can only be one of address,-address)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List mailboxes.resources/examples
+order: 1000

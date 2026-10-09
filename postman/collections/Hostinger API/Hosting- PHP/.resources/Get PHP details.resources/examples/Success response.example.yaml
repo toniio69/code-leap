@@ -1,0 +1,79 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/details"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "php_version": "<string>",
+        "php_version_full": "<string>",
+        "php_versions": {
+          "supported": {},
+          "unsupported": {}
+        },
+        "options": {
+          "key_0": {
+            "type": "<string>",
+            "value": "<string>",
+            "comment": "<string>",
+            "default": "<string>",
+            "range": "<string>",
+            "max": "<string>"
+          },
+          "key_1": {
+            "type": "<string>",
+            "value": "<string>",
+            "comment": "<string>",
+            "default": "<string>",
+            "range": "<string>",
+            "max": "<string>"
+          },
+          "key_2": {
+            "type": "<string>",
+            "value": "<string>",
+            "comment": "<string>",
+            "default": "<string>",
+            "range": "<string>",
+            "max": "<string>"
+          },
+          "key_3": {
+            "type": "<string>",
+            "value": "<string>",
+            "comment": "<string>",
+            "default": "<string>",
+            "range": "<string>",
+            "max": "<string>"
+          }
+        },
+        "extensions": {},
+        "conflicting_extensions": [
+          [
+            "<string>",
+            "<string>"
+          ],
+          [
+            "<string>",
+            "<string>"
+          ]
+        ]
+      }
+order: 1000

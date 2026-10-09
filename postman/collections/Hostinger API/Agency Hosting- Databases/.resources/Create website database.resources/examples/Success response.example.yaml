@@ -1,0 +1,49 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: website_uid
+      value: <string>
+      description: (Required) Agency Plan website UID
+  body:
+    type: json
+    content: |-
+      {
+        "database_name": "<string>",
+        "database_user": "<string>",
+        "password": "<string>"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "<string>",
+        "created_at": "<dateTime>",
+        "users": [
+          {
+            "name": "<string>",
+            "host": "<string>",
+            "created_at": "<dateTime>"
+          },
+          {
+            "name": "<string>",
+            "host": "<string>",
+            "created_at": "<dateTime>"
+          }
+        ]
+      }
+order: 1000

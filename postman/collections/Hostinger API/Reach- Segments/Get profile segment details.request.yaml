@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Get a single segment of a profile, including the conditions that define it.
+
+  To retrieve the contacts currently matching those conditions, use the segment contacts
+  endpoint instead.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments/:segmentUuid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: segmentUuid
+    value: <string>
+    description: (Required) Segment uuid parameter
+settings: {}
+examples: ./.resources/Get profile segment details.resources/examples
+order: 5000

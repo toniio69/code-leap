@@ -4,6 +4,10 @@
         @include('partials.head')
     </head>
     <body class="bg-background text-foreground antialiased">
+        <div class="fixed end-4 top-4 z-50">
+            <x-theme-toggle />
+        </div>
+
         <section class="from-background to-muted/50 relative isolate flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden bg-linear-to-br">
             <div class="relative z-10 container mx-auto flex min-h-dvh flex-col items-center justify-center px-4 py-12">
                 <div class="relative w-full max-w-lg p-8 shadow-2xl rounded-lg border bg-card text-card-foreground">

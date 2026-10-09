@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Rename a tag.
+
+  The contacts assigned to the tag are unaffected. Names are unique within a profile, so
+  renaming a tag to a name that is already taken is rejected.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "value": "<string>"
+    }
+settings: {}
+examples: ./.resources/Rename a tag.resources/examples
+order: 6000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Check whether WooCommerce is installed on any WordPress installation of a
+  domain. Optionally filter by domain to scope the check.
+url: "{{baseUrl}}/api/hosting/v1/wordpress/plugins/is-woocommerce-installed?domain=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: domain
+    value: <string>
+    description: Filter by domain name (case-insensitive substring match)
+settings: {}
+examples: ./.resources/Check if WooCommerce is installed.resources/examples
+order: 9000

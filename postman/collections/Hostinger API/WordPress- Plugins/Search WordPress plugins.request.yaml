@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Search the WordPress.org plugin directory for plugins available to install.
+
+  Use the returned `slug` values with
+  POST /api/hosting/v1/accounts/{username}/wordpress/{software}/plugins/install.
+url: "{{baseUrl}}/api/hosting/v1/wordpress/plugins?search=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: search
+    value: <string>
+    description: (Required) Search term to match against plugin names. Minimum 3 characters.
+settings: {}
+examples: ./.resources/Search WordPress plugins.resources/examples
+order: 7000

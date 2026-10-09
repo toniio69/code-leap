@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Changes the PHP version of the website.
+
+  Use the Get PHP details endpoint to see the versions available for the website.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/version"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "version": "<string>"
+    }
+settings: {}
+examples: ./.resources/Update PHP version.resources/examples
+order: 6000

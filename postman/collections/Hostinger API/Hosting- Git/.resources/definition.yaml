@@ -1,0 +1,10 @@
+$kind: collection
+name: "Hosting: Git"
+description: |-
+  Work with the Git provider accounts a customer connected in
+  hPanel. This category lists the connected Git installations and
+  the repositories each installation can access, and manages the
+  auto-deployment settings that link a website to a repository
+  branch. Git-sourced Node.js builds are started from the Node.js
+  category with source_type git.
+order: 35000

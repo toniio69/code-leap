@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class AdminController extends Controller
 {
@@ -18,7 +17,7 @@ class AdminController extends Controller
     {
         $users = User::query()->orderBy('name')->get();
 
-        return view('Admin.users', compact('users'));
+        return view('admin.users', compact('users'));
     }
 
     public function dashboard(): View
@@ -32,7 +31,7 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
-        return view('Admin.Dashboard', compact(
+        return view('admin.dashboard', compact(
             'usersCount',
             'coursesCount',
             'enrollmentsCount',
@@ -77,7 +76,7 @@ class AdminController extends Controller
                 return $items->count();
             });
 
-        return view('Admin.analytics', compact(
+        return view('admin.analytics', compact(
             'totalCourses',
             'totalEnrollments',
             'completedEnrollments',
@@ -100,7 +99,7 @@ class AdminController extends Controller
 
         $completionRate = Enrollment::where('completed', true)->count() / max(Enrollment::count(), 1) * 100;
 
-        return view('Admin.student-performance', compact('students', 'completionRate'));
+        return view('admin.student-performance', compact('students', 'completionRate'));
     }
 
     public function payments(Request $request): View
@@ -121,6 +120,6 @@ class AdminController extends Controller
             'revenue' => Payment::where('status', 'success')->sum('amount'),
         ];
 
-        return view('Admin.payments', compact('payments', 'summary'));
+        return view('admin.payments', compact('payments', 'summary'));
     }
 }

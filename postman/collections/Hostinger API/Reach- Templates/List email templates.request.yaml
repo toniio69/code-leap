@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Get a list of the email templates in a profile, most recently updated first.
+
+  Templates are the reusable email bodies a campaign is built from. The list is not paginated
+  and only the metadata is returned - the template content itself is not exposed. Use the
+  `uuid` of a template as the `template_uuid` when creating a campaign.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/templates"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List email templates.resources/examples
+order: 1000

@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  This endpoint permanently removes a website and all of its data. This action
+  cannot be undone. Before calling it, make sure the user understands the
+  consequences and explicitly confirms that they want to proceed.
+
+  All website files, databases and related configuration will be removed.
+  The hosting plan itself is kept, so a new website can be created on it afterwards.
+
+  Supported websites: main and addon domain websites on web hosting plans, and
+  Website Builder websites. Parked domains and subdomains cannot be deleted with
+  this endpoint. The domain must be the exact website domain, not a preview
+  domain or an alias.
+
+  Returns 404 when the domain does not exist or does not belong to the
+  authenticated client.
+
+  Website removal is processed asynchronously and can take a few minutes to
+  complete. The response returns before the removal finishes.
+url: "{{baseUrl}}/api/hosting/v1/websites/:domain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Delete website.resources/examples
+order: 5000

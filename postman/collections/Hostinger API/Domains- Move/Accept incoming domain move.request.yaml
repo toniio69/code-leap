@@ -1,0 +1,40 @@
+$kind: http-request
+description: |-
+  Accept an incoming move for a specified domain.
+
+  The provided WHOIS profiles become the contacts of the domain, so they must belong
+  to your account and satisfy the requirements of the TLD. Only the contact types the
+  domain actually uses are applied, but all four profile IDs have to be provided.
+
+  The move has to still be waiting for your decision, already accepted moves
+  cannot be accepted again.
+
+  Accepting does not complete the move. A confirmation email is sent to the email address of
+  the new owner contact, and the domain changes hands only after the change is confirmed from it.
+  Until then the move stays in the `activating` status, which can be followed with the
+  [incoming move endpoint](#tag/domains-move).
+
+  Use this endpoint to take ownership of a domain offered to you.
+url: "{{baseUrl}}/api/domains/v1/move/incoming/:domain"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "domain_contacts": {
+        "owner_id": "<integer>",
+        "admin_id": "<integer>",
+        "billing_id": "<integer>",
+        "tech_id": "<integer>"
+      }
+    }
+settings: {}
+examples: ./.resources/Accept incoming domain move.resources/examples
+order: 2000

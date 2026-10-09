@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Create a catch-all that routes all messages sent to unknown addresses
+  of the domain to the given mailbox. The mailbox address receives a
+  confirmation email and the catch-all becomes active only after it is
+  confirmed. A domain can have only one catch-all.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/catchalls"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+settings: {}
+examples: ./.resources/Create catch-all.resources/examples
+order: 1000

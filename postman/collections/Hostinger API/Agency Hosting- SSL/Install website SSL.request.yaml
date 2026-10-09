@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Starts a Let's Encrypt certificate setup for the domain and returns at once; the setup runs in
+  the background. `Get website SSL status` reports `installing` while it runs, then `active` or
+  `failed`; the `ssl_setup` entry of `List website processes` shows the same progress.
+
+  Returns 422 when the domain already has a platform certificate that is not expired, when a
+  certificate process is recorded for the domain (a failed setup counts until it is cleaned up),
+  or when the domain hit its limit of three setups per seven days. Returns 429 when the same
+  domain was requested less than a minute ago, 403 when the website is suspended or locked, and
+  404 when the website or the domain does not exist.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/domains/:domain/ssl/setup"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Install website SSL.resources/examples
+order: 2000

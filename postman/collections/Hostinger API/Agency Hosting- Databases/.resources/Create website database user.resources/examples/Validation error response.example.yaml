@@ -1,0 +1,50 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases/:database_name/users"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: website_uid
+      value: <string>
+      description: (Required) Agency Plan website UID
+    - key: database_name
+      value: <string>
+      description: (Required) Full database name as returned by the list databases endpoint.
+  body:
+    type: json
+    content: |-
+      {
+        "database_user": "<string>",
+        "password": "<string>",
+        "host": "<string>"
+      }
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity (WebDAV) (RFC 4918)
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "errors": {
+          "field_1": [
+            "",
+            ""
+          ],
+          "field_2": [
+            "",
+            ""
+          ]
+        },
+        "correlation_id": "<string>"
+      }
+order: 3000

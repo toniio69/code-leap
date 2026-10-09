@@ -1,0 +1,36 @@
+$kind: http-example
+name: Error response
+request:
+  url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/aliases"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: mailboxId
+      value: <string>
+      description: (Required) Mailbox resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "local_part": "<string>"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 4000

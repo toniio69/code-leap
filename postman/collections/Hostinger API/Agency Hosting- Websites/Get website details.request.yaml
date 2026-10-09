@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Retrieves detailed information about a specific Agency Plan website, including configuration,
+  status, metadata, hosting plan details, and resource quotas.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/Get website details.resources/examples
+order: 2000

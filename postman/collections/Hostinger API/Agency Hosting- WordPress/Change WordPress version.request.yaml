@@ -1,0 +1,20 @@
+$kind: http-request
+description: Changes the installed WordPress core version on an Agency Plan website to one of the versions available for installation.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/wordpress/settings/version"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "version": "<string>"
+    }
+settings: {}
+examples: ./.resources/Change WordPress version.resources/examples
+order: 1000

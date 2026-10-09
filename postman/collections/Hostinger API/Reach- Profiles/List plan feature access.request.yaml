@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  List which plan features the profile can use.
+
+  This is the feature lock matrix, not a usage quota. `available` means the feature can be
+  used right now and `locked` means it is not part of the base plan, so an upgrade is needed.
+  For remaining emails, recipients and AI credits use the limits endpoint instead.
+
+  Worth checking before building something that cannot be activated afterwards, such as an
+  automation on a plan without automation activation.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/features"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List plan feature access.resources/examples
+order: 3000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Unlinks a domain from the specified Agency Plan website.
+
+  The website stops serving traffic on this domain immediately.
+
+  Website files and database are preserved, and any other linked domains remain accessible.
+
+  If this is the only domain on the website, unlinking leaves the website without an accessible domain.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/domains/:domain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Unlink domain from website.resources/examples
+order: 4000

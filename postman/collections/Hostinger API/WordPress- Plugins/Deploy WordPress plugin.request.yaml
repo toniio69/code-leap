@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Deploy a WordPress plugin from an already uploaded directory.
+
+  This endpoint allows you to deploy a WordPress plugin that has been uploaded to the website's directory.
+  The plugin will be activated and made available in the WordPress admin panel.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/wordpress/plugins/deploy"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "slug": "<string>",
+      "plugin_path": "<string>"
+    }
+settings: {}
+examples: ./.resources/Deploy WordPress plugin.resources/examples
+order: 3000

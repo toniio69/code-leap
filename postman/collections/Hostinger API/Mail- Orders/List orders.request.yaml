@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of mail orders associated with your account.
+
+  Use this endpoint to monitor your mail services, including their status,
+  plan, attached domain, and expiration details.
+url: "{{baseUrl}}/api/mail/v1/orders?domain=<string>&status=pending_setup&is_trial=<boolean>&sort=-created_at&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: domain
+    value: <string>
+    description: Filter orders by domain name (exact match)
+  - key: status
+    value: pending_setup
+    description: Filter orders by status (This can only be one of pending_setup,active,suspended)
+  - key: is_trial
+    value: <boolean>
+    description: Filter orders by trial state
+  - key: sort
+    value: -created_at
+    description: Sort orders by field. Prefix with `-` for descending order. (This can only be one of created_at,-created_at,expires_at,-expires_at)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+settings: {}
+examples: ./.resources/List orders.resources/examples
+order: 1000

@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Resets all PHP extensions of the website to their default state.
+
+  Use it to recover from extension conflicts or restore the original configuration.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/extensions/reset"
+method: PATCH
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Reset PHP extensions.resources/examples
+order: 1000

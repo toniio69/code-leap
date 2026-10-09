@@ -1,0 +1,4 @@
+$kind: collection
+name: "WordPress: LiteSpeed Cache"
+description: "WordPress: LiteSpeed Cache"
+order: 61000

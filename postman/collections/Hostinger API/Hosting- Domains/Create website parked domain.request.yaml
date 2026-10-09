@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Create a parked or alias domain for the selected website.
+
+  Provide a domain name or IP address to park on the website so it serves the same content
+  as the parent domain.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/parked-domains"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "parked_domain": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create website parked domain.resources/examples
+order: 3000

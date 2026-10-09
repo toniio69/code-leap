@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Delete a custom contact field.
+
+  Every value contacts hold for the field is deleted with it, and for the choice types so
+  are its options. The contacts themselves are not affected.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/fields/:fieldUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: fieldUuid
+    value: <uuid>
+    description: (Required) Contact field uuid parameter
+settings: {}
+examples: ./.resources/Delete a contact field.resources/examples
+order: 1000

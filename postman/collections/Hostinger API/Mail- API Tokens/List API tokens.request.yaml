@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of
+  [Hostinger Email API](https://api.mail.hostinger.com/) tokens across
+  all your mail orders, optionally filtered by order. Plaintext tokens
+  are never included; they are returned only when a token is created.
+url: "{{baseUrl}}/api/mail/v1/api-tokens?order_id=<string>&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: order_id
+    value: <string>
+    description: Filter tokens by order resource ID. Single value or comma-separated list.
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+settings: {}
+examples: ./.resources/List API tokens.resources/examples
+order: 3000

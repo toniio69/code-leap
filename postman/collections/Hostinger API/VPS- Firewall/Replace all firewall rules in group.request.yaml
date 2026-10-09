@@ -1,0 +1,39 @@
+$kind: http-request
+description: |-
+  Replaces all firewall rules within a specified firewall group with the provided set of rules
+  in a single atomic operation, instead of creating or deleting rules one by one.
+
+  Any virtual machine using this firewall group will need to be synchronized after replacing rules;
+  pass the "sync" parameter to trigger synchronization immediately.
+url: "{{baseUrl}}/api/vps/v1/firewall/:firewallId/rules"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: firewallId
+    value: <integer>
+    description: (Required) Firewall ID
+body:
+  type: json
+  content: |-
+    {
+      "rules": [
+        {
+          "protocol": "ICMP",
+          "port": "<string>",
+          "source": "any",
+          "source_detail": "<string>"
+        },
+        {
+          "protocol": "any",
+          "port": "<string>",
+          "source": "any",
+          "source_detail": "<string>"
+        }
+      ],
+      "sync": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Replace all firewall rules in group.resources/examples
+order: 9000

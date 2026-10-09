@@ -1,0 +1,45 @@
+$kind: http-request
+description: |-
+  Retrieve paginated inbound (received mail) delivery logs for the
+  domain attached to the given mail order. Supports filtering by
+  account, date range, status, sender, and recipient. Results are
+  sorted by timestamp descending.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/logs/inbound?account=<email>&date=<date>&from_date=<dateTime>&to_date=<dateTime>&status=Failed&sender=<string>&recipient=<string>&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: account
+    value: <email>
+    description: Filter log entries by a specific email account
+  - key: date
+    value: <date>
+    description: Exact date filter (YYYY-MM-DD). Takes precedence over `from_date`/`to_date` when both are given.
+  - key: from_date
+    value: <dateTime>
+    description: Date range start (RFC 3339)
+  - key: to_date
+    value: <dateTime>
+    description: Date range end (RFC 3339)
+  - key: status
+    value: Failed
+    description: Filter log entries by status (This can only be one of Successful,Failed)
+  - key: sender
+    value: <string>
+    description: Filter log entries by sender. Accepts a full email address or a domain.
+  - key: recipient
+    value: <string>
+    description: Filter log entries by recipient. Accepts a full email address or a domain.
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List inbound logs.resources/examples
+order: 3000

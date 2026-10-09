@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Creates a database with a database user and password for the specified account.
+
+  The database name and user are automatically prefixed with the account username when needed.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "user": "<string>",
+      "password": "<string>",
+      "website_domain": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create account database.resources/examples
+order: 3000

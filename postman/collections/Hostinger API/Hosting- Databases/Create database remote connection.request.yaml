@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Allows a remote host to connect to the specified database.
+
+  Provide an IPv4/IPv6 address, or "%" to allow any host. The database name must be
+  the full name returned by the list databases endpoint. Database creation is synchronous,
+  so a 404 here means no database with that name exists under the username, not that it
+  is still being created.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/remote-connections"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+body:
+  type: json
+  content: |-
+    {
+      "ip": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create database remote connection.resources/examples
+order: 5000

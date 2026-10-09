@@ -1,0 +1,45 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/git/installations/:uuid/repositories"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: uuid
+      value: <uuid>
+      description: (Required) Git installation UUID from the List Git installations endpoint
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "<integer>",
+          "name": "<string>",
+          "full_name": "<string>",
+          "owner": "<string>",
+          "is_private": "<boolean>",
+          "html_url": "<string>",
+          "clone_url": "<string>",
+          "default_branch": "<string>"
+        },
+        {
+          "id": "<integer>",
+          "name": "<string>",
+          "full_name": "<string>",
+          "owner": "<string>",
+          "is_private": "<boolean>",
+          "html_url": "<string>",
+          "clone_url": "<string>",
+          "default_branch": "<string>"
+        }
+      ]
+order: 1000

@@ -1,0 +1,41 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of Agency Plan websites (H5G, Builder, and Horizons) accessible to
+  the authenticated client.
+
+  This endpoint returns websites from your hosting accounts as well as
+  websites from other client hosting accounts that have shared access
+  with you.
+
+  The response shape differs per platform — see the `platform` field on each item.
+
+  Use `website_types` to list only websites of a given detected type, e.g. only
+  WordPress websites (`website_types=wordpress`) or only Node.js websites
+  (`website_types=nodejs`). Combine with `order_ids`, `states`, or `domain` for more
+  targeted results.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites?page=<integer>&per_page=25&order_ids=<integer>,<integer>&states=deleted,deleted&website_types=other,other&domain=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+  - key: order_ids
+    value: <integer>,<integer>
+    description: Filter by order IDs. Accepts a comma-separated list.
+  - key: states
+    value: deleted,deleted
+    description: Filter by website state. Accepts a comma-separated list.
+  - key: website_types
+    value: other,other
+    description: Filter by detected website type, e.g. wordpress,nodejs. Accepts a comma-separated list.
+  - key: domain
+    value: <string>
+    description: Filter by domain name (case-insensitive substring match)
+settings: {}
+examples: ./.resources/List Agency Plan websites.resources/examples
+order: 4000

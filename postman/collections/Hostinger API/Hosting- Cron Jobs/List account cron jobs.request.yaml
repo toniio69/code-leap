@@ -1,0 +1,13 @@
+$kind: http-request
+description: Returns the list of cron jobs configured for the specified account, including their schedule and command.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/cron-jobs"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+settings: {}
+examples: ./.resources/List account cron jobs.resources/examples
+order: 1000

@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Returns the SSL state of the website: the certificate `status` and `provider`, whether the
+  certificate is a lifetime one managed by the platform, whether HTTP requests are redirected to
+  HTTPS, when the certificate stops being valid and the last installation error.
+
+  `installing` and `waiting_for_retry` mean an installation is in progress. `failed` means the
+  last installation gave up, or the website was not updated for 60 minutes while `installing`;
+  `last_error` holds the reason when it is a known message, otherwise it is null. `expired`
+  means the assigned certificate's validity has ended. `not_installed` means no certificate is
+  assigned. Free subdomains use a platform-managed certificate: with no installation recorded
+  they report `active` with `provider` and `expires_at` null.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/ssl/status"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get SSL status.resources/examples
+order: 2000

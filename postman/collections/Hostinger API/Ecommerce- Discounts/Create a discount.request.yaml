@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Create a discount for a store. Fixed discounts take an amount in the smallest currency
+  unit (e.g. $10 is 1000); percentage discounts take a whole-number value between 1 and 100.
+  Free-shipping discounts ignore value. Returns the created discount.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/discounts"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to create the discount for.
+body:
+  type: json
+  content: |-
+    {
+      "code": "<string>",
+      "type": "percentage",
+      "value": "<integer>",
+      "name": "<string>",
+      "allocation": "item",
+      "starts_at": "<dateTime>",
+      "ends_at": "<dateTime>",
+      "usage_limit": "<integer>",
+      "min_cart_value": "<integer>",
+      "time_zone": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create a discount.resources/examples
+order: 2000

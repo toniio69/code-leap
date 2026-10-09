@@ -1,0 +1,13 @@
+$kind: http-request
+description: Lists the PHP versions available to websites created under an Agency Plan order, determined by the server the order is hosted on. Use this before creating a website; for a website that already exists, call the website-scoped versions endpoint instead.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/websites/php-settings/versions"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+settings: {}
+examples: ./.resources/List available PHP versions for an order.resources/examples
+order: 5000

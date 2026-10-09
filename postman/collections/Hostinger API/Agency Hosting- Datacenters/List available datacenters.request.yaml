@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Lists the datacenters available for provisioning a new website on the given Agency Plan
+  hosting order.
+
+  Each datacenter includes a `pinger_url` you can ping from the client to measure round-trip
+  latency; comparing the results across datacenters lets you pick the nearest one (lowest
+  ping) before choosing its `code` as the `datacenter_code` when creating a website setup.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/datacenters"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+settings: {}
+examples: ./.resources/List available datacenters.resources/examples
+order: 1000

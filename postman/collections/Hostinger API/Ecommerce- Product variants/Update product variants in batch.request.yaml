@@ -1,0 +1,40 @@
+$kind: http-request
+description: |-
+  Update up to 100 existing variants in place by id — title, inventory, stock tracking and
+  prices. Variants omitted from the request are left untouched. Prices replace the variant's
+  existing prices in full. Returns the updated variants.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id/variants/batch"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the product.
+  - key: product_id
+    value: <string>
+    description: (Required) The ID of the product whose variants are being updated.
+body:
+  type: json
+  content: |-
+    {
+      "variants": [
+        {
+          "variant_id": "<string>",
+          "title": "<string>",
+          "inventory_quantity": "<integer>",
+          "manage_inventory": "<boolean>",
+          "prices": [
+            {
+              "amount": "<integer>",
+              "sale_amount": "<integer>",
+              "currency": "<string>"
+            }
+          ]
+        }
+      ]
+    }
+settings: {}
+examples: ./.resources/Update product variants in batch.resources/examples
+order: 1000

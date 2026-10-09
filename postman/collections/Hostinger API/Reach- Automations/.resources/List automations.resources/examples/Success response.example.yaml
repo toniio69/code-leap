@@ -1,0 +1,79 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/automations?status=active&sort_direction=desc&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: status
+      value: active
+      description: |-
+        Filter automations by status.
+
+        There is no `completed` status. An automation that has finished for every contact still
+        reports `active`. (This can only be one of active,paused,draft)
+    - key: sort_direction
+      value: desc
+      description: Order automations by creation date. Newest first unless set to `asc`. (This can only be one of asc,desc)
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "uuid": "<string>",
+            "name": "<string>",
+            "status": "draft",
+            "type": "custom",
+            "config": {},
+            "events": {
+              "started": "<integer>",
+              "in_progress": "<integer>",
+              "completed": "<integer>",
+              "failed": "<integer>"
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          },
+          {
+            "uuid": "<string>",
+            "name": "<string>",
+            "status": "draft",
+            "type": "ecommerce_post_purchase",
+            "config": {},
+            "events": {
+              "started": "<integer>",
+              "in_progress": "<integer>",
+              "completed": "<integer>",
+              "failed": "<integer>"
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

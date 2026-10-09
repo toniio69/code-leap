@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Retrieve the outgoing move for a specified domain.
+
+  Returns 404 when the domain has no move in progress.
+
+  Use this endpoint to track the status of a move you have initiated for a single domain.
+url: "{{baseUrl}}/api/domains/v1/move/outgoing/:domain"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get outgoing domain move.resources/examples
+order: 5000

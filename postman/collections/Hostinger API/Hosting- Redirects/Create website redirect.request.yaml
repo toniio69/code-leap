@@ -1,0 +1,24 @@
+$kind: http-request
+description: Creates a redirect from a URL on the selected website to another URL or IP address.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/redirects"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "from": "<string>",
+      "to": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create website redirect.resources/examples
+order: 2000

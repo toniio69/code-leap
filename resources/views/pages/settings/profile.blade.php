@@ -34,7 +34,7 @@
             @if ($this->hasUnverifiedEmail)
                 <div class="rounded-lg border bg-yellow-50 p-4 dark:bg-yellow-900/20">
                     <div class="flex items-center gap-3">
-                        <flux:icon.alert-circle class="size-5 text-yellow-600 dark:text-yellow-400 shrink-0" />
+                        <flux:icon.exclamation-circle class="size-5 text-yellow-600 dark:text-yellow-400 shrink-0" />
                         <div>
                             <p class="text-sm font-medium text-yellow-800 dark:text-yellow-200">
                                 {{ __('Your email address is unverified.') }}
@@ -63,6 +63,6 @@
     </form>
 
     @if ($this->showDeleteUser)
-        <livewire:pages::settings.delete-user-form />
+        <livewire:pages.settings.delete-user-form />
     @endif
 </x-layouts.settings>

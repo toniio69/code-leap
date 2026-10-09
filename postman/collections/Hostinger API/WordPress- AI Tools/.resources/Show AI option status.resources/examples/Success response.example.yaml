@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/hostinger-plugins/ai-option/status?option=web2agent"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: option
+      value: web2agent
+      description: Filter the status by a single AI option. (This can only be one of llmstxt,web2agent)
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: software
+      value: "98"
+      description: (Required) WordPress installation (software) identifier
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "is_llmstxt_enabled": "<boolean>",
+        "is_web2agent_enabled": "<boolean>"
+      }
+order: 1000

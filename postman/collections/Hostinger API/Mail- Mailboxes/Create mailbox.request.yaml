@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Create a mailbox under the given mail order. The full email address is
+  composed from the given local part and the domain of the order.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/mailboxes"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+body:
+  type: json
+  content: |-
+    {
+      "local_part": "jpn.h6avjg.rcnks.jvktztm.xskz8psr-97",
+      "password": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create mailbox.resources/examples
+order: 2000

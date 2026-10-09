@@ -1,0 +1,7 @@
+$kind: collection
+name: "Mail: Mailboxes"
+description: |-
+  Manage mailboxes of your mail orders. This category includes
+  endpoints for listing mailboxes with their status, enabled
+  protocols, attached resource counts, and usage numbers.
+order: 20000

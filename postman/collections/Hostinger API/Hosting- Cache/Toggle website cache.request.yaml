@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Turns server-side caching for the website on or off, based on the enabled flag. Enable it for
+  faster page loads, reduced server load, and improved user experience; recommended for production
+  websites. Disabling may impact performance; to temporarily bypass caching while developing or
+  debugging, prefer toggling cacheless mode instead.
+
+  Does nothing if caching is already in the requested state.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/cache/toggle"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "enabled": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Toggle website cache.resources/examples
+order: 3000

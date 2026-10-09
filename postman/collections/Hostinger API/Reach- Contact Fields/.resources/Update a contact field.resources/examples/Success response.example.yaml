@@ -1,0 +1,63 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/fields/:fieldUuid"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+    - key: fieldUuid
+      value: <uuid>
+      description: (Required) Contact field uuid parameter
+  body:
+    type: json
+    content: |-
+      {
+        "label": "<string>",
+        "options": [
+          {
+            "label": "<string>",
+            "uuid": "<string>"
+          },
+          {
+            "label": "<string>",
+            "uuid": "<string>"
+          }
+        ]
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uuid": "<string>",
+        "type": "text",
+        "label": "<string>",
+        "slug": "<string>",
+        "options": [
+          {
+            "uuid": "<string>",
+            "label": "<string>",
+            "sort_order": "<integer>"
+          },
+          {
+            "uuid": "<string>",
+            "label": "<string>",
+            "sort_order": "<integer>"
+          }
+        ],
+        "created_at": "<dateTime>"
+      }
+order: 1000

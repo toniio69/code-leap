@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Retrieve all subdomains created under the selected website.
+
+  Use this endpoint to inspect subdomain configuration for a specific website,
+  including the parent domain and root directory assigned to each subdomain.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/subdomains"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/List website subdomains.resources/examples
+order: 5000

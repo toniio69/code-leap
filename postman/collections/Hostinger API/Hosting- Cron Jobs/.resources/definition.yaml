@@ -1,0 +1,4 @@
+$kind: collection
+name: "Hosting: Cron Jobs"
+description: "Hosting: Cron Jobs"
+order: 30000

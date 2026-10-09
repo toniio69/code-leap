@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Create a new store for your account.
+
+  A primary sales channel is created alongside the store.
+url: "{{baseUrl}}/api/ecommerce/v1/stores"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "country_code": "<string>",
+      "company_email": "<string>",
+      "company_name": "<string>",
+      "language": "<string>",
+      "sales_channel": {
+        "type": "custom",
+        "external_id": "<string>"
+      }
+    }
+settings: {}
+examples: ./.resources/Create store.resources/examples
+order: 3000

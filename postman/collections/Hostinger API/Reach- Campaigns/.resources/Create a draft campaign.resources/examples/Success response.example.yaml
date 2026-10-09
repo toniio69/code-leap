@@ -1,0 +1,57 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+  body:
+    type: json
+    content: |-
+      {
+        "sender_name": "<string>",
+        "sender_email": "<string>",
+        "title": "<string>",
+        "subject": "<string>",
+        "template_uuid": "<string>",
+        "metadata": {
+          "preheader": "<string>",
+          "source": "<string>"
+        }
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uuid": "<string>",
+        "title": "<string>",
+        "subject": "<string>",
+        "sender_name": "<string>",
+        "sender_email": "<string>",
+        "template_uuid": "<string>",
+        "status": "scheduled",
+        "type": "campaign",
+        "is_all_contacts": "<boolean>",
+        "metadata": {
+          "key_0": "<string>",
+          "key_1": "<string>",
+          "key_2": "<string>"
+        },
+        "created_at": "<dateTime>",
+        "updated_at": "<dateTime>"
+      }
+order: 1000

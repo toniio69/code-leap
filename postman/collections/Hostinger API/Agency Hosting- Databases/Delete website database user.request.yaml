@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Permanently deletes a database user from an Agency Plan website database, revoking all access it had.
+
+  The operation is idempotent: deleting a user that does not exist succeeds without error.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases/:database_name/users/:database_user_name"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: database_name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+  - key: database_user_name
+    value: <string>
+    description: (Required) Database username as returned by the list databases endpoint.
+settings: {}
+examples: ./.resources/Delete website database user.resources/examples
+order: 5000

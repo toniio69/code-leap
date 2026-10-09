@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Permanently delete a contact from a profile.
+
+  The contact is removed together with its custom field values and tag assignments.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/:contactUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: contactUuid
+    value: <uuid>
+    description: (Required) Contact uuid parameter
+settings: {}
+examples: ./.resources/Delete a profile contact.resources/examples
+order: 6000

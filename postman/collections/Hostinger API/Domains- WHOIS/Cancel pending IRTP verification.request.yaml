@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Cancel a pending IRTP verification.
+
+  Use this endpoint to back out of a WHOIS change that is stuck waiting on registrant confirmation,
+  for example when the confirmation email cannot be received, without waiting out the 5-day expiry.
+url: "{{baseUrl}}/api/domains/v1/irtp/:domain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Cancel pending IRTP verification.resources/examples
+order: 2000

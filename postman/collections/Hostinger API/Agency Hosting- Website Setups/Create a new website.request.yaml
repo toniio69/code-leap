@@ -1,0 +1,54 @@
+$kind: http-request
+description: |-
+  Provisions a new website on one of your Agency Plan hosting orders.
+
+  Choose the datacenter, stack (`flavor`), and PHP version for the site. Optionally attach
+  your own `domain` — omit it, set it to `null`, or leave it unavailable and a free
+  `*.hostingersite.com` subdomain is generated instead — and/or install WordPress by
+  supplying the `wordpress` details (admin account, site title, and language).
+
+  Common setups:
+  - **Plain PHP site**: `flavor` set to `php-fpm`, with `settings.php.version`; omit
+    `wordpress` and `type`.
+  - **WordPress site**: `flavor` set to the desired WordPress version (e.g. `wp-7.0`), plus
+    the `wordpress` block (admin account, title, language).
+  - **Static/Node.js frontend app**: `flavor` set to `php-fpm` and `type` set to
+    `node-static`.
+
+  Provisioning runs in the background, so the response returns immediately with a setup UUID
+  that identifies the job. The new website becomes reachable once provisioning finishes.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/websites/setups"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+body:
+  type: json
+  content: |-
+    {
+      "datacenter_code": "<string>",
+      "flavor": "wp-30.584211380",
+      "settings": {
+        "php": {
+          "version": "<string>"
+        }
+      },
+      "domain": "<string>",
+      "type": "node-static",
+      "wordpress": {
+        "language": "<string>",
+        "title": "<string>",
+        "admin": {
+          "user": "<string>",
+          "password": "<string>",
+          "email": "<string>"
+        }
+      }
+    }
+settings: {}
+examples: ./.resources/Create a new website.resources/examples
+order: 1000

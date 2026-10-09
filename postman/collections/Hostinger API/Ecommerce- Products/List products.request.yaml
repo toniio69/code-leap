@@ -1,0 +1,42 @@
+$kind: http-request
+description: |-
+  List a store's products newest first as lean summaries (name, status, thumbnail, variant
+  count and price range). Prices are integers in the smallest currency unit and live on
+  variants. Filter by status, free text or a set of product ids. Use include=variants to
+  embed each product's variants with prices and inventory, and include=media to embed its media.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products?product_ids=<string>&product_ids=<string>&status=published&status=archived&q=<string>&include=variants&include=variants&page=<integer>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: product_ids
+    value: <string>
+    description: Restrict to these product ids. Doubles as a single-product lookup. Up to 200 ids.
+  - key: product_ids
+    value: <string>
+    description: Restrict to these product ids. Doubles as a single-product lookup. Up to 200 ids.
+  - key: status
+    value: published
+    description: Product statuses to include.
+  - key: status
+    value: archived
+    description: Product statuses to include.
+  - key: q
+    value: <string>
+    description: Free-text search over product title and SKU.
+  - key: include
+    value: variants
+    description: "Opt-in heavy data: \"variants\" embeds each product's variants; \"media\" embeds its media."
+  - key: include
+    value: variants
+    description: "Opt-in heavy data: \"variants\" embeds each product's variants; \"media\" embeds its media."
+  - key: page
+    value: <integer>
+    description: Page number
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to list products for.
+settings: {}
+examples: ./.resources/List products.resources/examples
+order: 5000

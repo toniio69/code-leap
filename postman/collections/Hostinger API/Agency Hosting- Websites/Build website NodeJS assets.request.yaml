@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Builds and deploys a Node.js application for an Agency Plan website from an already-uploaded archive.
+
+  Upload the archive to file browser first, then provide its relative path from document root in this request.
+  Website contents are overwritten by the build result, which is deployed to public_html.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/build-assets"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "archive_path": "<string>"
+    }
+settings: {}
+examples: ./.resources/Build website NodeJS assets.resources/examples
+order: 1000

@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Initiate a move of a specified domain to another Hostinger account.
+
+  The receiving account has to already exist and accept the move before the domain changes hands.
+
+  The domain must be active. The subscription it belongs to is resolved automatically,
+  and the request is rejected with a 404 status code when the domain has no domain
+  subscription of its own.
+
+  Domains protected by premium protection require an additional verification step,
+  such requests are rejected with a 428 status code.
+
+  Use this endpoint to hand a domain over to another Hostinger user.
+url: "{{baseUrl}}/api/domains/v1/move/outgoing/:domain"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "new_customer_email": "<string>"
+    }
+settings: {}
+examples: ./.resources/Start outgoing domain move.resources/examples
+order: 6000

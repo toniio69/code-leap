@@ -91,7 +91,7 @@
                                 </flux:button>
                             </div>
 
-                            <livewire:pages::settings.two-factor.recovery-codes :$requiresConfirmation />
+                            <livewire:pages.settings.two-factor.recovery-codes :$requiresConfirmation />
                         </div>
                     @else
                         <div class="rounded-lg border bg-card p-4 space-y-4">
@@ -113,7 +113,7 @@
                                 </flux:button>
                             </flux:modal.trigger>
 
-                            <livewire:pages::settings.two-factor-setup-modal :requires-confirmation="$requiresConfirmation" />
+                            <livewire:pages.settings.two-factor-setup-modal :requires-confirmation="$requiresConfirmation" />
                         </div>
                     @endif
                 </div>

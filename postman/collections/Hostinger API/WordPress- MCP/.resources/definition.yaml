@@ -1,0 +1,8 @@
+$kind: collection
+name: "WordPress: MCP"
+description: |-
+  Work with the MCP (Model Context Protocol) tools exposed by a
+  WordPress installation. This category includes endpoints for
+  discovering the available tools, inspecting a tool's input and
+  output schemas, and executing a tool on the site.
+order: 65000

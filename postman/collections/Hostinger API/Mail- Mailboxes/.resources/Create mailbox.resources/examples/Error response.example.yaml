@@ -1,0 +1,36 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/mailboxes"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "local_part": "jpn.h6avjg.rcnks.jvktztm.xskz8psr-97",
+        "password": "<string>"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 3000

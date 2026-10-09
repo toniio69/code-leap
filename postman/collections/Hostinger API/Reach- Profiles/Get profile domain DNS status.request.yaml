@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Retrieve the DNS configuration status for a profile's domain.
+
+  This endpoint reports the state of MX, SPF, DKIM and DMARC records, including the
+  actual records found and the suggested records required for correct email delivery.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/domains/dns-status"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/Get profile domain DNS status.resources/examples
+order: 1000

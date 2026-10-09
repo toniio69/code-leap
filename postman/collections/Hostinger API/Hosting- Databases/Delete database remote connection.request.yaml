@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Permanently removes a remote-access rule, revoking the given host's remote access to the database.
+
+  Identify the rule with the required ip query parameter (the IPv4/IPv6 address, or "%",
+  exactly as returned by the list remote connections endpoint). The database name must be
+  the full name returned by the list databases endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/remote-connections?ip=<string>"
+method: DELETE
+headers:
+  Accept: application/json
+queryParams:
+  - key: ip
+    value: <string>
+    description: |-
+      (Required) Remote host to revoke: the IPv4/IPv6 address, or "%",
+      exactly as returned by the list remote connections endpoint.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+settings: {}
+examples: ./.resources/Delete database remote connection.resources/examples
+order: 6000

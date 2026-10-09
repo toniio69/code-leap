@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Empties the Node.js application's runtime log file. This cannot be undone, so confirm with
+  the user before calling it. Returns success even when no log file exists yet.
+
+  Use it before reproducing a problem so the next `Get Node.js runtime logs` call returns
+  only fresh entries; start that call with `period` again instead of reusing a `from_line`
+  from before the clear.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/runtime-logs"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Clear Node.js runtime logs.resources/examples
+order: 12000

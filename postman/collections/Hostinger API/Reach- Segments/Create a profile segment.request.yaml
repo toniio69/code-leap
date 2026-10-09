@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Create a segment in a profile.
+
+  A segment is a saved set of conditions rather than a fixed list, so its membership changes
+  as contacts change. Creating one does not modify any contact.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "conditions": [
+        {
+          "attribute": "<string>",
+          "operator": "not_equals",
+          "value": "<string>"
+        }
+      ],
+      "logic": "AND"
+    }
+settings: {}
+examples: ./.resources/Create a profile segment.resources/examples
+order: 11000

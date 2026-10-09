@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Retrieve the plan the given mail order was purchased with, including
+  domain-level and mailbox-level quotas, limits, and protocol
+  availability.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/plan"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/Get order plan.resources/examples
+order: 2000

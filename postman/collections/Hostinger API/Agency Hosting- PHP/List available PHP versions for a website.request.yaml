@@ -1,0 +1,13 @@
+$kind: http-request
+description: Lists the PHP versions an Agency Plan website can be switched to. The version the website is currently running is returned as settings.php.version by the website details endpoint.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/versions"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List available PHP versions for a website.resources/examples
+order: 6000

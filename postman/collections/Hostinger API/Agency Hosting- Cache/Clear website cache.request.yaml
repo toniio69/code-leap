@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Clears cache for all domains associated with an Agency Plan website, including its preview domain.
+
+  This operation clears all cache types for the website.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/cache"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/Clear website cache.resources/examples
+order: 1000

@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Update a product's name, description or status. Set status to published to make it buyable,
+  draft to hide it, or archived to retire it. Variants, prices and inventory are managed
+  through the variant endpoints, not here. Returns the updated product summary.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the product.
+  - key: product_id
+    value: <string>
+    description: (Required) The ID of the product to update.
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "description": "<string>",
+      "status": "archived"
+    }
+settings: {}
+examples: ./.resources/Update a product.resources/examples
+order: 3000

@@ -1,0 +1,37 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/horizons/v1/websites"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "website_id": "<string>",
+          "status": "deleted",
+          "created_at": "<dateTime>",
+          "website_url": "<string>",
+          "description": "<string>",
+          "domain": "<string>"
+        },
+        {
+          "website_id": "<string>",
+          "status": "active",
+          "created_at": "<dateTime>",
+          "website_url": "<string>",
+          "description": "<string>",
+          "domain": "<string>"
+        }
+      ]
+order: 1000

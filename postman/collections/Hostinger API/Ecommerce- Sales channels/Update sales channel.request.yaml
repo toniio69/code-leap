@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Update a custom sales channel. The merchant-facing `name` and the public `url`
+  (returned as the channel `domain`) can be changed. Pass `null` to clear a value.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/sales-channels/:sales_channel_id"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the sales channel.
+  - key: sales_channel_id
+    value: <string>
+    description: (Required) The ID of the sales channel to update.
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "url": "<string>"
+    }
+settings: {}
+examples: ./.resources/Update sales channel.resources/examples
+order: 3000

@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Get the custom contact fields defined in a profile.
+
+  Custom fields let you store your own attributes on contacts. The returned uuids are what
+  you pass to the contact update endpoint to set values, and choice fields also list the
+  options available to pick from.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/fields"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List contact fields.resources/examples
+order: 3000

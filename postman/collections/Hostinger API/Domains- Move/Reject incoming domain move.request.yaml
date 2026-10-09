@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Reject an incoming move for a specified domain.
+
+  The domain stays in the account which initiated the move.
+  Moves you have already accepted cannot be rejected anymore.
+
+  Use this endpoint to decline a domain you do not want to take over.
+url: "{{baseUrl}}/api/domains/v1/move/incoming/:domain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Reject incoming domain move.resources/examples
+order: 3000

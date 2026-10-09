@@ -1,0 +1,33 @@
+$kind: http-request
+description: |-
+  Enables or disables PHP extensions (modules) for the website.
+
+  Use the Get PHP details endpoint to check the current extension states before changing them.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/php/extensions"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "enable": [
+        "<string>",
+        "<string>"
+      ],
+      "disable": [
+        "<string>",
+        "<string>"
+      ]
+    }
+settings: {}
+examples: ./.resources/Update PHP extensions.resources/examples
+order: 4000

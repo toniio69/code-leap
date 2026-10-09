@@ -1,0 +1,44 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/automations?status=active&sort_direction=desc&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: status
+      value: active
+      description: |-
+        Filter automations by status.
+
+        There is no `completed` status. An automation that has finished for every contact still
+        reports `active`. (This can only be one of active,paused,draft)
+    - key: sort_direction
+      value: desc
+      description: Order automations by creation date. Newest first unless set to `asc`. (This can only be one of asc,desc)
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 2000

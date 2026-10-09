@@ -1,0 +1,7 @@
+$kind: collection
+name: "Ecommerce: Stores"
+description: |-
+  Manage your online stores. This category includes endpoints
+  for listing and creating stores associated with your account,
+  and deleting stores you no longer need.
+order: 93000

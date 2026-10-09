@@ -1,0 +1,40 @@
+$kind: http-request
+description: |-
+  Preview the contacts matching a set of conditions without saving a segment.
+
+  The body is the same set of conditions accepted when creating or updating a segment, so this
+  is how to check who a filter reaches, and how many, before persisting it. Nothing is stored
+  and no contact is modified.
+
+  Call the segment filter attributes endpoint first to discover the valid `attribute`,
+  `operator` and `value` combinations.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/filters/contacts"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "conditions": [
+        {
+          "attribute": "<string>",
+          "operator": "not_equals",
+          "value": "<string>"
+        }
+      ],
+      "logic": "AND",
+      "page": "<integer>",
+      "per_page": "<integer>",
+      "search": "<string>",
+      "sort_by": "email",
+      "sort_direction": "asc"
+    }
+settings: {}
+examples: ./.resources/Preview contacts matching conditions.resources/examples
+order: 9000

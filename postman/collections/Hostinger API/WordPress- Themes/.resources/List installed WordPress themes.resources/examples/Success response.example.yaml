@@ -1,0 +1,74 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/themes"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: software
+      value: "98"
+      description: (Required) WordPress installation (software) identifier
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "name": "<string>",
+          "title": "<string>",
+          "version": "<string>",
+          "status": "inactive",
+          "update": "<string>",
+          "vulnerabilities": [
+            {
+              "title": "<string>",
+              "description": "<string>",
+              "affected_in": "<string>",
+              "fixed_in": "<string>",
+              "direct_url": "<string>"
+            },
+            {
+              "title": "<string>",
+              "description": "<string>",
+              "affected_in": "<string>",
+              "fixed_in": "<string>",
+              "direct_url": "<string>"
+            }
+          ]
+        },
+        {
+          "name": "<string>",
+          "title": "<string>",
+          "version": "<string>",
+          "status": "inactive",
+          "update": "<string>",
+          "vulnerabilities": [
+            {
+              "title": "<string>",
+              "description": "<string>",
+              "affected_in": "<string>",
+              "fixed_in": "<string>",
+              "direct_url": "<string>"
+            },
+            {
+              "title": "<string>",
+              "description": "<string>",
+              "affected_in": "<string>",
+              "fixed_in": "<string>",
+              "direct_url": "<string>"
+            }
+          ]
+        }
+      ]
+order: 1000

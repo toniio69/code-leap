@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Create temporary auto-login links for the specified WordPress installation.
+
+  Provide the WordPress installation (software) identifier in the path. It can
+  be obtained from GET /api/hosting/v1/wordpress/installations (the `id` field).
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/login/links"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: software
+    value: "98"
+    description: (Required) WordPress installation (software) identifier
+settings: {}
+examples: ./.resources/Create login links.resources/examples
+order: 1000

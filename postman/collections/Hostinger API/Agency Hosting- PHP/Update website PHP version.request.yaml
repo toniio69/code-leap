@@ -1,0 +1,20 @@
+$kind: http-request
+description: Switches an Agency Plan website to a different PHP version. Call the available versions endpoint first to see which versions can be selected. The website restarts on the new version, so requests served during the switch may fail and code that is incompatible with the target version will break.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/version"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "version": "<string>"
+    }
+settings: {}
+examples: ./.resources/Update website PHP version.resources/examples
+order: 7000

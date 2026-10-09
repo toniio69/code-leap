@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Create an onboarding link for connecting a payment gateway to the store. Returns the gateway
+  onboarding URL for the merchant to open and a deep-link into the store admin.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/payment-providers/:provider_id/connect-link"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to connect the payment provider to.
+  - key: provider_id
+    value: <string>
+    description: (Required) The ID of the payment gateway to connect, e.g. stripe.
+settings: {}
+examples: ./.resources/Create a payment provider connect link.resources/examples
+order: 2000

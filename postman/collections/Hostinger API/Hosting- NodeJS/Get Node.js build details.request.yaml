@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Returns one build by UUID: its state (`pending`, `running`, `completed`, `failed`), the
+  options it ran with and timestamps. Poll this while a build is pending or running. When it
+  is failed, read `Get NodeJS build logs` and `Analyse failed Node.js build` for the cause.
+  Returns 404 when the UUID does not belong to a build of this website.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/:uuid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+  - key: uuid
+    value: <uuid>
+    description: (Required) Build UUID
+settings: {}
+examples: ./.resources/Get Node.js build details.resources/examples
+order: 9000

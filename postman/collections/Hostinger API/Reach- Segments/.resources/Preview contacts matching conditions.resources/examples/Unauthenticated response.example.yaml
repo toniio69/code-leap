@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/filters/contacts"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+  body:
+    type: json
+    content: |-
+      {
+        "conditions": [
+          {
+            "attribute": "<string>",
+            "operator": "not_equals",
+            "value": "<string>"
+          }
+        ],
+        "logic": "AND",
+        "page": "<integer>",
+        "per_page": "<integer>",
+        "search": "<string>",
+        "sort_by": "email",
+        "sort_direction": "asc"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 2000

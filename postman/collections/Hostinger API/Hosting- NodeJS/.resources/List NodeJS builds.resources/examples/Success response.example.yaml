@@ -1,0 +1,107 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds?page=<integer>&per_page=25&states=pending"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+    - key: states
+      value: pending
+      description: Build states to filter by
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "uuid": "<string>",
+            "state": "completed",
+            "options": {
+              "node_version": "<integer>",
+              "app_type": "parcel",
+              "root_directory": "<string>",
+              "output_directory": "<string>",
+              "build_script": "<string>",
+              "entry_file": "<string>",
+              "package_manager": "yarn",
+              "source_type": "archive",
+              "source_options": {
+                "owner": "<string>",
+                "repository": "<string>",
+                "branch": "<string>",
+                "installation_uuid": "<string>",
+                "commit": {
+                  "hash": "<string>",
+                  "message": "<string>",
+                  "author": {
+                    "name": "<string>",
+                    "avatar_url": "<string>"
+                  }
+                },
+                "archive_path": "<string>"
+              }
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          },
+          {
+            "uuid": "<string>",
+            "state": "failed",
+            "options": {
+              "node_version": "<integer>",
+              "app_type": "react",
+              "root_directory": "<string>",
+              "output_directory": "<string>",
+              "build_script": "<string>",
+              "entry_file": "<string>",
+              "package_manager": "yarn",
+              "source_type": "archive",
+              "source_options": {
+                "owner": "<string>",
+                "repository": "<string>",
+                "branch": "<string>",
+                "installation_uuid": "<string>",
+                "commit": {
+                  "hash": "<string>",
+                  "message": "<string>",
+                  "author": {
+                    "name": "<string>",
+                    "avatar_url": "<string>"
+                  }
+                },
+                "archive_path": "<string>"
+              }
+            },
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

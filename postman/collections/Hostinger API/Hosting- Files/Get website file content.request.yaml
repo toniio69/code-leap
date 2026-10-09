@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  Get a single file's content, relative to a website's document root.
+
+  Read-only; refuses symlinks, oversized files, non-text file types, and files identified as
+  containing secrets (e.g. credential files) — none of these are returned by this endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/domains/:domain/files/content?path=<string>&from_line=0&max_lines=5000"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: path
+    value: <string>
+    description: (Required) File path, relative to the document root.
+  - key: from_line
+    value: "0"
+    description: Line offset to start reading from.
+  - key: max_lines
+    value: "5000"
+    description: Max number of lines to return.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get website file content.resources/examples
+order: 3000

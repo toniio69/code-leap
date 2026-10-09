@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Resend the confirmation email to the mailbox address of an
+  unconfirmed catch-all.
+url: "{{baseUrl}}/api/mail/v1/catchalls/:catchallId/confirmation/resend"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: catchallId
+    value: <string>
+    description: (Required) Catch-all resource ID
+settings: {}
+examples: ./.resources/Resend catch-all confirmation.resources/examples
+order: 4000

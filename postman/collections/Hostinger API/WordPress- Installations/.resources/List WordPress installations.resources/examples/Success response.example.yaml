@@ -1,0 +1,59 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/wordpress/installations?username=<string>&domain=<string>&ownership=owned"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: username
+      value: <string>
+      description: Filter by specific username
+    - key: domain
+      value: <string>
+      description: Filter by domain name (case-insensitive substring match)
+    - key: ownership
+      value: owned
+      description: Filter by ownership type. Defaults to "owned". Use "all" to include both owned and managed installations. (This can only be one of owned,managed,all)
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "<string>",
+          "username": "<string>",
+          "domain": "<string>",
+          "site_title": "<string>",
+          "url": "<string>",
+          "directory": "<string>",
+          "language": "<string>",
+          "login": "<string>",
+          "email": "<string>",
+          "is_valid": "<boolean>",
+          "validation_error": "<string>",
+          "created_at": "<dateTime>"
+        },
+        {
+          "id": "<string>",
+          "username": "<string>",
+          "domain": "<string>",
+          "site_title": "<string>",
+          "url": "<string>",
+          "directory": "<string>",
+          "language": "<string>",
+          "login": "<string>",
+          "email": "<string>",
+          "is_valid": "<boolean>",
+          "validation_error": "<string>",
+          "created_at": "<dateTime>"
+        }
+      ]
+order: 1000

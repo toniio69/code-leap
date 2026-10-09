@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Permanently deletes the cron job identified by its uid.
+
+  The uid is returned by the list cron jobs endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/cron-jobs/:uid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: uid
+    value: <string>
+    description: (Required) Unique identifier of the cron job as returned by the list cron jobs endpoint.
+settings: {}
+examples: ./.resources/Delete account cron job.resources/examples
+order: 3000

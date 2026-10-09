@@ -1,0 +1,49 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/autoreplies"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: mailboxId
+      value: <string>
+      description: (Required) Mailbox resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "subject": "<string>",
+        "body": "<string>",
+        "display_name": "<string>",
+        "starts_at": "<dateTime>",
+        "ends_at": "<dateTime>"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "<string>",
+        "mailbox": {
+          "id": "<string>",
+          "address": "<string>"
+        },
+        "subject": "<string>",
+        "body": "<string>",
+        "display_name": "<string>",
+        "starts_at": "<dateTime>",
+        "ends_at": "<dateTime>",
+        "created_at": "<dateTime>",
+        "updated_at": "<dateTime>"
+      }
+order: 1000

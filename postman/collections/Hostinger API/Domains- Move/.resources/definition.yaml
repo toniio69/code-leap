@@ -1,0 +1,10 @@
+$kind: collection
+name: "Domains: Move"
+description: |-
+  Move domains between Hostinger accounts. This category
+  includes endpoints for initiating and cancelling moves of
+  your own domains to another account, and for accepting or
+  rejecting moves initiated towards your account.
+  A move changes which Hostinger account owns the domain and
+  does not involve a registrar transfer.
+order: 9000

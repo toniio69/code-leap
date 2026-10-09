@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  Retrieve all domains other Hostinger accounts are moving to your account.
+
+  Moves of every status are returned, including the ones which already completed.
+
+  Use this endpoint to find domains waiting for you to accept them.
+url: "{{baseUrl}}/api/domains/v1/move/incoming"
+method: GET
+headers:
+  Accept: application/json
+settings: {}
+examples: ./.resources/Get incoming domain move list.resources/examples
+order: 4000

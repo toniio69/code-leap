@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  Create a webhook for the given mailbox. The generated secret is
+  returned only in this response and is sent as a bearer token with
+  every delivery.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/webhooks"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "events": [
+        "message.received",
+        "message.received"
+      ],
+      "url": "<string>",
+      "description": "<string>",
+      "status": "active"
+    }
+settings: {}
+examples: ./.resources/Create webhook.resources/examples
+order: 1000

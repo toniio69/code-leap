@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Update domain forwarding configuration.
+
+  Use this endpoint to modify existing redirect configuration for domains.
+url: "{{baseUrl}}/api/domains/v1/forwarding/:domain"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "redirect_type": "302",
+      "redirect_url": "<string>"
+    }
+settings: {}
+examples: ./.resources/Update domain forwarding.resources/examples
+order: 2000

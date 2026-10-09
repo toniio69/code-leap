@@ -1,0 +1,143 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: website_uid
+      value: <string>
+      description: (Required) Agency Plan website UID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uid": "<string>",
+        "ipv4": "<string>",
+        "flavor": "<string>",
+        "type": "<string>",
+        "description": "<string>",
+        "state": "suspended",
+        "created_at": "<dateTime>",
+        "domains": [
+          {
+            "fqdn": "<string>",
+            "parent_fqdn": "<string>",
+            "ipv6": "<string>",
+            "created_at": "<dateTime>",
+            "nameservers": [
+              "<string>",
+              "<string>"
+            ],
+            "ssl_cert": {
+              "names": [
+                "<string>",
+                "<string>"
+              ],
+              "expires_at": "<dateTime>",
+              "created_at": "<dateTime>"
+            },
+            "custom_ssl_cert": {
+              "is_expired": "<boolean>",
+              "expires_at": "<dateTime>",
+              "created_at": "<dateTime>"
+            }
+          },
+          {
+            "fqdn": "<string>",
+            "parent_fqdn": "<string>",
+            "ipv6": "<string>",
+            "created_at": "<dateTime>",
+            "nameservers": [
+              "<string>",
+              "<string>"
+            ],
+            "ssl_cert": {
+              "names": [
+                "<string>",
+                "<string>"
+              ],
+              "expires_at": "<dateTime>",
+              "created_at": "<dateTime>"
+            },
+            "custom_ssl_cert": {
+              "is_expired": "<boolean>",
+              "expires_at": "<dateTime>",
+              "created_at": "<dateTime>"
+            }
+          }
+        ],
+        "preview_domain": {
+          "fqdn": "<string>",
+          "created_at": "<dateTime>"
+        },
+        "settings": {
+          "php": {
+            "version": "<string>",
+            "workers": "<integer>"
+          }
+        },
+        "wordpress": {
+          "domain": "<string>",
+          "title": "<string>",
+          "language": "<string>",
+          "is_config_locked": "<boolean>",
+          "created_at": "<dateTime>"
+        },
+        "remote_access": {
+          "mode": "<string>",
+          "ssh": {
+            "username": "<string>",
+            "host": "<string>",
+            "port": "<integer>",
+            "is_enabled": "<boolean>",
+            "is_password_enabled": "<boolean>"
+          },
+          "sftp": {
+            "username": "<string>",
+            "host": "<string>",
+            "port": "<integer>",
+            "is_enabled": "<boolean>"
+          }
+        },
+        "server": {
+          "hostname": "<string>",
+          "country_code": "<string>"
+        },
+        "order": {
+          "id": "<integer>",
+          "status": "<string>",
+          "created_at": "<dateTime>",
+          "plan": {
+            "name": "<string>",
+            "parameters": {
+              "disk_quota_bytes": "<integer>",
+              "inode_quota": "<integer>",
+              "cpu_cores": "<integer>",
+              "memory_quota_bytes": "<integer>",
+              "disk_iops_quota": "<integer>",
+              "process_quota": "<integer>",
+              "website_quota": "<integer>",
+              "max_databases_per_website": "<integer>",
+              "is_cdn_available": "<boolean>"
+            }
+          }
+        },
+        "user": {
+          "username": "<string>",
+          "state": "<string>"
+        },
+        "staging_root": {
+          "uid": "<string>"
+        }
+      }
+order: 1000

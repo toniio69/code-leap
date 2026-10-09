@@ -1,0 +1,34 @@
+$kind: http-request
+description: |-
+  Retrieve a paginated list of Node.js build processes for a specific website.
+
+  Each build represents a single run of the Node.js build pipeline. Use the `states`
+  query parameter to filter results by build state (pending, running, completed, failed).
+  Use the `uuid` from a build to poll its output via the `Get Node.js Build Logs` endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds?page=<integer>&per_page=25&states=pending&states=pending"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+  - key: states
+    value: pending
+    description: Build states to filter by
+  - key: states
+    value: pending
+    description: Build states to filter by
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/List NodeJS builds.resources/examples
+order: 1000

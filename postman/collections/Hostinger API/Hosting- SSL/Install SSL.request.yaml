@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Requests a lifetime SSL certificate for the website. The installation runs in the background;
+  `Get SSL status` reports `active` or `failed` when it ends. An `active` lifetime certificate
+  does not block the request: a new installation is requested, which is how a certificate is
+  reinstalled.
+
+  Returns 422 for free subdomains (their certificate is managed by the platform), while an
+  installation is `installing` or `waiting_for_retry`, when the website's certificate was
+  revoked (it cannot be reissued), and when an uploaded custom certificate is installed; that
+  one has to be uninstalled first.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/ssl/setup"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Install SSL.resources/examples
+order: 1000

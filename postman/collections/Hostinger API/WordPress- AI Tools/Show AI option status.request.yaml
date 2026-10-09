@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Show the current AI option status for the Hostinger Tools plugin on the
+  specified WordPress installation. Filter by `option` to return a single
+  option, or omit it to return all options.
+
+  Provide the WordPress installation (software) identifier in the path. It can
+  be obtained from GET /api/hosting/v1/wordpress/installations (the `id` field).
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/hostinger-plugins/ai-option/status?option=web2agent"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: option
+    value: web2agent
+    description: Filter the status by a single AI option. (This can only be one of llmstxt,web2agent)
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: software
+    value: "98"
+    description: (Required) WordPress installation (software) identifier
+settings: {}
+examples: ./.resources/Show AI option status.resources/examples
+order: 1000

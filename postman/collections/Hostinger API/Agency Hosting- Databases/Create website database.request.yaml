@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Creates a MySQL database with a dedicated user for an Agency Plan website.
+
+  The database name, username, and password must all be provided by the caller.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "database_name": "<string>",
+      "database_user": "<string>",
+      "password": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create website database.resources/examples
+order: 2000

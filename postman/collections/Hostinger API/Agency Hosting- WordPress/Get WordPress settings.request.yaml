@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Returns the current WordPress settings for an Agency Plan website: installed core version,
+  LiteSpeed Cache plugin status, object cache status, and maintenance mode status.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/wordpress/settings"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/Get WordPress settings.resources/examples
+order: 2000

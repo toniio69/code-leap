@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Deploy a WordPress theme from an already uploaded directory.
+
+  This endpoint allows you to deploy a WordPress theme that has been uploaded to the website's directory.
+  The theme can be optionally activated after deployment.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/wordpress/themes/deploy"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "slug": "<string>",
+      "theme_path": "<string>",
+      "is_activated": false
+    }
+settings: {}
+examples: ./.resources/Deploy WordPress theme.resources/examples
+order: 2000

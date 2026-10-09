@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Delete a tag and remove it from every contact carrying it.
+
+  The contacts themselves are not deleted. This is idempotent: deleting a tag that does not
+  exist in the profile still succeeds.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+settings: {}
+examples: ./.resources/Delete a tag.resources/examples
+order: 5000

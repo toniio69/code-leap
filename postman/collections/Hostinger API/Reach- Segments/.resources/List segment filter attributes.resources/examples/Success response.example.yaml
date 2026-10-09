@@ -1,0 +1,93 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/filters/attributes"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "attributes": {
+          "key_0": {
+            "name": "<string>",
+            "type": "opt_in_method",
+            "description": "<string>",
+            "operators": {
+              "key_0": {
+                "operator": "processed",
+                "description": "<string>",
+                "input_type": "number",
+                "example": "<string>",
+                "enum_values": {
+                  "key_0": "<string>",
+                  "key_1": "<string>",
+                  "key_2": "<string>"
+                }
+              },
+              "key_1": {
+                "operator": "not_equals",
+                "description": "<string>",
+                "input_type": "number",
+                "example": "<string>",
+                "enum_values": {
+                  "key_0": "<string>",
+                  "key_1": "<string>",
+                  "key_2": "<string>"
+                }
+              }
+            }
+          },
+          "key_1": {
+            "name": "<string>",
+            "type": "contact_metadata",
+            "description": "<string>",
+            "operators": {
+              "key_0": {
+                "operator": "not_soft_bounced",
+                "description": "<string>",
+                "input_type": "date",
+                "example": "<string>",
+                "enum_values": {
+                  "key_0": "<string>"
+                }
+              },
+              "key_1": {
+                "operator": "not_within_last_days",
+                "description": "<string>",
+                "input_type": "date",
+                "example": "<string>",
+                "enum_values": {
+                  "key_0": "<string>"
+                }
+              },
+              "key_2": {
+                "operator": "not_soft_bounced",
+                "description": "<string>",
+                "input_type": "text",
+                "example": "<string>",
+                "enum_values": {
+                  "key_0": "<string>"
+                }
+              }
+            }
+          }
+        },
+        "logic_operators": {
+          "key_0": "<string>"
+        }
+      }
+order: 1000

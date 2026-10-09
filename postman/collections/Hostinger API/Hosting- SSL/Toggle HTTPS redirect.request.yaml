@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Turns the HTTP to HTTPS redirect of the website on or off, based on `is_enabled`. Does
+  nothing when the redirect is already in the requested state. Turning it on requires an
+  installed certificate (`status` `active` or `expired` on `Get SSL status`) and returns 422
+  when there is none; turning it off is always accepted.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/ssl/https-redirect/toggle"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "is_enabled": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Toggle HTTPS redirect.resources/examples
+order: 3000

@@ -1,0 +1,37 @@
+$kind: http-request
+description: |-
+  Create a renewal order for an existing Hostinger subscription.
+
+  This endpoint places a renewal order for a single subscription, leveraging
+  the existing billing infrastructure. Use the
+  [subscriptions endpoint](#tag/billing-subscriptions) to look up the
+  `subscriptionId` values available for renewal.
+
+  If no payment method is provided, your default payment method will be used automatically.
+
+  If the response is `202 Accepted`, the payment is still being processed and the renewal will
+  complete asynchronously once the payment is confirmed.
+
+  Use this endpoint to renew any subscription available in your account.
+url: "{{baseUrl}}/api/billing/v1/subscriptions/:subscriptionId/renew"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: subscriptionId
+    value: <string>
+    description: (Required) Subscription ID
+body:
+  type: json
+  content: |-
+    {
+      "payment_method_id": "<integer>",
+      "coupons": [
+        "",
+        ""
+      ]
+    }
+settings: {}
+examples: ./.resources/Renew subscription.resources/examples
+order: 4000

@@ -1,0 +1,38 @@
+$kind: http-request
+description: |-
+  Create many contacts in a profile in a single call.
+
+  The contacts are imported in the background, so a success response means the import was
+  accepted rather than finished. Contacts whose email already exists in the profile are
+  left as they are. If double opt-in is enabled, new contacts start off pending and are
+  sent a confirmation email.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/contacts/bulk"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "contacts": [
+        {
+          "email": "<string>",
+          "name": "<string>",
+          "surname": "<string>",
+          "phone": "<string>"
+        }
+      ],
+      "tag_uuids": [
+        "<string>",
+        "<string>"
+      ],
+      "note": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create contacts in bulk.resources/examples
+order: 8000

@@ -1,0 +1,126 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/domains/dns-status"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "domain": "<string>",
+        "mx": {
+          "actual": [
+            {
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "suggested": [
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "is_valid": "<boolean>"
+        },
+        "spf": {
+          "actual": [
+            {
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "suggested": [
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "is_valid": "<boolean>"
+        },
+        "dkim": {
+          "actual": [
+            {
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "suggested": [
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "is_valid": "<boolean>"
+        },
+        "dmarc": {
+          "actual": [
+            {
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "suggested": [
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            },
+            {
+              "name": "<string>",
+              "type": "<string>",
+              "value": "<string>"
+            }
+          ],
+          "is_valid": "<boolean>"
+        }
+      }
+order: 1000

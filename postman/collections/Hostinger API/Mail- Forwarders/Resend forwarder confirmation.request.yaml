@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Resend the confirmation email to the destination address of an
+  unconfirmed forwarder.
+url: "{{baseUrl}}/api/mail/v1/forwarders/:forwarderId/confirmation/resend"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: forwarderId
+    value: <string>
+    description: (Required) Forwarder resource ID
+settings: {}
+examples: ./.resources/Resend forwarder confirmation.resources/examples
+order: 4000

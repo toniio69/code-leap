@@ -1,0 +1,39 @@
+$kind: http-request
+description: |-
+  Retrieve paginated mailbox action logs (message and mailbox events)
+  for a mailbox in the given mail order. The mailbox email must belong
+  to the order's domain. Supports date range and event type filters.
+  Results are sorted by timestamp descending.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/logs/mailbox-actions?email=<email>&date=<date>&from_date=<dateTime>&to_date=<dateTime>&event=MailboxRename&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: email
+    value: <email>
+    description: (Required) Mailbox email address. Must belong to the order's domain.
+  - key: date
+    value: <date>
+    description: Exact date filter (YYYY-MM-DD). Takes precedence over `from_date`/`to_date` when both are given.
+  - key: from_date
+    value: <dateTime>
+    description: Date range start (RFC 3339)
+  - key: to_date
+    value: <dateTime>
+    description: Date range end (RFC 3339)
+  - key: event
+    value: MailboxRename
+    description: Filter mailbox action log entries by event type (This can only be one of MessageNew,MessageRead,MessageAppend,MessageExpunge,MailboxCreate,MailboxDelete,MailboxRename)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List mailbox action logs.resources/examples
+order: 4000

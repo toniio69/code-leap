@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Replace the autoreply with the given content and schedule. Omitted
+  optional fields are cleared: omit `starts_at` to activate the
+  autoreply immediately and omit `ends_at` to keep it active
+  indefinitely.
+url: "{{baseUrl}}/api/mail/v1/autoreplies/:autoreplyId"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: autoreplyId
+    value: <string>
+    description: (Required) Autoreply resource ID
+body:
+  type: json
+  content: |-
+    {
+      "subject": "<string>",
+      "body": "<string>",
+      "display_name": "<string>",
+      "starts_at": "<dateTime>",
+      "ends_at": "<dateTime>"
+    }
+settings: {}
+examples: ./.resources/Update autoreply.resources/examples
+order: 2000

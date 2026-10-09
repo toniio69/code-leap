@@ -1,0 +1,19 @@
+{
+  " mcpServers\: {
+ \stitch\: {
+ \command\: \cmd.exe\,
+ \args\: [
+ \/c\,
+ \npx\,
+ \-y\,
+ \@_davideast/stitch-mcp\
+ ],
+ \env\: {
+ \STITCH_API_KEY\: \\
+ }
+ },
+ \stitch-remote\: {
+ \serverUrl\: \https://stitch.googleapis.com/mcp\
+ }
+ }
+}

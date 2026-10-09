@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Trigger a background scan to detect WordPress installations for the account.
+
+  This operation is asynchronous: a successful response only means the scan has
+  been queued. Poll GET /api/hosting/v1/wordpress/installations to fetch the
+  detected installations once the scan completes.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/installations/detect"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+settings: {}
+examples: ./.resources/Detect WordPress installations.resources/examples
+order: 3000

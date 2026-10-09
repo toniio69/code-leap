@@ -1,0 +1,7 @@
+$kind: collection
+name: "Ecommerce: Shipping"
+description: |-
+  Configure shipping options for your online store. This
+  category includes endpoints for setting the flat-rate
+  shipping price applied to customer orders.
+order: 99000

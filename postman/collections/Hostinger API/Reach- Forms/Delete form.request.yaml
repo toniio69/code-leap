@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Permanently delete a form together with its template.
+
+  A form that has already captured submissions cannot be deleted, so that the contacts it collected
+  are never silently discarded - pause the form instead to stop it collecting new ones. Views alone
+  do not block deletion.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/forms/:formUuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: formUuid
+    value: <string>
+    description: (Required) Form uuid parameter
+settings: {}
+examples: ./.resources/Delete form.resources/examples
+order: 2000

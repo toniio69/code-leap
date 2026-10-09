@@ -1,0 +1,7 @@
+$kind: collection
+name: "Mail: Logs"
+description: |-
+  Inspect activity logs of your mail orders. This category includes
+  endpoints for access logs, inbound and outbound delivery logs,
+  mailbox action logs, and account action logs.
+order: 27000

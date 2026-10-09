@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Removes the Git auto-deployment settings of the website. Files already deployed stay on the
+  website; pushes stop deploying until settings are saved again. Succeeds also when nothing is
+  configured.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/git/auto-deployments/settings"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Delete Git auto-deployment settings.resources/examples
+order: 3000

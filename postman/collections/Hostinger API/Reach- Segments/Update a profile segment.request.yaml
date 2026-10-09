@@ -1,0 +1,36 @@
+$kind: http-request
+description: |-
+  Rename a segment and/or replace the conditions that define it.
+
+  `name` is always required. Omit `conditions` to rename without touching the conditions;
+  supply them and they replace the existing set entirely rather than being merged into it.
+  Contacts are never modified, but which of them match the segment can change immediately.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments/:segmentUuid"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: segmentUuid
+    value: <string>
+    description: (Required) Segment uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "conditions": [
+        {
+          "attribute": "<string>",
+          "operator": "not_processed",
+          "value": "<string>"
+        }
+      ],
+      "logic": "OR"
+    }
+settings: {}
+examples: ./.resources/Update a profile segment.resources/examples
+order: 6000

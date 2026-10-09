@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Returns a paginated list of MySQL databases created for an Agency Plan website.
+
+  Each entry includes the database's non-system users.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/databases?page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List website databases.resources/examples
+order: 1000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Assign a tag to a single contact.
+
+  Unlike the bulk endpoint this is applied immediately rather than queued. Assigning a tag
+  the contact already carries succeeds without duplicating it.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid/contacts/:contactUuid"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+  - key: contactUuid
+    value: <uuid>
+    description: (Required) Contact uuid parameter
+settings: {}
+examples: ./.resources/Assign a contact to a tag.resources/examples
+order: 1000

@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Permanently deletes an Agency Plan website. Deletion is processed asynchronously: the
+  website is immediately transitioned to a deleting state and the underlying server
+  resources are removed in the background.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/Delete website.resources/examples
+order: 3000

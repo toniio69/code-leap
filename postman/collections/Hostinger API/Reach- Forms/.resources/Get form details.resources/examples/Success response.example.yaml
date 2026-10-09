@@ -1,0 +1,51 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/forms/:formUuid"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+    - key: formUuid
+      value: <string>
+      description: (Required) Form uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uuid": "<string>",
+        "name": "<string>",
+        "status": "paused",
+        "type": "form",
+        "template": {
+          "uuid": "<string>",
+          "path": "<string>",
+          "url": "<string>"
+        },
+        "tags": [
+          {
+            "uuid": "<string>",
+            "value": "<string>",
+            "type": "system"
+          },
+          {
+            "uuid": "<string>",
+            "value": "<string>",
+            "type": "system"
+          }
+        ],
+        "created_at": "<dateTime>",
+        "updated_at": "<dateTime>"
+      }
+order: 1000

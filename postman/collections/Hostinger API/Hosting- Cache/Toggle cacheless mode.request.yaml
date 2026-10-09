@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Turns development (cacheless) mode on or off, based on the enabled flag. When enabled, nothing
+  is cached, effectively turning off all caching for the website; use it while actively developing,
+  testing changes, debugging issues, or when real-time updates must be visible. Disable it after
+  finishing development work to restore the performance benefits of caching.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/cacheless-mode/toggle"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "enabled": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Toggle cacheless mode.resources/examples
+order: 2000

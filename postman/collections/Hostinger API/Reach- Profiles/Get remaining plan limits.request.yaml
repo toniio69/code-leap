@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Get how much of the plan is left for the current period.
+
+  Two things to keep in mind before you build alerting on this. The period is a calendar month
+  rather than a billing anniversary, so the counters reset on the 1st no matter when the
+  subscription started. And usage is tracked per order, so every profile on the same order shares
+  one pool and reports the same numbers here. Only the current period is available, past usage is
+  not kept.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/limits"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/Get remaining plan limits.resources/examples
+order: 4000

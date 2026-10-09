@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Returns the Git auto-deployment settings of the website: which repository and branch deploy
+  into which directory, and whether pushes trigger a deployment. `is_enabled` false keeps the
+  repository link but ignores pushes.
+
+  When the website has no auto-deployment configured every field is null. Save settings with
+  `Update Git auto-deployment settings`.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/git/auto-deployments/settings"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get Git auto-deployment settings.resources/examples
+order: 1000

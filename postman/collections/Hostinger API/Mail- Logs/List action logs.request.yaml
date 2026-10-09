@@ -1,0 +1,38 @@
+$kind: http-request
+description: |-
+  Retrieve paginated account action logs (administrative and user
+  actions) for the given mail order. Supports filtering by account,
+  date range, and status. Results are sorted by timestamp descending.
+url: "{{baseUrl}}/api/mail/v1/orders/:orderId/logs/action?account=<email>&date=<date>&from_date=<dateTime>&to_date=<dateTime>&status=Failed&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: account
+    value: <email>
+    description: Filter log entries by a specific email account
+  - key: date
+    value: <date>
+    description: Exact date filter (YYYY-MM-DD). Takes precedence over `from_date`/`to_date` when both are given.
+  - key: from_date
+    value: <dateTime>
+    description: Date range start (RFC 3339)
+  - key: to_date
+    value: <dateTime>
+    description: Date range end (RFC 3339)
+  - key: status
+    value: Failed
+    description: Filter log entries by status (This can only be one of Successful,Failed)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: orderId
+    value: <string>
+    description: (Required) Order resource ID
+settings: {}
+examples: ./.resources/List action logs.resources/examples
+order: 2000

@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Cancel an outgoing move for a specified domain.
+
+  The move can only be cancelled while the receiving account has not accepted it yet.
+  The domain stays in your account.
+
+  Use this endpoint to withdraw a move you no longer want to complete.
+url: "{{baseUrl}}/api/domains/v1/move/outgoing/:domain"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Cancel outgoing domain move.resources/examples
+order: 7000

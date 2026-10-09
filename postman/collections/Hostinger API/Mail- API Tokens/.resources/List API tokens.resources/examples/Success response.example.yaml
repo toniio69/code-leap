@@ -1,0 +1,80 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/api-tokens?order_id=<string>&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: order_id
+      value: <string>
+      description: Filter tokens by order resource ID. Single value or comma-separated list.
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "<string>",
+            "order_id": "<string>",
+            "name": "<string>",
+            "scope": {
+              "has_all_mailboxes": "<boolean>",
+              "mailboxes": [
+                {
+                  "id": "<string>",
+                  "address": "<string>"
+                },
+                {
+                  "id": "<string>",
+                  "address": "<string>"
+                }
+              ]
+            },
+            "created_at": "<dateTime>",
+            "last_used_at": "<dateTime>",
+            "type": "api_token"
+          },
+          {
+            "id": "<string>",
+            "order_id": "<string>",
+            "name": "<string>",
+            "scope": {
+              "has_all_mailboxes": "<boolean>",
+              "mailboxes": [
+                {
+                  "id": "<string>",
+                  "address": "<string>"
+                },
+                {
+                  "id": "<string>",
+                  "address": "<string>"
+                }
+              ]
+            },
+            "created_at": "<dateTime>",
+            "last_used_at": "<dateTime>",
+            "type": "api_token"
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

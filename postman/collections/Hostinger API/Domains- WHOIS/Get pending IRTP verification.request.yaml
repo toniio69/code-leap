@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Retrieve a pending IRTP verification for a domain.
+
+  Both the old and new registrant must confirm it before the WHOIS change takes effect.
+
+  Use this endpoint to check the status of a WHOIS change awaiting registrant confirmation.
+url: "{{baseUrl}}/api/domains/v1/irtp/:domain"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get pending IRTP verification.resources/examples
+order: 1000

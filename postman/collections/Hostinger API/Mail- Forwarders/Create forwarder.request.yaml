@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Create a forwarder from the given mailbox to the destination address.
+  The destination receives a confirmation email and forwarding becomes
+  active only after it is confirmed.
+url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/forwarders"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: mailboxId
+    value: <string>
+    description: (Required) Mailbox resource ID
+body:
+  type: json
+  content: |-
+    {
+      "destination": "<string>",
+      "is_keep_copy_enabled": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Create forwarder.resources/examples
+order: 1000

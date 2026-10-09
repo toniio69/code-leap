@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Change WHOIS contact profile for a domain.
+
+  Repoints the given contact roles to a new WHOIS profile and submits the change to the registry.
+  The profile currently assigned to those roles is resolved automatically;
+  the request fails if the given roles are not all on the same profile today.
+
+  Changing transfer sensitive fields on the owner contact starts an IRTP verification.
+
+  The change is processed asynchronously.
+
+  Use this endpoint to move a registered domain onto different contact information.
+url: "{{baseUrl}}/api/domains/v1/whois/change"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "new_whois_id": "<integer>",
+      "domain": "<string>",
+      "change_for": [
+        "admin",
+        "billing"
+      ]
+    }
+settings: {}
+examples: ./.resources/Change WHOIS profile for domain.resources/examples
+order: 3000

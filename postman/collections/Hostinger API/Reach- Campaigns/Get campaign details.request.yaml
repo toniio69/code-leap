@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Get a single campaign with its sender, subject, template reference, targeting and delivery
+  progress.
+
+  This describes how the campaign was set up and how far it has got. For opens, clicks and
+  unsubscribes use the campaign statistics endpoint.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns/:campaignUuid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: campaignUuid
+    value: <string>
+    description: (Required) Campaign uuid parameter
+settings: {}
+examples: ./.resources/Get campaign details.resources/examples
+order: 1000

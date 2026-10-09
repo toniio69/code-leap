@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Permanently deletes the redirect identified by its source URL.
+
+  Pass the `from` value exactly as returned by the list redirects endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/redirects?from=<uri>"
+method: DELETE
+headers:
+  Accept: application/json
+queryParams:
+  - key: from
+    value: <uri>
+    description: (Required) Source URL returned by the list redirects endpoint.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Delete website redirect.resources/examples
+order: 3000

@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Get all tags defined in a profile.
+
+  Tags are the way contacts are grouped in Reach, and can be used to filter the contact
+  list or to build segments.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List profile tags.resources/examples
+order: 7000

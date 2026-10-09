@@ -1,0 +1,4 @@
+$kind: collection
+name: "WordPress: Object Cache"
+description: "WordPress: Object Cache"
+order: 60000

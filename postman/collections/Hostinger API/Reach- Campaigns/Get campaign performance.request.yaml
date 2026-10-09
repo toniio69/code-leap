@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Get the performance of a campaign: delivery, opens, clicks and unsubscribes, with the
+  matching rates.
+
+  Every count is unique contacts rather than raw events, so a contact who opens the same email
+  five times is counted once.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns/:campaignUuid/statistics"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: campaignUuid
+    value: <string>
+    description: (Required) Campaign uuid parameter
+settings: {}
+examples: ./.resources/Get campaign performance.resources/examples
+order: 4000

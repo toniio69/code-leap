@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/limits"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "emails": {
+          "limit": "<integer>",
+          "used": "<integer>",
+          "remaining": "<integer>"
+        },
+        "recipients": {
+          "limit": "<integer>",
+          "used": "<integer>",
+          "remaining": "<integer>"
+        },
+        "ai_credits": {
+          "limit": "<integer>",
+          "used": "<integer>",
+          "remaining": "<integer>"
+        },
+        "period_start": "<dateTime>",
+        "period_end": "<dateTime>"
+      }
+order: 1000

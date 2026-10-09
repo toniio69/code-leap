@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Unset WHOIS contact profile as default.
+
+  The profile itself is kept, it is only no longer pre-selected for its TLD.
+
+  Use this endpoint to stop reusing contact information for new registrations.
+url: "{{baseUrl}}/api/domains/v1/whois/default/:whoisId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: whoisId
+    value: <integer>
+    description: (Required) WHOIS ID
+settings: {}
+examples: ./.resources/Unset default WHOIS profile.resources/examples
+order: 5000

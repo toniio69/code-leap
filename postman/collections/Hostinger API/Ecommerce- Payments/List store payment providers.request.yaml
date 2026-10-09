@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  List a store's payment providers, split into providers already connected to the store and
+  gateways available to install. Never exposes gateway credentials, secrets, or configuration.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/payment-providers?include_currency_unsupported=<boolean>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: include_currency_unsupported
+    value: <boolean>
+    description: Include gateways that do not support the store currency in the available list.
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to list payment providers for.
+settings: {}
+examples: ./.resources/List store payment providers.resources/examples
+order: 3000

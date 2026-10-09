@@ -1,0 +1,45 @@
+$kind: http-request
+description: |-
+  Returns the Node.js application's runtime console log entries, oldest first, each with
+  timestamp, level and message. On the first call send `period` (`1h`, `1d`, `1w` or `1m`)
+  and optionally `levels` and `limit` (1-5000, default 1000); when more entries match than
+  `limit`, the newest are kept.
+
+  To poll for new entries send `total_lines + 1` from the previous response as `from_line`
+  and omit `period`; `period` and `from_line` cannot be combined. Lines that are not JSON
+  with a timestamp, level and message are skipped, so `logs` may hold fewer than `limit`
+  entries while `total_lines` counts every raw line. Entries with a timestamp before
+  `last_deployed_at` belong to the previous deployment. Returns an empty `logs` list when
+  the application has not written a log file yet.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/runtime-logs?period=1d&from_line=<integer>&limit=1000&levels=LOG,WARN"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: period
+    value: 1d
+    description: Time window for the first fetch. Required when `from_line` is not sent. (This can only be one of 1h,1d,1w,1m)
+  - key: from_line
+    value: <integer>
+    description: |-
+      1-based line of the log file to start from. For polling send `total_lines + 1` from the
+      previous response. Cannot be combined with `period`.
+  - key: limit
+    value: "1000"
+    description: Maximum number of log entries to return. When more entries match, the newest are kept.
+  - key: levels
+    value: LOG,WARN
+    description: |-
+      Return only entries with these log levels, sent as a comma-separated list, e.g. ERROR,WARN.
+      Matching runs on the raw log line, so entries written with numeric levels (for example by
+      pino) are excluded while this filter is set.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get Node.js runtime logs.resources/examples
+order: 11000

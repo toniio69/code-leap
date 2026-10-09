@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Retrieve logs from a specific Node.js build process.
+
+  To stream live output while a build is running, poll this endpoint repeatedly
+  while the build state is `running`, passing the previously returned `lines` count
+  as `from_line` to fetch only new output since the last call.
+  Log content may contain ANSI escape sequences (color codes).
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/:uuid/logs?from_line=0"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: from_line
+    value: "0"
+    description: Line from which to start retrieving logs
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+  - key: uuid
+    value: <uuid>
+    description: (Required) Build UUID
+settings: {}
+examples: ./.resources/Get NodeJS build logs.resources/examples
+order: 10000

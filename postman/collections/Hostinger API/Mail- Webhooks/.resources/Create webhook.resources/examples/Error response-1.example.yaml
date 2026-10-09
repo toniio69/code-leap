@@ -1,0 +1,43 @@
+$kind: http-example
+name: Error response
+request:
+  url: "{{baseUrl}}/api/mail/v1/mailboxes/:mailboxId/webhooks"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: mailboxId
+      value: <string>
+      description: (Required) Mailbox resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "name": "<string>",
+        "events": [
+          "message.received",
+          "message.received"
+        ],
+        "url": "<string>",
+        "description": "<string>",
+        "status": "active"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 4000

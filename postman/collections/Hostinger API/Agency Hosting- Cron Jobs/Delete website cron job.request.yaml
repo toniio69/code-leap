@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Permanently deletes the cron job identified by its uuid from an Agency Plan website.
+
+  The operation is idempotent: deleting a cron job that does not exist succeeds without error.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/cron-jobs/:uuid"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: uuid
+    value: <uuid>
+    description: (Required) Unique identifier of the cron job as returned by the list cron jobs endpoint.
+settings: {}
+examples: ./.resources/Delete website cron job.resources/examples
+order: 3000

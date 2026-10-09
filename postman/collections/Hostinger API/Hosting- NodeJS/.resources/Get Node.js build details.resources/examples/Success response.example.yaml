@@ -1,0 +1,60 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/:uuid"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+    - key: uuid
+      value: <uuid>
+      description: (Required) Build UUID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "uuid": "<string>",
+        "state": "failed",
+        "options": {
+          "node_version": "<integer>",
+          "app_type": "react-router",
+          "root_directory": "<string>",
+          "output_directory": "<string>",
+          "build_script": "<string>",
+          "entry_file": "<string>",
+          "package_manager": "npm",
+          "source_type": "git",
+          "source_options": {
+            "owner": "<string>",
+            "repository": "<string>",
+            "branch": "<string>",
+            "installation_uuid": "<string>",
+            "commit": {
+              "hash": "<string>",
+              "message": "<string>",
+              "author": {
+                "name": "<string>",
+                "avatar_url": "<string>"
+              }
+            },
+            "archive_path": "<string>"
+          }
+        },
+        "created_at": "<dateTime>",
+        "updated_at": "<dateTime>"
+      }
+order: 1000

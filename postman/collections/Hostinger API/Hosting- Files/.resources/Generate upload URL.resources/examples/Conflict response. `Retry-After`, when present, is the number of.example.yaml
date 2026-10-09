@@ -1,0 +1,38 @@
+$kind: http-example
+name: Conflict response. `Retry-After`, when present, is the number of seconds to wait before retrying.
+request:
+  url: "{{baseUrl}}/api/hosting/v1/files/upload-urls"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  body:
+    type: json
+    content: |-
+      {
+        "username": "<string>",
+        "domain": "<string>"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Retry-After
+      value: <integer>
+      disabled: false
+      description: Seconds to wait before retrying the request
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "correlation_id": "<string>"
+      }
+order: 3000

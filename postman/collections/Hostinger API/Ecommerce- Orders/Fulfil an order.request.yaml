@@ -1,0 +1,37 @@
+$kind: http-request
+description: |-
+  Create a fulfilment for the order and attach tracking in one call. Omit items to fulfil
+  every remaining unfulfilled item. Returns the updated order summary.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/orders/:order_id/fulfill"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store that owns the order.
+  - key: order_id
+    value: <string>
+    description: (Required) The ID of the order to fulfil.
+body:
+  type: json
+  content: |-
+    {
+      "items": [
+        {
+          "line_item_id": "<string>",
+          "quantity": "<integer>"
+        },
+        {
+          "line_item_id": "<string>",
+          "quantity": "<integer>"
+        }
+      ],
+      "tracking_number": "<string>",
+      "tracking_url": "<string>",
+      "notify_customer": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Fulfil an order.resources/examples
+order: 2000

@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  Partially update a webhook. Only the fields included in the request
+  body are changed; omitted fields retain their current values. Pass
+  `"description": null` to clear the description.
+url: "{{baseUrl}}/api/mail/v1/webhooks/:webhookId"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: webhookId
+    value: <string>
+    description: (Required) Webhook ID (returned when the webhook was created)
+body:
+  type: json
+  content: |-
+    {
+      "name": "<string>",
+      "description": "<string>",
+      "events": [
+        "message.received",
+        "message.received"
+      ],
+      "status": "paused",
+      "url": "<string>"
+    }
+settings: {}
+examples: ./.resources/Update webhook.resources/examples
+order: 5000

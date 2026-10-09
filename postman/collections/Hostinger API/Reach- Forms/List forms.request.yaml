@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Get a paginated list of the signup forms in a profile.
+
+  Each form carries a reference to the template that renders it. Get the form details for a
+  directly usable template URL and for the tags the form puts on the contacts it captures.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/forms?page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List forms.resources/examples
+order: 3000

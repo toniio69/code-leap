@@ -1,0 +1,13 @@
+$kind: http-request
+description: Lists the php.ini directives that can be configured for an Agency Plan website, each with its default, the value currently in effect, and the values it accepts.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/options"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List PHP options for a website.resources/examples
+order: 3000

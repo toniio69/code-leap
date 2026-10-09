@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Returns a paginated list of databases for the specified account.
+
+  Use the domain and is_assigned filters to find databases assigned to a specific domain.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases?page=<integer>&per_page=25&domain=<string>&is_assigned=<boolean>&search=<string>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+  - key: domain
+    value: <string>
+    description: Filter by domain name (case-insensitive substring match)
+  - key: is_assigned
+    value: <boolean>
+    description: When used with domain, return only databases assigned to that domain.
+  - key: search
+    value: <string>
+    description: Search databases by name, user, or creation date.
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+settings: {}
+examples: ./.resources/List account databases.resources/examples
+order: 2000

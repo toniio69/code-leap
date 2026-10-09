@@ -1,0 +1,29 @@
+$kind: http-request
+description: Replaces the custom php.ini values on an Agency Plan website with the ones provided. Any option not in the request is reset to its default, so call the options endpoint first and send the full desired set. Sending an empty array resets every option to its default.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/options"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "options": [
+        {
+          "name": "<string>",
+          "value": "<string>"
+        },
+        {
+          "name": "<string>",
+          "value": "<string>"
+        }
+      ]
+    }
+settings: {}
+examples: ./.resources/Replace website PHP options.resources/examples
+order: 4000

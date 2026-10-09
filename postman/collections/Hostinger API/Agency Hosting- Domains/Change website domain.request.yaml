@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Changes the primary domain for an Agency Plan website.
+
+  Provide the current domain in the path and the new domain in the request body.
+  Set domain to null to revert to the temporary domain.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/domains/:from_domain"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+  - key: from_domain
+    value: <string>
+    description: (Required) Current domain name to change from
+body:
+  type: json
+  content: |-
+    {
+      "domain": "<string>"
+    }
+settings: {}
+examples: ./.resources/Change website domain.resources/examples
+order: 1000

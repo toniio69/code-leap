@@ -1,0 +1,13 @@
+$kind: http-request
+description: Lists every PHP extension available to an Agency Plan website and whether it is currently enabled.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/extensions"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+settings: {}
+examples: ./.resources/List PHP extensions for a website.resources/examples
+order: 1000

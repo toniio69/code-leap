@@ -1,0 +1,96 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns?status=sending&type=campaign&sort_direction=desc&page=<integer>&per_page=25"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: status
+      value: sending
+      description: |-
+        Filter campaigns by status.
+
+        A fully sent campaign has the status `publish`. There is no `sent` status, and campaigns can
+        be neither paused nor archived. (This can only be one of draft,scheduled,sending,publish,failed)
+    - key: type
+      value: campaign
+      description: |-
+        Filter campaigns by type.
+
+        Defaults to `campaign`, which leaves out the emails sent by automations and the double
+        opt-in confirmations. (This can only be one of campaign,automation,double_opt_in)
+    - key: sort_direction
+      value: desc
+      description: Order campaigns by creation date. Newest first unless set to `asc`. (This can only be one of asc,desc)
+    - key: page
+      value: <integer>
+      description: Page number
+    - key: per_page
+      value: "25"
+      description: Number of items per page
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "uuid": "<string>",
+            "title": "<string>",
+            "subject": "<string>",
+            "sender_name": "<string>",
+            "sender_email": "<string>",
+            "template_uuid": "<string>",
+            "status": "failed",
+            "type": "campaign",
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>",
+            "sent_at": "<dateTime>",
+            "scheduled_at": "<dateTime>",
+            "statistics": {
+              "total_sent": "<integer>",
+              "open_rate": "<float>",
+              "click_rate": "<float>",
+              "click_to_open_rate": "<float>"
+            }
+          },
+          {
+            "uuid": "<string>",
+            "title": "<string>",
+            "subject": "<string>",
+            "sender_name": "<string>",
+            "sender_email": "<string>",
+            "template_uuid": "<string>",
+            "status": "draft",
+            "type": "automation",
+            "created_at": "<dateTime>",
+            "updated_at": "<dateTime>",
+            "sent_at": "<dateTime>",
+            "scheduled_at": "<dateTime>",
+            "statistics": {
+              "total_sent": "<integer>",
+              "open_rate": "<float>",
+              "click_rate": "<float>",
+              "click_to_open_rate": "<float>"
+            }
+          }
+        ],
+        "meta": {
+          "current_page": "<integer>",
+          "per_page": "<integer>",
+          "total": "<integer>"
+        }
+      }
+order: 1000

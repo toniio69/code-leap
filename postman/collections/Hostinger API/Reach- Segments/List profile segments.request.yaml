@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Get a paginated list of the segments defined in a profile.
+
+  Each entry carries the number of contacts currently matching it, which is recalculated on
+  read rather than stored. Use `count_type` to count either every matching contact or only
+  the subscribed ones.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments?count_type=all&page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: count_type
+    value: all
+    description: Which matching contacts to count for each segment (This can only be one of all,subscribed)
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+settings: {}
+examples: ./.resources/List profile segments.resources/examples
+order: 10000

@@ -35,7 +35,7 @@ class AnalyticsController extends Controller
                 return $items->count();
             });
 
-        return view('Admin.analytics', compact(
+        return view('admin.analytics', compact(
             'totalCourses',
             'totalEnrollments',
             'completedEnrollments',
@@ -46,4 +46,3 @@ class AnalyticsController extends Controller
         ));
     }
 }
-

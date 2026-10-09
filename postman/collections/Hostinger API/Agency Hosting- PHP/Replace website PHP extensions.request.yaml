@@ -1,0 +1,23 @@
+$kind: http-request
+description: Replaces the set of PHP extensions enabled on an Agency Plan website with the ones provided. Any toggleable extension not in the request is disabled, so call the extensions endpoint first and send the full desired set. Extensions compiled into PHP, reported with the "built-in" state, are always active and are unaffected.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/extensions"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "extensions": [
+        "<string>",
+        "<string>"
+      ]
+    }
+settings: {}
+examples: ./.resources/Replace website PHP extensions.resources/examples
+order: 2000

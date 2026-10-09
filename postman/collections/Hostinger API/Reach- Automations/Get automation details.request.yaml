@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Get a single automation with the counts of contacts that entered it, are moving through it,
+  finished it or failed on the way.
+
+  This describes the automation itself. To see the workflow it runs, use the steps endpoint.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/automations/:automationUuid"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: automationUuid
+    value: <string>
+    description: (Required) Automation uuid parameter
+settings: {}
+examples: ./.resources/Get automation details.resources/examples
+order: 1000

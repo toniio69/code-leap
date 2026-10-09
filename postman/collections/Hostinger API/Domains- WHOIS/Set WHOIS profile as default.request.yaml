@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Set WHOIS contact profile as default.
+
+  The default profile is pre-selected for the TLD it belongs to when registering new domains.
+
+  Use this endpoint to avoid picking contact information for every registration.
+url: "{{baseUrl}}/api/domains/v1/whois/default/:whoisId"
+method: PUT
+headers:
+  Accept: application/json
+pathVariables:
+  - key: whoisId
+    value: <integer>
+    description: (Required) WHOIS ID
+settings: {}
+examples: ./.resources/Set WHOIS profile as default.resources/examples
+order: 4000

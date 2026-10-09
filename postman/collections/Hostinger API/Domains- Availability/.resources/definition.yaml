@@ -1,0 +1,8 @@
+$kind: collection
+name: "Domains: Availability"
+description: |-
+  Check the availability of domain names across multiple TLDs.
+  This category allows you to verify if a specific domain name
+  is available for registration, and to get AI generated name
+  suggestions when the name you wanted is already taken.
+order: 7000

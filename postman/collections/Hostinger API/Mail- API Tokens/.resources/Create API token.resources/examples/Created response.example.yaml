@@ -1,0 +1,58 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/mail/v1/orders/:orderId/api-tokens"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: orderId
+      value: <string>
+      description: (Required) Order resource ID
+  body:
+    type: json
+    content: |-
+      {
+        "name": "<string>",
+        "scope": {
+          "has_all_mailboxes": "<boolean>",
+          "mailbox_ids": [
+            "<string>",
+            "<string>"
+          ]
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "<string>",
+        "token": "<string>",
+        "name": "<string>",
+        "scope": {
+          "has_all_mailboxes": "<boolean>",
+          "mailboxes": [
+            {
+              "id": "<string>",
+              "address": "<string>"
+            },
+            {
+              "id": "<string>",
+              "address": "<string>"
+            }
+          ]
+        },
+        "created_at": "<dateTime>",
+        "type": "oauth"
+      }
+order: 1000

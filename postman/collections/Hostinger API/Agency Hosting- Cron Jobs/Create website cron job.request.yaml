@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Creates a cron job for an Agency Plan website from a schedule expression and a command.
+
+  Returns the created cron job, including its uuid, which is required to delete the cron job.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/cron-jobs"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "time": "<string>",
+      "command": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create website cron job.resources/examples
+order: 2000

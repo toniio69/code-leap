@@ -1,0 +1,7 @@
+$kind: collection
+name: "Mail: Autoreplies"
+description: |-
+  Manage automatic replies of your mailboxes. This category includes
+  endpoints for creating, updating, listing, and deleting autoreplies
+  such as out-of-office messages. A mailbox can have one autoreply.
+order: 22000

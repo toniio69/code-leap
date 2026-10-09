@@ -1,0 +1,8 @@
+$kind: collection
+name: "Mail: Aliases"
+description: |-
+  Manage aliases of your mailboxes. An alias is an additional email
+  address that delivers incoming messages to an existing mailbox. This
+  category includes endpoints for creating, listing, and deleting
+  aliases.
+order: 21000

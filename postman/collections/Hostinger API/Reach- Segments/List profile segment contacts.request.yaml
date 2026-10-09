@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Retrieve contacts associated with a specific segment for a given profile.
+
+  This endpoint allows you to fetch and filter contacts that belong to a particular segment,
+  identified by its UUID, scoped to a specific profile.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/segmentation/segments/:segmentUuid/contacts?page=<integer>&per_page=25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+  - key: per_page
+    value: "25"
+    description: Number of items per page
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: segmentUuid
+    value: <string>
+    description: (Required) Segment uuid parameter
+settings: {}
+examples: ./.resources/List profile segment contacts.resources/examples
+order: 4000

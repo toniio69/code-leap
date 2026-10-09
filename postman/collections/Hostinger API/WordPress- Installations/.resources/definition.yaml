@@ -1,0 +1,9 @@
+$kind: collection
+name: "WordPress: Installations"
+description: |-
+  Manage WordPress installations on your hosting websites. This
+  category includes endpoints for installing WordPress, listing
+  existing installations along with their validation status, and
+  importing a WordPress site from previously uploaded archive and
+  database files.
+order: 57000

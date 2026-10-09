@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Returns a direct sign-on link to phpMyAdmin for the specified database.
+
+  Use this when a visual database interface is needed for SQL queries, imports, exports, or table management.
+  The database name must be the full name returned by the list databases endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/databases/:name/phpmyadmin-link"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: name
+    value: <string>
+    description: (Required) Full database name as returned by the list databases endpoint.
+settings: {}
+examples: ./.resources/Get phpMyAdmin link.resources/examples
+order: 10000

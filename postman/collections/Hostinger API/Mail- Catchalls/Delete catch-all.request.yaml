@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Delete a catch-all. Messages sent to unknown addresses of the domain
+  are no longer routed to the mailbox.
+url: "{{baseUrl}}/api/mail/v1/catchalls/:catchallId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: catchallId
+    value: <string>
+    description: (Required) Catch-all resource ID
+settings: {}
+examples: ./.resources/Delete catch-all.resources/examples
+order: 2000

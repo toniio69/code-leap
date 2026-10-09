@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Returns aggregated disk and inode usage for the Agency Plan order over the
+  selected time frame, plus the plan quotas. Figures cover the whole order
+  account. Values may be up to one hour stale. CPU, memory, and process usage
+  are on the resource-usage-metrics endpoint.
+url: "{{baseUrl}}/api/agency-hosting/v1/orders/:order_id/disk-usage-metrics?time_frame_days=1"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: time_frame_days
+    value: "1"
+    description: Length of the window in days, ending now. Bucket size grows with the window. (This can only be one of 1,7,14,30)
+pathVariables:
+  - key: order_id
+    value: <integer>
+    description: (Required) Agency Plan order ID
+settings: {}
+examples: ./.resources/List Agency Plan order disk usage metrics.resources/examples
+order: 1000

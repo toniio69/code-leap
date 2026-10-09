@@ -1,0 +1,8 @@
+$kind: collection
+name: "Mail: API Tokens"
+description: |-
+  Manage API tokens for the
+  [Hostinger Email API](https://api.mail.hostinger.com/). Tokens are
+  scoped to mailboxes of a mail order and grant access to mailbox
+  provisioning and management through the Email API.
+order: 26000

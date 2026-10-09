@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Revoke an API token. The token immediately loses access to the
+  [Hostinger Email API](https://api.mail.hostinger.com/). This action
+  cannot be undone.
+url: "{{baseUrl}}/api/mail/v1/api-tokens/:tokenId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: tokenId
+    value: <string>
+    description: (Required) API token ID (returned when the token was created)
+settings: {}
+examples: ./.resources/Revoke API token.resources/examples
+order: 2000

@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  Retrieve all domains you are moving to other Hostinger accounts.
+
+  Only moves which have not completed yet are returned.
+
+  Use this endpoint to track moves you have initiated and the accounts they are addressed to.
+url: "{{baseUrl}}/api/domains/v1/move/outgoing"
+method: GET
+headers:
+  Accept: application/json
+settings: {}
+examples: ./.resources/Get outgoing domain move list.resources/examples
+order: 8000

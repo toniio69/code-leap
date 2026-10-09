@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  List a store's discounts. Filter by free text over code and name, or by disabled state.
+  Amounts for fixed discounts are integers in the smallest currency unit; percentage
+  discounts carry a whole-number value between 1 and 100.
+url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/discounts?q=<string>&is_disabled=false&page=<integer>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: q
+    value: <string>
+    description: Free-text search over discount code and name.
+  - key: is_disabled
+    value: "false"
+    description: Filter by disabled state. (This can only be one of true,false)
+  - key: page
+    value: <integer>
+    description: Page number
+pathVariables:
+  - key: store_id
+    value: <string>
+    description: (Required) The ID of the store to list discounts for.
+settings: {}
+examples: ./.resources/List discounts.resources/examples
+order: 1000

@@ -1,0 +1,62 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: username
+      value: <string>
+      description: "(Required) "
+    - key: domain
+      value: <string>
+      description: (Required) Domain name
+  body:
+    type: json
+    content: |-
+      {
+        "node_version": 18,
+        "app_type": "create-react-app",
+        "root_directory": "<string>",
+        "output_directory": "<string>",
+        "build_script": "<string>",
+        "source_type": "archive",
+        "source_options": {
+          "archive_path": "<string>",
+          "owner": "R/s/fsZc_VwVlr8zq6XrEUyp7Sg9sg.iACaBzA6Q9Il5wy0Jpr_s4uVll.NVkR2TppRjotuOr3fuJupxTMwGRi9-2_0rn7gGd_UO_XDAonRNrnTKtcWdEnZnWBCTwKiYZwk3rBt9SEPVoat7zXMthi.jizp5kScpyvbvelcfWLjXwVw/wi8.5Z6TQm4F-ewONXfLLc6K",
+          "repository": "tU26k8bt2TLyPQ",
+          "branch": "Bm2zwUHCgm27FQH5hXqmPFi3SOj/aqYI9yp2Msntb2XEHkIaT/k4ET3MwMhDmvGrFsbH3DD5Q5",
+          "installation_uuid": "<string>"
+        },
+        "entry_file": "<string>",
+        "package_manager": "yarn"
+      }
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity (WebDAV) (RFC 4918)
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "<string>",
+        "errors": {
+          "field_1": [
+            "",
+            ""
+          ],
+          "field_2": [
+            "",
+            ""
+          ]
+        },
+        "correlation_id": "<string>"
+      }
+order: 3000

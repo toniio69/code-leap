@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/ecommerce/v1/stores/:store_id/products/:product_id/images/upload-url"
+  method: POST
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: store_id
+      value: <string>
+      description: (Required) The ID of the store the product belongs to.
+    - key: product_id
+      value: <string>
+      description: (Required) The ID of the product the image will be attached to.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "upload_url": "<string>",
+        "fields": {
+          "key_0": "<string>"
+        },
+        "object_name": "<string>",
+        "max_bytes": "<integer>"
+      }
+order: 1000

@@ -1,0 +1,33 @@
+$kind: http-request
+description: |-
+  Create a campaign in a profile.
+
+  The campaign is created as a draft, so nothing is sent and no contact is touched. It has no
+  audience yet either - targeting and scheduling are not part of this request, the draft is
+  finished and sent from the Reach interface.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "sender_name": "<string>",
+      "sender_email": "<string>",
+      "title": "<string>",
+      "subject": "<string>",
+      "template_uuid": "<string>",
+      "metadata": {
+        "preheader": "<string>",
+        "source": "<string>"
+      }
+    }
+settings: {}
+examples: ./.resources/Create a draft campaign.resources/examples
+order: 3000

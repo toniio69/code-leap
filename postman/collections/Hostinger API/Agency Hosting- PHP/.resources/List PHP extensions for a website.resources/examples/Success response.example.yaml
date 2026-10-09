@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/php-settings/extensions"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: website_uid
+      value: <string>
+      description: (Required) Agency Plan website UID
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "name": "<string>",
+          "description": "<string>",
+          "state": "built-in"
+        },
+        {
+          "name": "<string>",
+          "description": "<string>",
+          "state": "built-in"
+        }
+      ]
+order: 1000

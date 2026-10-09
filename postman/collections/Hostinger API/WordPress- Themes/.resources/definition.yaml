@@ -1,0 +1,7 @@
+$kind: collection
+name: "WordPress: Themes"
+description: |-
+  Manage WordPress themes on your installations. This category
+  includes endpoints for installing, activating, updating,
+  listing, and deleting themes.
+order: 59000

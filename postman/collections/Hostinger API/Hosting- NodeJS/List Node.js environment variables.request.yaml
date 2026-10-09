@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Lists the Node.js environment variables currently set for the website. Values are always
+  masked as `********` and cannot be read back through this API. Use this endpoint to see
+  which keys are configured or to verify a change, not to read values.
+
+  To change variables, use the `Replace Node.js environment variables` endpoint. It replaces
+  the whole set, so never copy the masked values from this response into that request; send
+  the full desired set with real values taken from the project `.env` file or the user
+  prompt instead.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds/settings/env"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/List Node.js environment variables.resources/examples
+order: 6000

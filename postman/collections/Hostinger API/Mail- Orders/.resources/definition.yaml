@@ -1,0 +1,8 @@
+$kind: collection
+name: "Mail: Orders"
+description: |-
+  Manage your mail service orders. This category includes
+  endpoints for listing mail orders associated with your
+  account, along with their status, plan, domain, and
+  expiration details.
+order: 19000

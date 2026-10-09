@@ -1,0 +1,13 @@
+$kind: http-request
+description: Retrieve the stores associated with your account.
+url: "{{baseUrl}}/api/ecommerce/v1/stores?page=<integer>"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: <integer>
+    description: Page number
+settings: {}
+examples: ./.resources/Get stores.resources/examples
+order: 2000

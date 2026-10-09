@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Retrieve all parked or alias domains created under the selected website.
+
+  Use this endpoint to inspect parked domain configuration for a specific website,
+  including the parent domain and root directory assigned to each parked domain.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/parked-domains"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/List website parked domains.resources/examples
+order: 2000

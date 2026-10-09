@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/campaigns/:campaignUuid/statistics"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: profileUuid
+      value: <string>
+      description: (Required) Profile uuid parameter
+    - key: campaignUuid
+      value: <string>
+      description: (Required) Campaign uuid parameter
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "total_sent": "<integer>",
+        "estimated_total_recipients": "<integer>",
+        "processed_count": "<integer>",
+        "delivered_count": "<integer>",
+        "dropped_count": "<integer>",
+        "bounced_count": "<integer>",
+        "soft_bounced_count": "<integer>",
+        "opened_count": "<integer>",
+        "clicked_count": "<integer>",
+        "unsubscribed_count": "<integer>",
+        "open_rate": "<float>",
+        "click_rate": "<float>",
+        "click_to_open_rate": "<float>",
+        "unsubscribe_rate": "<float>",
+        "has_bounced_contacts": "<boolean>"
+      }
+order: 1000

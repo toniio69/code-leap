@@ -1,0 +1,55 @@
+$kind: http-request
+description: |-
+  Start a Node.js build process using files already present on the website's file storage.
+
+  WARNING: on success this overwrites the website's existing contents and cannot be
+  undone — verify this is intended before calling this endpoint.
+
+  With `source_type` `archive`, `source_options.archive_path` must point to an existing
+  archive file on the server (relative to the website document root). Use the
+  `Generate Upload URL` endpoint to obtain credentials and upload the archive first. To
+  auto-detect build settings from an archive before starting, first call the
+  `Get Node.js Build Settings from Archive` endpoint.
+
+  With `source_type` `git`, `source_options` carries `owner`, `repository`, `branch` and
+  `installation_uuid`. Take the installation from `List Git installations` and the owner and
+  repository from `List Git installation repositories`; the branch is cloned at its current
+  head. The installation must belong to the same customer as the website.
+
+  The returned build `uuid` can be used to poll progress and retrieve logs via
+  the `Get Node.js Build Logs` endpoint.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/nodejs/builds"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "node_version": 18,
+      "app_type": "create-react-app",
+      "root_directory": "<string>",
+      "output_directory": "<string>",
+      "build_script": "<string>",
+      "source_type": "archive",
+      "source_options": {
+        "archive_path": "<string>",
+        "owner": "R/s/fsZc_VwVlr8zq6XrEUyp7Sg9sg.iACaBzA6Q9Il5wy0Jpr_s4uVll.NVkR2TppRjotuOr3fuJupxTMwGRi9-2_0rn7gGd_UO_XDAonRNrnTKtcWdEnZnWBCTwKiYZwk3rBt9SEPVoat7zXMthi.jizp5kScpyvbvelcfWLjXwVw/wi8.5Z6TQm4F-ewONXfLLc6K",
+        "repository": "tU26k8bt2TLyPQ",
+        "branch": "Bm2zwUHCgm27FQH5hXqmPFi3SOj/aqYI9yp2Msntb2XEHkIaT/k4ET3MwMhDmvGrFsbH3DD5Q5",
+        "installation_uuid": "<string>"
+      },
+      "entry_file": "<string>",
+      "package_manager": "yarn"
+    }
+settings: {}
+examples: ./.resources/Start Node.js build.resources/examples
+order: 2000

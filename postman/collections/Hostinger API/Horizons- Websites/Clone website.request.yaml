@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Clone a Hostinger Horizons website into a new website.\n
+  Use this tool when the user wants a copy of an existing website, for example to try out
+  changes without touching the original.\n
+  This tool returns the ID and URL of the newly created copy.
+  The original website is left untouched.\n
+  To edit the copy, use the `Edit website` tool with the returned website ID, or the user can
+  open the provided website URL in Hostinger Horizons interface.
+url: "{{baseUrl}}/api/horizons/v1/websites/:websiteId/clone"
+method: POST
+headers:
+  Accept: application/json
+pathVariables:
+  - key: websiteId
+    value: <string>
+    description: (Required) The website ID
+settings: {}
+examples: ./.resources/Clone website.resources/examples
+order: 1000

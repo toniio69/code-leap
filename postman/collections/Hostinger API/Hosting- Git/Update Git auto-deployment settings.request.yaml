@@ -1,0 +1,39 @@
+$kind: http-request
+description: |-
+  Creates or replaces the Git auto-deployment settings of the website: repository, branch, the
+  directory under the document root to deploy into, and `is_enabled`. Send the full set;
+  `is_enabled` defaults to true and `directory` to the document root. `installation_uuid` must
+  be an installation from `List Git installations` that belongs to the same customer as the
+  website.
+
+  For PHP and static websites, saving with `is_enabled` true deploys the branch right away and
+  every later push to that branch deploys again. For Node.js and Website Builder websites saving
+  does not clone anything. On a Node.js website start the first deploy with
+  `Start Node.js build` using `source_type` `git`; pushes then trigger new builds with the build
+  settings stored for the website.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/git/auto-deployments/settings"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+body:
+  type: json
+  content: |-
+    {
+      "installation_uuid": "<string>",
+      "owner": "m",
+      "repository": "1",
+      "branch": "f",
+      "directory": "",
+      "is_enabled": true
+    }
+settings: {}
+examples: ./.resources/Update Git auto-deployment settings.resources/examples
+order: 2000

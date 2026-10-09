@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Retrieve renewal information for a specified domain, including its status and current
+  expiration date.
+
+  Use this endpoint to build renewal automation and expiry monitoring for a single domain.
+url: "{{baseUrl}}/api/domains/v1/portfolio/:domain/renewal"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Get domain renewal information.resources/examples
+order: 10000

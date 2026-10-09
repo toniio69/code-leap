@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  Activate an installed theme on a WordPress installation.
+
+  Provide the WordPress installation (software) identifier in the path. It can
+  be obtained from GET /api/hosting/v1/wordpress/installations (the `id` field).
+
+  This operation is asynchronous: a successful response only means the activation
+  job has been queued.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/themes/activate"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: software
+    value: "98"
+    description: (Required) WordPress installation (software) identifier
+body:
+  type: json
+  content: |-
+    {
+      "theme": "<string>"
+    }
+settings: {}
+examples: ./.resources/Activate WordPress theme.resources/examples
+order: 1000

@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Enable or disable an AI option for the Hostinger Tools plugin on the specified
+  WordPress installation.
+
+  Provide the WordPress installation (software) identifier in the path. It can
+  be obtained from GET /api/hosting/v1/wordpress/installations (the `id` field).
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/wordpress/:software/hostinger-plugins/ai-option/status"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: software
+    value: "98"
+    description: (Required) WordPress installation (software) identifier
+body:
+  type: json
+  content: |-
+    {
+      "option": "llmstxt",
+      "enable": "<boolean>"
+    }
+settings: {}
+examples: ./.resources/Set AI option status.resources/examples
+order: 2000

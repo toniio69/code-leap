@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  Remove a tag from many contacts at once.
+
+  Pass `contact_uuids` to target specific contacts, or `all_contacts` to target every contact
+  in the profile. The work is queued, so a success response means it was accepted rather than
+  finished. The tag itself and the contacts are not deleted.
+url: "{{baseUrl}}/api/reach/v1/profiles/:profileUuid/tags/:tagUuid/contacts"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: profileUuid
+    value: <string>
+    description: (Required) Profile uuid parameter
+  - key: tagUuid
+    value: <uuid>
+    description: (Required) Tag uuid parameter
+body:
+  type: json
+  content: |-
+    {
+      "contact_uuids": [
+        "<string>",
+        "<string>"
+      ],
+      "all_contacts": false
+    }
+settings: {}
+examples: ./.resources/Remove contacts from a tag.resources/examples
+order: 4000

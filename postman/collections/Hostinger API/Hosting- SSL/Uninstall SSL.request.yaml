@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Removes the SSL certificate assigned to the website, turns the HTTPS redirect off and cancels
+  a pending installation retry. The website serves plain HTTP until a new installation
+  completes. `Get SSL status` reports `not_installed` as soon as the call returns; the call also
+  succeeds when no certificate is assigned, so repeating it is safe.
+
+  Returns 422 for free subdomains (their certificate is managed by the platform) and while an
+  installation is `installing`.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/websites/:domain/ssl"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+  - key: domain
+    value: <string>
+    description: (Required) Domain name
+settings: {}
+examples: ./.resources/Uninstall SSL.resources/examples
+order: 4000

@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  Creates a cron job for the specified account from a schedule expression and a command.
+
+  Returns the created cron job, including its uid, which is required to delete the cron job or fetch its output.
+url: "{{baseUrl}}/api/hosting/v1/accounts/:username/cron-jobs"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: username
+    value: <string>
+    description: "(Required) "
+body:
+  type: json
+  content: |-
+    {
+      "time": "<string>",
+      "command": "<string>"
+    }
+settings: {}
+examples: ./.resources/Create account cron job.resources/examples
+order: 2000

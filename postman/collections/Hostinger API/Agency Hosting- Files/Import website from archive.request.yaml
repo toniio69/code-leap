@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Imports an Agency Plan website from an already-uploaded archive.
+
+  Upload the archive to the website's root directory via file browser first, then provide its
+  filename in this request. Website contents are overwritten by the archive contents. Supported
+  archive types: .zip, .tar, .tar.gz, .tgz.
+url: "{{baseUrl}}/api/agency-hosting/v1/websites/:website_uid/files/import-archive"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: website_uid
+    value: <string>
+    description: (Required) Agency Plan website UID
+body:
+  type: json
+  content: |-
+    {
+      "archive_name": "<string>"
+    }
+settings: {}
+examples: ./.resources/Import website from archive.resources/examples
+order: 2000
