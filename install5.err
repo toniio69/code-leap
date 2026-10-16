@@ -1,0 +1,14 @@
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing google/apiclient-services (v0.461.0): Extracting archive
+    Install of google/apiclient-services failed
+
+In Filesystem.php line 408:
+                                                                                                                       
+  copy(C:/Users/aodon/Desktop/code-leap/vendor/google/apiclient-services\src\CloudAsset\GoogleIdentityAccesscontextma  
+  nagerV1VpcNetworkSource.php): Failed to open stream: No such file or directory                                       
+                                                                                                                       
+
+install [--prefer-source] [--prefer-dist] [--prefer-install PREFER-INSTALL] [--dry-run] [--download-only] [--dev] [--no-suggest] [--no-dev] [--no-security-blocking] [--no-blocking] [--no-autoloader] [--no-progress] [--no-install] [--audit] [--audit-format AUDIT-FORMAT] [-v|vv|vvv|--verbose] [-o|--optimize-autoloader] [-a|--classmap-authoritative] [--strict-psr-autoloader] [--apcu-autoloader] [--apcu-autoloader-prefix APCU-AUTOLOADER-PREFIX] [--ignore-platform-req IGNORE-PLATFORM-REQ] [--ignore-platform-reqs] [--] [<packages>...]
+

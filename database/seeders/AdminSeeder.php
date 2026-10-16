@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
             'guard_name' => 'web',
         ]);
 
-        $user = User::updateOrCreate(
+        $user = User::updateOrCreate(   
             ['email' => config('admin.email')],
             [
                 'name' => config('admin.name'),

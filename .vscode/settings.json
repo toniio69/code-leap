@@ -17,5 +17,6 @@
             "database": "Codeleap",
             "username": "root"
         }
-    ]
+    ],
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

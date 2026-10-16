@@ -54,10 +54,54 @@ class MailService
         $user->notify(new VerifyCodeLeapEmail($code));
     }
 
-    public function sendPasswordReset(User $user, ?string $token = null): void
+    /**
+     * Allocate (and auto-generate) a password reset token for the given user.
+     *
+     * Tokens are stored hashed by the broker, so an already-issued token can
+     * never be recovered in plain form. Allocation therefore: (1) prunes
+     * expired token rows, (2) reports whether the request is still inside the
+     * throttle window, and (3) auto-generates a fresh token via the broker
+     * otherwise. createToken() persists the hash and returns the plain token.
+     *
+     * @return array{token: string|null, throttled: bool}
+     */
+    public function allocatePasswordResetToken(User $user): array
     {
-        $token ??= Password::broker()->createToken($user);
+        $broker = Password::broker();
+        $repository = $broker->getRepository();
 
-        $user->notify(new ResetCodeLeapPassword($token));
+        // Drop expired tokens so stale rows never accumulate.
+        if (method_exists($repository, 'deleteExpired')) {
+            $repository->deleteExpired();
+        }
+
+        // Inside the throttle window a plain token cannot be recovered, so we
+        // report it as throttled and let the caller surface a wait message.
+        if (method_exists($repository, 'recentlyCreatedToken')
+            && $repository->recentlyCreatedToken($user)) {
+            return ['token' => null, 'throttled' => true];
+        }
+
+        return ['token' => $broker->createToken($user), 'throttled' => false];
+    }
+
+    public function sendPasswordReset(User $user, ?string $token = null): bool
+    {
+        // Allow callers (e.g. Fortify) to pass an already-generated token.
+        if ($token !== null) {
+            $user->notify(new ResetCodeLeapPassword($token));
+
+            return true;
+        }
+
+        $allocation = $this->allocatePasswordResetToken($user);
+
+        if ($allocation['token'] === null) {
+            return false;
+        }
+
+        $user->notify(new ResetCodeLeapPassword($allocation['token']));
+
+        return true;
     }
 }
