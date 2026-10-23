@@ -1,5 +1,12 @@
 <?php
 
+$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../vendor/laravel/sanctum/src'));
+foreach ($it as $f) {
+    if ($f->isFile() && $f->getExtension() === 'php') {
+        require_once $f->getPathname();
+    }
+}
+
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Auth\Middleware\Authenticate;
