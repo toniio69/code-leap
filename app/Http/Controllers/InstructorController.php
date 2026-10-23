@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use Illuminate\Http\Request;
+use App\Models\Enrollment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class InstructorController extends Controller
@@ -13,11 +13,11 @@ class InstructorController extends Controller
         $this->middleware('auth');
     }
 
-    public function landing(): View
+    public function landing(): View|RedirectResponse
     {
         $user = auth()->user();
 
-        if (!$user->hasRole('instructor') && !$user->hasRole('admin')) {
+        if (! $user->hasRole('instructor') && ! $user->hasRole('admin')) {
             return redirect()->route('dashboard')->with('error', 'Access denied.');
         }
 
@@ -30,7 +30,7 @@ class InstructorController extends Controller
         $totalMaterials = $courses->sum('materials_count');
         $totalLessons = $courses->sum('lessons_count');
 
-        $recentEnrollments = \App\Models\Enrollment::whereHas('course', function ($q) use ($user) {
+        $recentEnrollments = Enrollment::whereHas('course', function ($q) use ($user) {
             $q->where('user_id', $user->id);
         })->with(['user', 'course'])->latest()->limit(5)->get();
 

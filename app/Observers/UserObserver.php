@@ -22,11 +22,6 @@ class UserObserver
     private function assignSpatieRole(User $user): void
     {
         $roleName = $user->role;
-        
-        $validRoles = ['admin', 'instructor', 'student'];
-        if (! in_array($roleName, $validRoles, true)) {
-            $roleName = 'student';
-        }
 
         $role = Role::where('name', $roleName)->where('guard_name', 'web')->first();
 

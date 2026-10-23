@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 use Spatie\Permission\Models\Role;
 
 class SocialiteController extends Controller
 {
+    /** @var list<string> */
     protected array $supportedProviders = ['google'];
 
-    public function redirect(string $provider)
+    public function redirect(string $provider): RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('dashboard');
@@ -26,7 +28,7 @@ class SocialiteController extends Controller
         return Socialite::driver($provider)->redirect();
     }
 
-    public function callback(string $provider)
+    public function callback(string $provider): RedirectResponse
     {
         if (! in_array($provider, $this->supportedProviders, true)) {
             return redirect()->route('login')->with('error', 'Social login with '.$provider.' is not supported yet.');
@@ -34,7 +36,7 @@ class SocialiteController extends Controller
 
         try {
             $socialUser = Socialite::driver($provider)->user();
-        } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
+        } catch (InvalidStateException $e) {
             return redirect()->route('login')->with('error', 'Social login session expired. Please try again.');
         }
 

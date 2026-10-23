@@ -16,6 +16,9 @@ class Lesson extends Model
 {
     protected $fillable = ['course_id', 'title', 'content', 'starter_code'];
 
+    /**
+     * @return BelongsTo<Course, $this>
+     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);

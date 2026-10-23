@@ -15,6 +15,9 @@ class EdxSyncService
 
     /**
      * Fetch and sync courses from edX API.
+     *
+     * @param  array<string, mixed>  $filters
+     * @return array<string, int|string>
      */
     public function sync(array $filters = []): array
     {
@@ -30,6 +33,7 @@ class EdxSyncService
             if ($response->failed()) {
                 Log::error('edX API request failed', ['status' => $response->status()]);
                 $stats['failed'] = 1;
+
                 return $stats;
             }
 
@@ -39,8 +43,9 @@ class EdxSyncService
                 $stats['fetched']++;
                 try {
                     $edxId = $courseData['id'] ?? null;
-                    if (!$edxId) {
+                    if (! $edxId) {
                         $stats['failed']++;
+
                         continue;
                     }
 
@@ -80,6 +85,9 @@ class EdxSyncService
 
     /**
      * Map edX API course data to our database schema.
+     *
+     * @param  array<string, mixed>  $courseData
+     * @return array<string, mixed>
      */
     protected function mapCourseData(array $courseData): array
     {
@@ -97,7 +105,7 @@ class EdxSyncService
             'start_date' => $courseData['start'] ?? null,
             'end_date' => $courseData['end'] ?? null,
             'enrollment_url' => $enrollmentUrl,
-            'integrity_url' => $courseUrl ? $courseUrl . '/agreements/integrity' : null,
+            'integrity_url' => $courseUrl ? $courseUrl.'/agreements/integrity' : null,
             'provider' => 'edX',
             'status' => $courseData['status'] ?? 'published',
         ];
@@ -112,9 +120,9 @@ class EdxSyncService
             ->when($query, function ($q, $query) {
                 $q->where(function ($q) use ($query) {
                     $q->where('title', 'like', "%{$query}%")
-                      ->orWhere('description', 'like', "%{$query}%")
-                      ->orWhere('organization', 'like', "%{$query}%")
-                      ->orWhere('code', 'like', "%{$query}%");
+                        ->orWhere('description', 'like', "%{$query}%")
+                        ->orWhere('organization', 'like', "%{$query}%")
+                        ->orWhere('code', 'like', "%{$query}%");
                 });
             })
             ->latest()

@@ -6,7 +6,6 @@ use App\Livewire\Pages\Settings\Appearance;
 use App\Livewire\Pages\Settings\DeleteUserForm;
 use App\Livewire\Pages\Settings\DeleteUserModal;
 use App\Livewire\Pages\Settings\Profile;
-use App\Livewire\Pages\Settings\RecoveryCodes;
 use App\Livewire\Pages\Settings\Security;
 use App\Livewire\Pages\Settings\TwoFactorSetupModal;
 use App\Models\Course;
@@ -35,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::policy(Course::class, CoursePolicy::class);
 
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('admin')) {
+                return true;
+            }
+        });
+
         Gate::define('manage-users', function (User $user) {
             return $user->role === 'admin';
         });
@@ -51,7 +56,6 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('pages::settings.delete-user-modal', DeleteUserModal::class);
         Livewire::component('pages::settings.delete-user-form', DeleteUserForm::class);
         Livewire::component('pages::settings.two-factor-setup-modal', TwoFactorSetupModal::class);
-        Livewire::component('pages::settings.two-factor.recovery-codes', RecoveryCodes::class);
         Livewire::component('pages::settings.appearance', Appearance::class);
 
         $this->configureDefaults();

@@ -22,7 +22,7 @@ class AdminDashboardTest extends TestCase
 
     public function test_admin_dashboard_can_be_rendered(): void
     {
-        /** @var \App\Models\User $admin */
+        /** @var User $admin */
         $admin = User::factory()->create([
             'role' => 'admin',
         ]);
@@ -46,7 +46,7 @@ class AdminDashboardTest extends TestCase
 
     public function test_admin_dashboard_shows_recent_account_creations_from_database(): void
     {
-        /** @var \App\Models\User $admin */
+        /** @var User $admin */
         $admin = User::factory()->create([
             'role' => 'admin',
         ]);

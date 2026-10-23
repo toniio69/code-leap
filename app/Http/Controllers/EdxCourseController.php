@@ -23,15 +23,15 @@ class EdxCourseController extends Controller
             ->when($search, function ($q, $search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('title', 'like', "%{$search}%")
-                      ->orWhere('description', 'like', "%{$search}%")
-                      ->orWhere('organization', 'like', "%{$search}%")
-                      ->orWhere('code', 'like', "%{$search}%");
+                        ->orWhere('description', 'like', "%{$search}%")
+                        ->orWhere('organization', 'like', "%{$search}%")
+                        ->orWhere('code', 'like', "%{$search}%");
                 });
             })
             ->when($organization, fn ($q, $org) => $q->where('organization', $org))
             ->latest()
             ->paginate(12)
-            ->withPath();
+            ->withPath(request()->url());
 
         $organizations = EdxCourse::distinct()->pluck('organization')->filter()->sort()->values();
 
@@ -45,10 +45,10 @@ class EdxCourseController extends Controller
         return view('edx.courses.show', compact('course'));
     }
 
-    public function sync(Request $request, EdxSyncService $syncService)
+    public function sync(Request $request, EdxSyncService $syncService): \Illuminate\Http\RedirectResponse
     {
         $user = auth()->user();
-        if (!$user->hasRole('admin') && !$user->hasRole('instructor')) {
+        if (! $user->hasRole('admin') && ! $user->hasRole('instructor')) {
             abort(403);
         }
 

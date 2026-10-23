@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
 class EdxCourseController extends Controller
 {
-    public function searchCourses(Request $request)
+    public function searchCourses(Request $request): JsonResponse
     {
         $search = $request->query('query', 'programming');
 
@@ -19,7 +20,7 @@ class EdxCourseController extends Controller
                 'page_size' => 10,
             ]);
 
-            if ($response->successful() && !empty($response->json('results'))) {
+            if ($response->successful() && ! empty($response->json('results'))) {
                 $courses = collect($response->json('results'))->map(function ($course) {
                     return [
                         'id' => $course['id'] ?? uniqid(),
@@ -70,7 +71,10 @@ class EdxCourseController extends Controller
         ]);
 
         $filtered = $fallbackCatalog->filter(function ($item) use ($search) {
-            if (empty($search)) return true;
+            if (empty($search)) {
+                return true;
+            }
+
             return str_contains(strtolower($item['name']), strtolower($search)) ||
                    str_contains(strtolower($item['organization']), strtolower($search)) ||
                    str_contains(strtolower($item['code']), strtolower($search));

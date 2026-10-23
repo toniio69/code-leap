@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\OpenEdXCourse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class OpenEdXController extends Controller
 {
-    public function getCourses(Request $request)
+    public function getCourses(Request $request): JsonResponse
     {
         $courses = OpenEdXCourse::query()
             ->when($request->filled('search'), function ($query, $search) {
@@ -24,7 +25,7 @@ class OpenEdXController extends Controller
         ]);
     }
 
-    public function getIntegritySignature(Request $request, string $courseId)
+    public function getIntegritySignature(Request $request, string $courseId): JsonResponse
     {
         $request->validate([
             'username' => 'nullable|string',
