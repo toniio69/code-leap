@@ -58,7 +58,7 @@ export default function AdminDashboard({ stats, recentUsers = [] }) {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">₦{stats?.revenue || '0.00'}</div>
+            <div className="text-3xl font-bold text-foreground">KES {stats?.revenue || '0.00'}</div>
             <p className="text-xs text-muted-foreground mt-1">Processed transactions</p>
           </CardContent>
         </Card>

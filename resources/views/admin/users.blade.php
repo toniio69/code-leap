@@ -43,11 +43,16 @@
                                     <form method="POST" action="{{ route('admin.users.update-role', $user) }}" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <select name="role" onchange="this.form.submit()" class="text-sm border border-[#e4e6e8] rounded-lg px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <select name="role" onchange="this.form.submit()" class="text-sm text-black border border-[#e4e6e8] rounded-lg px-2 py-1 text-black focus:ring-indigo-500 focus:border-indigo-500">
                                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                                             <option value="instructor" {{ $user->role === 'instructor' ? 'selected' : '' }}>Instructor</option>
                                             <option value="student" {{ $user->role === 'student' ? 'selected' : '' }}>Student</option>
                                         </select>
+                                    </form>
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline" onsubmit="return confirm('Delete this user?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-sm text-red-600 hover:text-red-800">Delete</button>
                                     </form>
                                 </td>
                             </tr>

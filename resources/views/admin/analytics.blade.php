@@ -19,7 +19,7 @@
             </div>
             <div class="bg-white rounded-xl border border-[#e4e6e8] p-6 sneat-card">
                 <p class="text-sm font-medium text-[#91979f]">Revenue</p>
-                <p class="text-3xl font-semibold text-[#384551] mt-3">₦{{ number_format($totalPayments, 2) }}</p>
+                <p class="text-3xl font-semibold text-[#384551] mt-3">KSh {{ number_format($totalPayments, 2) }}</p>
             </div>
         </div>
 

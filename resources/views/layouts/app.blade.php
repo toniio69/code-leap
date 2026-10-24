@@ -7,7 +7,14 @@
 
     <title>@yield('title', 'Welcome') - {{ config('app.name', 'Code Leap') }}</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
     <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,12 +53,7 @@
                                 Course Catalog
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('edx.courses.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('edx.courses.*') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
-                                edX Online Courses
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 
@@ -163,10 +165,6 @@
 
                 <div class="ml-auto flex items-center gap-3">
                     <x-theme-toggle />
-
-                    <a href="{{ route('courses.index') }}" class="hidden sm:inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">
-                        Browse Courses
-                    </a>
 
                     @auth
                         <form method="POST" action="{{ route('logout') }}" class="inline-flex">

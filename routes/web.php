@@ -104,10 +104,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/student-performance', [PerformanceController::class, 'index'])->name('admin.performance');
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::patch('/users/{user}/role', [UserController::class, 'updateRole'])->middleware('can:manage-users')->name('admin.users.update-role');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('can:manage-users')->name('admin.users.destroy');
 });
 
 // Additional Settings Routes
 require __DIR__.'/settings.php';
-
-// edX Mirrored Courses Routes
-require __DIR__.'/edx.php';

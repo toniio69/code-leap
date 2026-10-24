@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="w-full lg:p-8">
-                <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+                <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">
                     <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
                         <img src="{{ asset('favicon.png') }}" alt="Code Leap" class="h-9 w-auto">
                         <span class="sr-only">Code Leap</span>

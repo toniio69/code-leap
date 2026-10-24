@@ -5,7 +5,7 @@
 <button
     type="button"
     x-data="{ dark: document.documentElement.classList.contains('dark') }"
-    @click="dark = !dark; window.Flux?.applyAppearance(dark ? 'dark' : 'light')"
+    @click="dark = !dark; document.documentElement.classList.toggle('dark', dark); localStorage.setItem('theme', dark ? 'dark' : 'light')"
     :aria-label="dark ? @js(__('Switch to light mode')) : @js(__('Switch to dark mode'))"
     :title="dark ? @js(__('Switch to light mode')) : @js(__('Switch to dark mode'))"
     aria-live="polite"
