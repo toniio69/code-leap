@@ -88,10 +88,10 @@
                 <div class="grid gap-6 sm:grid-cols-2">
                     <div class="space-y-2">
                         <label for="price" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Course Price (₦ NGN)
+                            Course Price (KSh KES)
                         </label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-xs text-muted-foreground font-semibold">₦</span>
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-xs text-muted-foreground font-semibold">KSh</span>
                             <input
                                 type="number"
                                 step="0.01"

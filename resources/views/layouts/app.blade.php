@@ -27,30 +27,30 @@
         <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 backdrop-blur-xs md:hidden"></div>
 
         <!-- Sidebar -->
-        <aside id="app-sidebar" class="fixed inset-y-0 left-0 z-50 hidden w-64 shrink-0 flex-col border-r border-border bg-card text-card-foreground shadow-sm transition-all duration-200 md:static md:flex">
+        <aside id="app-sidebar" class="sidebar-collapsed-transition fixed inset-y-0 left-0 z-50 hidden w-64 shrink-0 flex-col border-r border-border bg-card text-card-foreground shadow-sm transition-all duration-200 md:static md:flex">
             <!-- Brand / Logo -->
             <div class="flex h-16 items-center gap-3 border-b border-border px-6">
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5">
-                    <x-app-logo sidebar="true" class="h-8 w-auto" />
-                    <span class="text-base font-bold tracking-tight text-foreground">{{ config('app.name', 'Code Leap') }}</span>
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 overflow-hidden">
+                    <x-app-logo sidebar="true" class="h-8 w-8 shrink-0" />
+                    <span class="sidebar-label text-base font-bold tracking-tight text-foreground">{{ config('app.name', 'Code Leap') }}</span>
                 </a>
             </div>
 
             <!-- Navigation Links -->
             <nav class="flex-1 space-y-6 overflow-y-auto p-4">
                 <div>
-                    <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Learning</p>
+                    <p class="sidebar-label px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Learning</p>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('dashboard') || request()->routeIs('student.dashboard') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                                Dashboard
+                                <span class="sidebar-label">Dashboard</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('courses.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('courses.*') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-                                Course Catalog
+                                <span class="sidebar-label">Course Catalog</span>
                             </a>
                         </li>
 
@@ -59,24 +59,24 @@
 
                 @if(auth()->check() && (auth()->user()->hasRole('instructor') || auth()->user()->hasRole('admin')))
                 <div>
-                    <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Instructor</p>
+                    <p class="sidebar-label px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Instructor</p>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('instructor.dashboard') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('instructor.dashboard') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                                Instructor Space
+                                <span class="sidebar-label">Instructor Space</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('courses.create') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('courses.create') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                                Create Course
+                                <span class="sidebar-label">Create Course</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('instructor.certificates.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('instructor.certificates.*') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                                Certificates
+                                <span class="sidebar-label">Certificates</span>
                             </a>
                         </li>
                     </ul>
@@ -85,30 +85,30 @@
 
                 @if(auth()->check() && auth()->user()->hasRole('admin'))
                 <div>
-                    <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Admin Portal</p>
+                    <p class="sidebar-label px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Admin Portal</p>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                                Overview
+                                <span class="sidebar-label">Overview</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.users.*') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                                Users
+                                <span class="sidebar-label">Users</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.analytics') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.analytics') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                                Analytics
+                                <span class="sidebar-label">Analytics</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.payments') }}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('admin.payments') ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground' }}">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                                Payments
+                                <span class="sidebar-label">Payments</span>
                             </a>
                         </li>
                     </ul>
@@ -124,13 +124,13 @@
                         <div class="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
                             {{ auth()->user()->initials() }}
                         </div>
-                        <div class="flex-1 min-w-0 text-left">
+                        <div class="sidebar-label flex-1 min-w-0 text-left">
                             <p class="truncate text-xs font-semibold text-foreground">{{ auth()->user()->name }}</p>
                             <p class="truncate text-[11px] text-muted-foreground capitalize">{{ auth()->user()->role }}</p>
                         </div>
-                        <svg class="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <svg class="sidebar-label h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                     </summary>
-                    <div class="mt-2 space-y-1 rounded-lg border border-border bg-card p-1.5 shadow-md">
+                    <div class="sidebar-label mt-2 space-y-1 rounded-lg border border-border bg-card p-1.5 shadow-md">
                         <p class="px-2 py-1 text-[11px] text-muted-foreground truncate">{{ auth()->user()->email }}</p>
                         <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-foreground transition-colors hover:bg-accent">
                             Settings & Profile
@@ -153,6 +153,10 @@
             <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-6">
                 <button id="sidebar-toggle" aria-label="Toggle navigation" class="md:hidden flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+
+                <button id="sidebar-collapse" aria-label="Collapse sidebar" class="hidden md:flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <svg id="sidebar-collapse-icon" class="h-5 w-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/><line x1="6" y1="12" x2="20" y2="12" style="display:none"/></svg>
                 </button>
 
                 <div class="flex items-center gap-2 text-sm font-medium text-muted-foreground">
@@ -196,7 +200,19 @@
         </div>
     </div>
 
-    <!-- Mobile Sidebar Toggle Script -->
+    <!-- Sidebar collapse styles -->
+    <style>
+        #app-sidebar.sidebar-collapsed { width: 4.5rem; }
+        #app-sidebar.sidebar-collapsed .sidebar-label { display: none; }
+        #app-sidebar.sidebar-collapsed nav a,
+        #app-sidebar.sidebar-collapsed nav > div > ul > li > a { justify-content: center; padding-left: 0.75rem; padding-right: 0.75rem; }
+        #app-sidebar.sidebar-collapsed nav > div > p { text-align: center; padding: 0; }
+        #app-sidebar.sidebar-collapsed > div:first-child { padding-left: 0.75rem; padding-right: 0.75rem; justify-content: center; }
+        #app-sidebar.sidebar-collapsed > div:first-child a { justify-content: center; }
+        #app-sidebar.sidebar-collapsed details summary { justify-content: center; }
+    </style>
+
+    <!-- Sidebar Toggle Scripts -->
     <script>
         (function() {
             const toggleBtn = document.getElementById('sidebar-toggle');
@@ -219,6 +235,29 @@
 
             toggleBtn?.addEventListener('click', toggleSidebar);
             backdrop?.addEventListener('click', toggleSidebar);
+        })();
+
+        (function() {
+            const collapseBtn = document.getElementById('sidebar-collapse');
+            const sidebar = document.getElementById('app-sidebar');
+            const KEY = 'sidebar-collapsed';
+
+            function apply(collapsed) {
+                if (!sidebar) return;
+                sidebar.classList.toggle('sidebar-collapsed', collapsed);
+                collapseBtn?.setAttribute('aria-expanded', String(!collapsed));
+                try { localStorage.setItem(KEY, collapsed ? '1' : '0'); } catch (e) {}
+            }
+
+            let stored = null;
+            try { stored = localStorage.getItem(KEY); } catch (e) {}
+            if (stored === '1') {
+                sidebar?.classList.add('sidebar-collapsed');
+            }
+
+            collapseBtn?.addEventListener('click', function() {
+                apply(!sidebar.classList.contains('sidebar-collapsed'));
+            });
         })();
     </script>
     @stack('scripts')

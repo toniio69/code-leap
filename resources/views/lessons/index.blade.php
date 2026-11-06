@@ -14,7 +14,7 @@
             <h1 class="text-2xl font-bold tracking-tight text-foreground">Lessons</h1>
             <p class="mt-1 text-sm text-muted-foreground">Manage syllabus for <span class="font-semibold text-foreground">{{ $course->title }}</span></p>
         </div>
-        <a href="{{ route('lessons.create', $course) }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90">
+        <a href="{{ route('courses.lessons.create', $course) }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90">
             + Add Lesson
         </a>
     </div>

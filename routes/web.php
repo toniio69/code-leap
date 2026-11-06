@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses.lessons', LessonController::class);
 
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
-    Route::post('/courses/{course}/pay', [PaystackController::class, 'pay'])->name('paystack.pay');
+    Route::match(['get', 'post'], '/courses/{course}/pay', [PaystackController::class, 'pay'])->name('paystack.pay');
     Route::get('/paystack/callback', [PaystackController::class, 'handleGatewayCallback'])->name('paystack.callback');
 
     Route::post('/email/verify-code', [EmailVerificationCodeController::class, 'store'])

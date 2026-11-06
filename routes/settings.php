@@ -22,8 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('.well-known/passkey-endpoints', function () {
+    $securityUrl = route('security.edit');
+
     return response()->json([
-        'enroll' => route('security.edit'),
-        'manage' => route('security.edit'),
-    ]);
+        'enroll' => $securityUrl,
+        'manage' => $securityUrl,
+    ])->header('Cache-Control', 'public, max-age=3600');
 })->name('well-known.passkeys');

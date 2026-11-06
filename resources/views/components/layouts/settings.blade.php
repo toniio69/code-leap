@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <x-slot name="heading">
         <flux:heading>{{ __('Settings') }}</flux:heading>
     </x-slot>
@@ -151,4 +151,4 @@
             </div>
         </main>
     </div>
-</x-layouts.app>
+</x-app-layout>

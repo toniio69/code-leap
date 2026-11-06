@@ -156,12 +156,12 @@
                                                 Resume
                                             </a>
                                         @elseif(($course->price ?? 0) > 0)
-                                            <a
-                                                href="{{ route('paystack.pay', $course) }}"
-                                                class="flex-1 inline-flex items-center justify-center rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                                            >
-                                                Enroll (₦{{ number_format($course->price, 0) }})
-                                            </a>
+                                            <form method="POST" action="{{ route('paystack.pay', $course) }}" class="flex-1">
+                                                @csrf
+                                                <button type="submit" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
+                                                    Enroll (KSh{{ number_format($course->price, 0) }})
+                                                </button>
+                                            </form>
                                         @else
                                             <form method="POST" action="{{ route('courses.enroll', $course) }}" class="flex-1">
                                                 @csrf

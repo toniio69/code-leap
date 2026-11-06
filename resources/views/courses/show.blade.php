@@ -129,12 +129,12 @@
                                 ✓ You are enrolled in this course
                             </div>
                         @elseif(($course->price ?? 0) > 0)
-                            <a
-                                href="{{ route('paystack.pay', $course) }}"
-                                class="inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
-                            >
-                                Enroll Premium (₦{{ number_format($course->price, 0) }})
-                            </a>
+                            <form method="POST" action="{{ route('paystack.pay', $course) }}" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
+                                    Enroll Premium (KSh{{ number_format($course->price, 0) }})
+                                </button>
+                            </form>
                         @else
                             <form method="POST" action="{{ route('courses.enroll', $course) }}">
                                 @csrf
@@ -163,7 +163,7 @@
                 <p class="text-xs text-muted-foreground">Step-by-step curriculum with code walk-throughs.</p>
             </div>
             @if((auth()->user()->hasRole('instructor') && auth()->id() === $course->user_id) || auth()->user()->hasRole('admin'))
-                <a href="{{ route('lessons.create') }}" class="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium hover:bg-accent">
+                <a href="{{ route('courses.lessons.create', $course) }}" class="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium hover:bg-accent">
                     + Add Lesson
                 </a>
             @endif

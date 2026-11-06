@@ -10,5 +10,14 @@
 
 @fonts
 
+<script>
+    // Apply the saved theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+        var theme = localStorage.getItem('theme');
+        var dark = theme === 'dark' || (theme === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+    })();
+</script>
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
