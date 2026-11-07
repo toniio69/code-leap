@@ -119,6 +119,8 @@ class CourseController extends Controller
                     ->store('course-covers', 'public');
         }
 
+        $validated['price'] = $validated['price'] ?? 0;
+
         $course->update($validated);
 
         return redirect()
