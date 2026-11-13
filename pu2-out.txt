@@ -1,0 +1,5 @@
+PHPUnit 12.5.43 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.5.9
+Configuration: C:\Users\aodon\Desktop\code-leap\phpunit.xml
+

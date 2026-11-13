@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Welcome') - {{ config('app.name', 'Code Leap') }}</title>
+    <title>@yield('title', $title ?? 'Welcome') - {{ config('app.name', 'Code Leap') }}</title>
 
     <script>
         (function () {
@@ -15,6 +15,7 @@
             }
         })();
     </script>
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -187,7 +188,14 @@
 
             <!-- Main Page Content -->
             <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-                @yield('content')
+                @isset($heading)
+                    {{ $heading }}
+                @endisset
+                @isset($slot)
+                    {{ $slot }}
+                @else
+                    @yield('content')
+                @endisset
             </main>
 
             <!-- Footer -->
