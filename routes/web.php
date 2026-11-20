@@ -11,7 +11,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Instructor\CertificateController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\PaystackController;
-use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

@@ -62,4 +62,69 @@ class AdminDashboardTest extends TestCase
         $response->assertOk();
         $response->assertSee('Recent Signup');
     }
+
+    public function test_guests_cannot_access_the_admin_dashboard(): void
+    {
+        $response = $this->get(route('admin.dashboard'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_non_admin_users_cannot_access_the_admin_dashboard(): void
+    {
+        $user = User::factory()->role('student')->create();
+        $user->assignRole('student');
+
+        $response = $this->actingAs($user)->get(route('admin.dashboard'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_admin_dashboard_only_shows_the_five_most_recent_accounts(): void
+    {
+        /** @var User $admin */
+        $admin = User::factory()->create(['role' => 'admin']);
+        $admin->assignRole('admin');
+
+        User::factory()->count(7)->create(['name' => 'Bulk User']);
+
+        $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+
+        $response->assertOk();
+        $response->assertViewHas('recentAccounts', function ($recentAccounts) {
+            return $recentAccounts->count() === 5;
+        });
+    }
+
+    public function test_admin_dashboard_passes_counts_to_the_view(): void
+    {
+        /** @var User $admin */
+        $admin = User::factory()->create(['role' => 'admin']);
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+
+        $response->assertOk();
+        $response->assertViewHas('usersCount', 1);
+        $response->assertViewHas('coursesCount', 0);
+        $response->assertViewHas('enrollmentsCount', 0);
+        $response->assertViewHas('materialsCount', 0);
+    }
+
+    public function test_guests_cannot_access_the_student_dashboard(): void
+    {
+        $response = $this->get(route('student.dashboard'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_non_students_cannot_access_the_student_dashboard(): void
+    {
+        $instructor = User::factory()->role('instructor')->create();
+        $instructor->assignRole('instructor');
+
+        $response = $this->actingAs($instructor)->get(route('student.dashboard'));
+
+        $response->assertForbidden();
+    }
 }

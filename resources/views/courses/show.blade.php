@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('title', $course->title)
 
 @section('content')
@@ -219,18 +223,19 @@
                             </div>
                             <div>
                                 <h3 class="text-xs font-bold text-foreground">{{ $material->title }}</h3>
-                                <p class="text-[11px] text-muted-foreground">Resource file</p>
+                                <p class="text-[11px] text-muted-foreground">{{ strtoupper($material->file_type ?: 'file') }} resource</p>
                             </div>
                         </div>
 
                         <div>
                             @if($isEnrolled || auth()->user()->hasRole('instructor') || auth()->user()->hasRole('admin'))
                                 <a
-                                    href="{{ asset('storage/' . $material->file_path) }}"
-                                    target="_blank"
+                                    href="{{ Storage::url($material->file_path) }}"
+                                    @if(strtolower($material->file_type) === 'pdf') target="_blank" @endif
+                                    @if(strtolower($material->file_type) !== 'pdf') download @endif
                                     class="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-accent"
                                 >
-                                    Download Resource
+                                    {{ strtolower($material->file_type) === 'pdf' ? 'View PDF' : 'Download Resource' }}
                                 </a>
                             @else
                                 <span class="text-xs text-muted-foreground italic">Enrollment required to access</span>
